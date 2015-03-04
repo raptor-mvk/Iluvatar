@@ -5,7 +5,6 @@ Evolution of Zeus framework. Unnecessary for initial release features was remove
  - Internationalization was removed temporarily
  - Options were removed temporarily
  - Layout layer was removed temporarily
- - Service layer was transferred to Applications
  - Authentication layer was removed temporarily
  - Dialogs were removed temporarily
 
