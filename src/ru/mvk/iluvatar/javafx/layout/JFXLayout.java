@@ -14,27 +14,35 @@ import ru.mvk.iluvatar.javafx.JFXListView;
 import ru.mvk.iluvatar.javafx.JFXView;
 import ru.mvk.iluvatar.view.Layout;
 import ru.mvk.iluvatar.view.ListView;
+import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
 public abstract class JFXLayout implements Layout {
   @Nullable
   private Stage stage;
+  @NotNull
+  private StringSupplier stringSupplier = (value) -> value;
 
   @NotNull
   @Override
   public <EntityType> ListView<EntityType> getListView(@NotNull ListViewInfo<EntityType>
                                                            listViewInfo) {
-    return new JFXListView<>(listViewInfo);
+    return new JFXListView<>(listViewInfo, stringSupplier);
   }
 
   @NotNull
   @Override
   public <EntityType> View<EntityType> getView(@NotNull ViewInfo<EntityType> viewInfo) {
-    return new JFXView<>(viewInfo);
+    return new JFXView<>(viewInfo, stringSupplier);
   }
 
   public void setStage(@Nullable Stage stage) {
     this.stage = stage;
+  }
+
+  @Override
+  public void setStringSupplier(@NotNull StringSupplier stringSupplier) {
+    this.stringSupplier = stringSupplier;
   }
 
   @NotNull

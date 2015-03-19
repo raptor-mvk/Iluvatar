@@ -6,8 +6,10 @@ package ru.mvk.iluvatar.javafx;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
@@ -19,6 +21,7 @@ import ru.mvk.iluvatar.javafx.field.*;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
+import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
 import java.util.HashMap;
@@ -40,12 +43,14 @@ public class JFXViewUITests extends UITests<View<Student>> {
   private final ViewInfo<Student> viewInfo = prepareViewInfo();
   @NotNull
   private final Student student = prepareStudent();
+  @NotNull
+  private final StringSupplier stringSupplier = StringUtils::reverse;
 
   @Test
   public void fieldLabelsShouldBeCorrect() {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-    assertFieldLabelsAreCorrect(view, iterator);
+    assertFieldLabelsAreCorrect(view, iterator, stringSupplier);
   }
 
   @Test
@@ -74,6 +79,28 @@ public class JFXViewUITests extends UITests<View<Student>> {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
     assertNodesHaveCorrectTabOrder(view, iterator);
+  }
+
+  @Test
+  public void saveButton_ShouldHaveCorrectCaption() {
+    @NotNull View<Student> view = getObjectUnderTest();
+    @NotNull String saveButtonId = view.getSaveButtonId();
+    @NotNull Button saveButton = safeFindById(saveButtonId);
+    @NotNull String expectedCaption = stringSupplier.apply("Save");
+    @NotNull String saveButtonCaption = saveButton.getText();
+    Assert.assertEquals("Save button should have correct caption", expectedCaption,
+        saveButtonCaption);
+  }
+
+  @Test
+  public void cancelButton_ShouldHaveCorrectCaption() {
+    @NotNull View<Student> view = getObjectUnderTest();
+    @NotNull String cancelButtonId = view.getCancelButtonId();
+    @NotNull Button cancelButton = safeFindById(cancelButtonId);
+    @NotNull String expectedCaption = stringSupplier.apply("Cancel");
+    @NotNull String cancelButtonCaption = cancelButton.getText();
+    Assert.assertEquals("Cancel button should have correct caption", expectedCaption,
+        cancelButtonCaption);
   }
 
   @Test
@@ -200,7 +227,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
   @NotNull
   @Override
   protected Parent getRootNode() {
-    @NotNull JFXView<Student> view = new JFXView<>(viewInfo);
+    @NotNull JFXView<Student> view = new JFXView<>(viewInfo, stringSupplier);
     setObjectUnderTest(view);
     view.setSaveButtonHandler(saveButtonHandler);
     view.setCancelButtonHandler(cancelButtonHandler);

@@ -28,4 +28,6 @@ public interface Layout {
   Consumer<Object> getListViewUpdater(int serviceId);
 
   void show(int width, int height);
+
+  void setStringSupplier(@NotNull StringSupplier stringSupplier);
 }

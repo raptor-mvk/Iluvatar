@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
@@ -22,6 +23,8 @@ import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
 import ru.mvk.iluvatar.view.ListView;
+import ru.mvk.iluvatar.view.StringSupplier;
+import ru.mvk.iluvatar.view.View;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,6 +60,8 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
   private final List<Student> students = prepareStudents();
   @NotNull
   private final Supplier<List<Student>> listSupplier = () -> students;
+  @NotNull
+  private final StringSupplier stringSupplier = StringUtils::swapCase;
 
   @Test
   public void tableShouldHaveCorrectNumberOfColumns() {
@@ -80,7 +85,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
     @NotNull String tableId = listView.getTableId();
     @NotNull TableView<Student> tableView = safeFindById(tableId);
     @NotNull Iterator<Entry<String, ColumnInfo>> iterator = listViewInfo.getIterator();
-    assertColumnLabelsAreCorrect(tableView, iterator);
+    assertColumnLabelsAreCorrect(tableView, iterator, stringSupplier);
   }
 
   @Test
@@ -341,6 +346,39 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
   }
 
   @Test
+  public void addButton_ShouldHaveCorrectCaption() {
+    @NotNull ListView<Student> listView = getObjectUnderTest();
+    @NotNull String addButtonId = listView.getAddButtonId();
+    @NotNull Button addButton = safeFindById(addButtonId);
+    @NotNull String expectedCaption = stringSupplier.apply("Add");
+    @NotNull String addButtonCaption = addButton.getText();
+    Assert.assertEquals("Add button should have correct caption", expectedCaption,
+        addButtonCaption);
+  }
+
+  @Test
+  public void editButton_ShouldHaveCorrectCaption() {
+    @NotNull ListView<Student> listView = getObjectUnderTest();
+    @NotNull String editButtonId = listView.getEditButtonId();
+    @NotNull Button editButton = safeFindById(editButtonId);
+    @NotNull String expectedCaption = stringSupplier.apply("Edit");
+    @NotNull String editButtonCaption = editButton.getText();
+    Assert.assertEquals("Edit button should have correct caption", expectedCaption,
+        editButtonCaption);
+  }
+
+  @Test
+  public void removeButton_ShouldHaveCorrectCaption() {
+    @NotNull ListView<Student> listView = getObjectUnderTest();
+    @NotNull String removeButtonId = listView.getRemoveButtonId();
+    @NotNull Button removeButton = safeFindById(removeButtonId);
+    @NotNull String expectedCaption = stringSupplier.apply("Remove");
+    @NotNull String removeButtonCaption = removeButton.getText();
+    Assert.assertEquals("Remove button should have correct caption", expectedCaption,
+        removeButtonCaption);
+  }
+
+  @Test
   public void clickAdd_ShouldCallAddButtonHandler() {
     @NotNull ListView<Student> listView = getObjectUnderTest();
     addButtonState.setValue(false);
@@ -522,7 +560,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
   @NotNull
   private ListView<Student> prepareListView() {
-    ListView<Student> result = new JFXListView<>(listViewInfo);
+    ListView<Student> result = new JFXListView<>(listViewInfo, stringSupplier);
     result.setAddButtonHandler(addButtonHandler);
     result.setEditButtonHandler(editButtonHandler);
     result.setRemoveButtonHandler(removeButtonHandler);

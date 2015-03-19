@@ -19,6 +19,7 @@ import ru.mvk.iluvatar.descriptor.field.NamedFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.javafx.field.Field;
+import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
 import java.beans.PropertyDescriptor;
@@ -50,11 +51,15 @@ public class JFXView<EntityType> implements View<EntityType> {
   @NotNull
   private Runnable cancelButtonHandler = () -> {
   };
+  @NotNull
+  private final StringSupplier stringSupplier;
 
-  public JFXView(@NotNull ViewInfo<EntityType> viewInfo) {
+  public JFXView(@NotNull ViewInfo<EntityType> viewInfo,
+                 @NotNull StringSupplier stringSupplier) {
     @NotNull Class<EntityType> entityType = viewInfo.getEntityType();
     entityClassName = entityType.getSimpleName();
     this.viewInfo = viewInfo;
+    this.stringSupplier = stringSupplier;
     saveButton = prepareSaveButton();
     cancelButton = prepareCancelButton();
     gridPane = prepareGridPane();
@@ -149,7 +154,8 @@ public class JFXView<EntityType> implements View<EntityType> {
     @NotNull String labelId = getLabelId(fieldKey);
     @NotNull NamedFieldInfo fieldInfo = viewInfo.getFieldInfo(fieldKey);
     @NotNull String fieldLabel = fieldInfo.getName();
-    @NotNull Label label = new Label(fieldLabel);
+    @NotNull String suppliedFieldLabel = stringSupplier.apply(fieldLabel);
+    @NotNull Label label = new Label(suppliedFieldLabel);
     label.setId(labelId);
     gridPane.add(label, 0, index);
   }
@@ -177,7 +183,8 @@ public class JFXView<EntityType> implements View<EntityType> {
   @NotNull
   private Button prepareSaveButton() {
     @NotNull String saveButtonId = getSaveButtonId();
-    @NotNull Button result = new Button("Сохранить");
+    @NotNull String saveButtonCaption = stringSupplier.apply("Save");
+    @NotNull Button result = new Button(saveButtonCaption);
     result.setId(saveButtonId);
     return result;
   }
@@ -185,7 +192,8 @@ public class JFXView<EntityType> implements View<EntityType> {
   @NotNull
   private Button prepareCancelButton() {
     @NotNull String cancelButtonId = getCancelButtonId();
-    @NotNull Button result = new Button("Отменить");
+    @NotNull String cancelButtonCaption = stringSupplier.apply("Cancel");
+    @NotNull Button result = new Button(cancelButtonCaption);
     result.setId(cancelButtonId);
     return result;
   }

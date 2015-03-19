@@ -20,9 +20,9 @@ class JFXTableColumn<EntityType, CellType>
   @NotNull
   private final String columnKey;
 
-  JFXTableColumn(@NotNull ColumnInfo columnInfo,
+  JFXTableColumn(@NotNull String columnName, @NotNull ColumnInfo columnInfo,
                  @NotNull String columnKey) {
-    super(columnInfo.getName());
+    super(columnName);
     this.columnInfo = columnInfo;
     this.columnKey = columnKey;
     setCellValueFactory(new PropertyValueFactory<>(columnKey));

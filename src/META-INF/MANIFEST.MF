@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Sealed: true
 Implementation-Title: Iluvatar
-Implementation-Version: 1.0.5.26
+Implementation-Version: 1.0.6.27

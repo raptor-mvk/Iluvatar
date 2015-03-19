@@ -21,6 +21,7 @@ import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 import ru.mvk.iluvatar.descriptor.field.DurationFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.NamedFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
+import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
 import java.awt.*;
@@ -56,24 +57,30 @@ public abstract class UITests<Type> extends GuiTest {
 
   protected final void assertColumnLabelsAreCorrect(@NotNull TableView<?> tableView,
                                                     @NotNull Iterator<Entry<String,
-                                                        ColumnInfo>> iterator) {
+                                                        ColumnInfo>> iterator,
+                                                    @NotNull
+                                                    StringSupplier stringSupplier) {
     for (int i = 0; iterator.hasNext(); i++) {
       @Nullable Entry<String, ColumnInfo> entry = iterator.next();
       @NotNull ColumnInfo columnInfo = CommonTestUtils.getEntryValue(entry);
       @NotNull String columnName = columnInfo.getName();
-      assertColumnLabelContainsText(tableView, i, columnName);
+      @NotNull String suppliedColumnName = stringSupplier.apply(columnName);
+      assertColumnLabelContainsText(tableView, i, suppliedColumnName);
     }
   }
 
   protected final void assertFieldLabelsAreCorrect(@NotNull View<?> view,
                                                    @NotNull Iterator<Entry<String,
-                                                       NamedFieldInfo>> iterator) {
+                                                       NamedFieldInfo>> iterator,
+                                                   @NotNull
+                                                   StringSupplier stringSupplier) {
     while (iterator.hasNext()) {
       @Nullable Entry<String, NamedFieldInfo> entry = iterator.next();
       @NotNull String fieldKey = CommonTestUtils.getEntryKey(entry);
       @NotNull NamedFieldInfo fieldInfo = CommonTestUtils.getEntryValue(entry);
       @NotNull String fieldLabel = fieldInfo.getName();
-      assertFieldLabelIsCorrect(view, fieldKey, fieldLabel);
+      @NotNull String suppliedFieldLabel = stringSupplier.apply(fieldLabel);
+      assertFieldLabelIsCorrect(view, fieldKey, suppliedFieldLabel);
     }
   }
 
