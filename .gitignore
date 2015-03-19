@@ -1,0 +1,6 @@
+out/*
+.idea/workspace.xml
+.idea/uiDesigner.xml
+*.png
+*.sqlite
+sqlite3.exe
