@@ -1,9 +1,8 @@
 # Iluvatar
 Framework for developing SQLite-based applications.
-Evolution of Zeus framework. Unnecessary for initial release features was removed:
- - Swing was abandoned
- - Internationalization was removed temporarily
- - Options were removed temporarily
- - Authentication layer was removed temporarily
- - Dialogs were removed temporarily
+Evolution of Zeus framework. Swing was abandoned.
+Unnecessary for initial release features were temporarily removed:
+ - Options
+ - Authentication layer
+ - Dialogs
 
