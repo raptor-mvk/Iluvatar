@@ -4,6 +4,7 @@
 
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
@@ -41,5 +42,11 @@ public class StringColumnInfo implements ColumnInfo {
       }
       return result;
     };
+  }
+
+  @NotNull
+  @Override
+  public Pos getJFXAlignment() {
+    return Pos.CENTER_RIGHT;
   }
 }

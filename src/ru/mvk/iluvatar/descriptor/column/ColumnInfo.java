@@ -4,6 +4,7 @@
 
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 
 public interface ColumnInfo {
@@ -14,4 +15,7 @@ public interface ColumnInfo {
 
   @NotNull
   ViewFormatter getViewFormatter();
+
+  @NotNull
+  Pos getJFXAlignment();
 }

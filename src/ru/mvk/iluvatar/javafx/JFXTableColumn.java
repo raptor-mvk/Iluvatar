@@ -4,6 +4,7 @@
 
 package ru.mvk.iluvatar.javafx;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -51,6 +52,8 @@ class JFXTableColumn<EntityType, CellType>
         @NotNull ViewFormatter viewFormatter = columnInfo.getViewFormatter();
         @NotNull String value = viewFormatter.apply(item);
         setText(value);
+        @NotNull Pos cellAlignment = columnInfo.getJFXAlignment();
+        setAlignment(cellAlignment);
       }
     });
   }

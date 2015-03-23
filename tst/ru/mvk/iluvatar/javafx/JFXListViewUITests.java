@@ -88,6 +88,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
     assertColumnLabelsAreCorrect(tableView, iterator, stringSupplier);
   }
 
+
   @Test
   public void tableShouldContainStudentsData() {
     @NotNull ObservableList<Student> tableStudents = getTableViewItems();
@@ -584,7 +585,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
   private ListViewInfo<Student> prepareListViewInfo() {
     @NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
     result.addColumnInfo("id", new StringColumnInfo("id", 10));
-    result.addColumnInfo("name", new StringColumnInfo("name", 50));
+    result.addColumnInfo("name", new LowerStringColumnInfo("name", 50));
     result.addColumnInfo("gpa", new StringColumnInfo("gpa", 5));
     result.addColumnInfo("penalty", new StringColumnInfo("penalty", 5));
     result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));

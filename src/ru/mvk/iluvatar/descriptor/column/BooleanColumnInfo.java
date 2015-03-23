@@ -4,6 +4,7 @@
 
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 
 public class BooleanColumnInfo extends StringColumnInfo {
@@ -21,5 +22,11 @@ public class BooleanColumnInfo extends StringColumnInfo {
       }
       return result;
     };
+  }
+
+  @NotNull
+  @Override
+  public Pos getJFXAlignment() {
+    return Pos.CENTER;
   }
 }
