@@ -404,8 +404,13 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
         if ((fieldName != null) && (columnInfo != null)) {
           @NotNull String columnName = columnInfo.getName();
           @NotNull String suppliedColumnName = stringSupplier.apply(columnName);
-          @NotNull TableColumn<EntityType, Object> tableColumn =
-              new JFXTableColumn<>(suppliedColumnName, columnInfo, fieldName);
+          @NotNull TableColumn<EntityType, Object> tableColumn;
+          if (iterator.hasNext()) {
+            tableColumn = new JFXTableColumn<>(suppliedColumnName, columnInfo, fieldName);
+          } else {
+            tableColumn =
+                new JFXTableLastColumn<>(suppliedColumnName, columnInfo, fieldName);
+          }
           tableColumn.setSortable(true);
           columnList.add(tableColumn);
         }

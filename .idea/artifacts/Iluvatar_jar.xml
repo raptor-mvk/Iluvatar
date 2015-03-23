@@ -5,7 +5,6 @@
       <element id="archive" name="Iluvatar.jar">
         <element id="module-output" name="Iluvatar" />
       </element>
-      <element id="library" level="project" name="test libraries" />
       <element id="library" level="project" name="framework libraries" />
     </root>
   </artifact>

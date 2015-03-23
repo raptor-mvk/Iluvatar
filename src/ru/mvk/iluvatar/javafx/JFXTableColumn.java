@@ -50,11 +50,15 @@ class JFXTableColumn<EntityType, CellType>
       @Override
       public void updateItem(@Nullable Object item, boolean empty) {
         @NotNull ViewFormatter viewFormatter = columnInfo.getViewFormatter();
-        @NotNull String value = viewFormatter.apply(item);
+        @NotNull String value = viewFormatter.apply(item) + getStringSuffix();
         setText(value);
         @NotNull Pos cellAlignment = columnInfo.getJFXAlignment();
         setAlignment(cellAlignment);
       }
     });
+  }
+
+  protected String getStringSuffix() {
+    return "";
   }
 }
