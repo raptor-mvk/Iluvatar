@@ -50,4 +50,6 @@ public interface ListView<EntityType> {
   void setSelectedIndexSetter(@NotNull Consumer<Integer> setter);
 
   void setListSupplier(@NotNull Supplier<List<EntityType>> listSupplier);
+
+  void setTotalSupplier(@NotNull Supplier<EntityType> totalSupplier);
 }

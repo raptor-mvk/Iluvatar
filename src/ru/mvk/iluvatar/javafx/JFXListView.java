@@ -68,8 +68,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   @NotNull
   private final StringSupplier stringSupplier;
   @Nullable
+  private Supplier<EntityType> totalSupplier = null;
+  @Nullable
   private EntityType totalRow;
-  private final boolean hasTotalRow;
 
   public JFXListView(@NotNull ListViewInfo<EntityType> listViewInfo,
                      @NotNull StringSupplier stringSupplier) {
@@ -77,7 +78,6 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     entityClassName = entityType.getSimpleName();
     this.stringSupplier = stringSupplier;
     this.listViewInfo = listViewInfo;
-    hasTotalRow = listViewInfo.hasTotalRow();
     addButton = prepareAddButton();
     editButton = prepareEditButton();
     removeButton = prepareRemoveButton();
@@ -116,6 +116,10 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   @Override
   public GridPane getListView() {
     @NotNull List<EntityType> objectList = listSupplier.get();
+    if (totalSupplier != null) {
+      totalRow = totalSupplier.get();
+      objectList.add(totalRow);
+    }
     @NotNull ObservableList<EntityType> objectObservableList =
         FXCollections.observableList(objectList);
     tableView.setItems(objectObservableList);
@@ -169,6 +173,11 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   @Override
   public void setListSupplier(@NotNull Supplier<List<EntityType>> listSupplier) {
     this.listSupplier = listSupplier;
+  }
+
+  @Override
+  public void setTotalSupplier(@NotNull Supplier<EntityType> totalSupplier) {
+    this.totalSupplier = totalSupplier;
   }
 
   @Override

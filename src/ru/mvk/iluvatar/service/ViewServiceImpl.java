@@ -18,6 +18,7 @@ import ru.mvk.iluvatar.view.View;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
   @NotNull
@@ -104,6 +105,11 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
   @Override
   public Class<EntityType> getEntityType() {
     return entityType;
+  }
+
+  @Override
+  public void setTotalSupplier(@NotNull Supplier<EntityType> totalSupplier) {
+    listView.setTotalSupplier(totalSupplier);
   }
 
   private void updateEntity(boolean isNewEntity) {
