@@ -15,6 +15,8 @@ public interface ListViewInfo<EntityType> {
 
   int getColumnsCount();
 
+  boolean hasTotalRow();
+
   @NotNull
   Iterator<Entry<String, ColumnInfo>> getIterator();
 

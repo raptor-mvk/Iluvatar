@@ -13,7 +13,7 @@ public class LowerStringColumnInfoUnitTests {
   @Test
   public void constructor_ShouldSetName() {
     @NotNull String name = "text";
-    @NotNull ColumnInfo lowerStringColumnInfo = new LowerStringColumnInfo(name, 20);
+    @NotNull ColumnInfo lowerStringColumnInfo = new StringColumnInfo(name, 20);
     @NotNull String columnName = lowerStringColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
         columnName);
@@ -23,7 +23,7 @@ public class LowerStringColumnInfoUnitTests {
   public void constructor_ShouldSetWidth() {
     int width = 32;
     @NotNull ColumnInfo lowerStringColumnInfo =
-        new LowerStringColumnInfo("surname", width);
+        new StringColumnInfo("surname", width);
     int columnWidth = lowerStringColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
         columnWidth);
@@ -31,17 +31,17 @@ public class LowerStringColumnInfoUnitTests {
 
   @Test(expected = IluvatarRuntimeException.class)
   public void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException() {
-    new LowerStringColumnInfo("abyss", 0);
+    new StringColumnInfo("abyss", 0);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
   public void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException() {
-    new LowerStringColumnInfo("depth", -8);
+    new StringColumnInfo("depth", -8);
   }
 
   @Test
   public void viewFormatter_ShouldReturnEmptyStringForIntegerValue() {
-    @NotNull ColumnInfo lowerStringColumnInfo = new LowerStringColumnInfo("family", 10);
+    @NotNull ColumnInfo lowerStringColumnInfo = new StringColumnInfo("family", 10);
     @NotNull ViewFormatter viewFormatter = lowerStringColumnInfo.getViewFormatter();
     int value = 2234714;
     @NotNull String result = viewFormatter.apply(value);
@@ -51,7 +51,7 @@ public class LowerStringColumnInfoUnitTests {
 
   @Test
   public void viewFormatter_ShouldReturnSecondHalfOfStringValue() {
-    @NotNull ColumnInfo lowerStringColumnInfo = new LowerStringColumnInfo("surname", 20);
+    @NotNull ColumnInfo lowerStringColumnInfo = new StringColumnInfo("surname", 20);
     @NotNull ViewFormatter viewFormatter = lowerStringColumnInfo.getViewFormatter();
     @NotNull String expectedResult = "watson";
     @NotNull String result = viewFormatter.apply(expectedResult + expectedResult);

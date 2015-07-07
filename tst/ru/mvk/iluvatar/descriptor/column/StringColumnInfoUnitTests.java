@@ -13,7 +13,7 @@ public class StringColumnInfoUnitTests {
   @Test
   public void constructor_ShouldSetName() {
     @NotNull String name = "name";
-    @NotNull ColumnInfo stringColumnInfo = new StringColumnInfo(name, 20);
+    @NotNull ColumnInfo stringColumnInfo = new NumColumnInfo(name, 20);
     @NotNull String columnName = stringColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
         columnName);
@@ -22,7 +22,7 @@ public class StringColumnInfoUnitTests {
   @Test
   public void constructor_ShouldSetWidth() {
     int width = 30;
-    @NotNull ColumnInfo stringColumnInfo = new StringColumnInfo("mail", width);
+    @NotNull ColumnInfo stringColumnInfo = new NumColumnInfo("mail", width);
     int columnWidth = stringColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
         columnWidth);
@@ -30,17 +30,17 @@ public class StringColumnInfoUnitTests {
 
   @Test(expected = IluvatarRuntimeException.class)
   public void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException() {
-    new StringColumnInfo("nil", 0);
+    new NumColumnInfo("nil", 0);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
   public void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException() {
-    new StringColumnInfo("any", -8);
+    new NumColumnInfo("any", -8);
   }
 
   @Test
   public void viewFormatter_ShouldCallToStringForIntegerValue() {
-    @NotNull ColumnInfo stringColumnInfo = new StringColumnInfo("width", 5);
+    @NotNull ColumnInfo stringColumnInfo = new NumColumnInfo("width", 5);
     @NotNull ViewFormatter viewFormatter = stringColumnInfo.getViewFormatter();
     int value = 30;
     @NotNull String expectedResult = Integer.toString(value);
@@ -51,7 +51,7 @@ public class StringColumnInfoUnitTests {
 
   @Test
   public void viewFormatter_ShouldDoNothingForStringValue() {
-    @NotNull ColumnInfo stringColumnInfo = new StringColumnInfo("surname", 20);
+    @NotNull ColumnInfo stringColumnInfo = new NumColumnInfo("surname", 20);
     @NotNull ViewFormatter viewFormatter = stringColumnInfo.getViewFormatter();
     @NotNull String expectedResult = "Smith";
     @NotNull String result = viewFormatter.apply(expectedResult);

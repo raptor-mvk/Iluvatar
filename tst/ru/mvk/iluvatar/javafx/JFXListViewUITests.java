@@ -24,7 +24,6 @@ import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
 import ru.mvk.iluvatar.view.ListView;
 import ru.mvk.iluvatar.view.StringSupplier;
-import ru.mvk.iluvatar.view.View;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -583,11 +582,11 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
   @NotNull
   private ListViewInfo<Student> prepareListViewInfo() {
-    @NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
-    result.addColumnInfo("id", new StringColumnInfo("id", 10));
-    result.addColumnInfo("name", new LowerStringColumnInfo("name", 50));
-    result.addColumnInfo("gpa", new StringColumnInfo("gpa", 5));
-    result.addColumnInfo("penalty", new StringColumnInfo("penalty", 5));
+    @NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class, false);
+    result.addColumnInfo("id", new NumColumnInfo("id", 10));
+    result.addColumnInfo("name", new StringColumnInfo("name", 50));
+    result.addColumnInfo("gpa", new NumColumnInfo("gpa", 5));
+    result.addColumnInfo("penalty", new NumColumnInfo("penalty", 5));
     result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));
     result.addColumnInfo("fileSize", new FileSizeColumnInfo("fileSize", 10));
     result.addColumnInfo("lecturesTime", new DurationColumnInfo("lecturesTime", 8));

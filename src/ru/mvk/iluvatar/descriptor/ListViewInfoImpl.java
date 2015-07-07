@@ -18,9 +18,11 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
   private final Map<String, ColumnInfo> columns;
   @NotNull
   private final Class<EntityType> entityType;
+  private final boolean hasTotalRow;
 
-  public ListViewInfoImpl(@NotNull Class<EntityType> entityType) {
+  public ListViewInfoImpl(@NotNull Class<EntityType> entityType, boolean hasTotalRow) {
     this.entityType = entityType;
+    this.hasTotalRow = hasTotalRow;
     columns = new LinkedHashMap<>();
   }
 
@@ -33,6 +35,11 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
   @Override
   public int getColumnsCount() {
     return columns.size();
+  }
+
+  @Override
+  public boolean hasTotalRow() {
+    return hasTotalRow;
   }
 
   @NotNull

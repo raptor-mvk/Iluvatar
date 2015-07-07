@@ -25,7 +25,8 @@ public class ViewServiceDescriptorUnitTests {
     @NotNull Dao<Student, Long> expectedDao =
         new DaoImpl<>(Student.class, Long.class, hibernateAdapter);
     @NotNull ViewInfo<Student> viewInfo = new ViewInfoImpl<>(Student.class);
-    @NotNull ListViewInfo<Student> listViewInfo = new ListViewInfoImpl<>(Student.class);
+    @NotNull ListViewInfo<Student> listViewInfo =
+        new ListViewInfoImpl<>(Student.class, false);
     @NotNull ViewServiceDescriptor<Student> viewServiceDescriptor =
         new ViewServiceDescriptor<>(expectedDao, viewInfo, listViewInfo);
     @NotNull Dao<?, ?> dao = viewServiceDescriptor.getDao();
@@ -40,7 +41,8 @@ public class ViewServiceDescriptorUnitTests {
     @NotNull Dao<Student, Long> dao =
         new DaoImpl<>(Student.class, Long.class, hibernateAdapter);
     @NotNull ViewInfo<Student> expectedViewInfo = new ViewInfoImpl<>(Student.class);
-    @NotNull ListViewInfo<Student> listViewInfo = new ListViewInfoImpl<>(Student.class);
+    @NotNull ListViewInfo<Student> listViewInfo =
+        new ListViewInfoImpl<>(Student.class, false);
     @NotNull ViewServiceDescriptor<Student> viewServiceDescriptor =
         new ViewServiceDescriptor<>(dao, expectedViewInfo, listViewInfo);
     @NotNull ViewInfo<?> viewInfo = viewServiceDescriptor.getViewInfo();
@@ -56,7 +58,7 @@ public class ViewServiceDescriptorUnitTests {
         new DaoImpl<>(Student.class, Long.class, hibernateAdapter);
     @NotNull ViewInfo<Student> viewInfo = new ViewInfoImpl<>(Student.class);
     @NotNull ListViewInfo<Student> expectedListViewInfo =
-        new ListViewInfoImpl<>(Student.class);
+        new ListViewInfoImpl<>(Student.class, false);
     @NotNull ViewServiceDescriptor<Student> viewServiceDescriptor =
         new ViewServiceDescriptor<>(dao, viewInfo, expectedListViewInfo);
     @NotNull ListViewInfo<?> listViewInfo = viewServiceDescriptor.getListViewInfo();
@@ -71,7 +73,8 @@ public class ViewServiceDescriptorUnitTests {
     @NotNull Dao<Student, Long> dao =
         new DaoImpl<>(Student.class, Long.class, hibernateAdapter);
     @NotNull ViewInfo<Student> viewInfo = new ViewInfoImpl<>(Student.class);
-    @NotNull ListViewInfo<Student> listViewInfo = new ListViewInfoImpl<>(Student.class);
+    @NotNull ListViewInfo<Student> listViewInfo =
+        new ListViewInfoImpl<>(Student.class, false);
     @NotNull ViewServiceDescriptor<Student> viewServiceDescriptor =
         new ViewServiceDescriptor<>(dao, viewInfo, listViewInfo);
     @NotNull Class<?> entityType = viewServiceDescriptor.getEntityType();

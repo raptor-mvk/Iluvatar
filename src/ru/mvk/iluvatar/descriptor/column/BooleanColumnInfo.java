@@ -7,7 +7,7 @@ package ru.mvk.iluvatar.descriptor.column;
 import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 
-public class BooleanColumnInfo extends StringColumnInfo {
+public class BooleanColumnInfo extends NumColumnInfo {
   public BooleanColumnInfo(@NotNull String name, int width) {
     super(name, width);
   }

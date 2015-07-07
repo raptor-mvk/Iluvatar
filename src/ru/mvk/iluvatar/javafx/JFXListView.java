@@ -26,6 +26,7 @@ import ru.mvk.iluvatar.view.ListView;
 import ru.mvk.iluvatar.view.StringSupplier;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
@@ -66,6 +67,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   private Supplier<List<EntityType>> listSupplier = ArrayList::new;
   @NotNull
   private final StringSupplier stringSupplier;
+  @Nullable
+  private EntityType totalRow;
+  private final boolean hasTotalRow;
 
   public JFXListView(@NotNull ListViewInfo<EntityType> listViewInfo,
                      @NotNull StringSupplier stringSupplier) {
@@ -73,6 +77,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     entityClassName = entityType.getSimpleName();
     this.stringSupplier = stringSupplier;
     this.listViewInfo = listViewInfo;
+    hasTotalRow = listViewInfo.hasTotalRow();
     addButton = prepareAddButton();
     editButton = prepareEditButton();
     removeButton = prepareRemoveButton();
@@ -239,7 +244,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     gridPane.setOnKeyPressed((event) -> {
       @NotNull KeyCode keyCode = event.getCode();
       if (keyCode == KeyCode.ENTER || keyCode == KeyCode.DELETE ||
-          keyCode == KeyCode.INSERT) {
+              keyCode == KeyCode.INSERT) {
         event.consume();
       }
     });
@@ -249,7 +254,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     gridPane.setOnKeyReleased((event) -> {
       @NotNull KeyCode keyCode = event.getCode();
       if (keyCode == KeyCode.ENTER || keyCode == KeyCode.DELETE ||
-          keyCode == KeyCode.INSERT) {
+              keyCode == KeyCode.INSERT) {
         event.consume();
         if (keyCode == KeyCode.ENTER) {
           runEditButtonHandler();
@@ -322,6 +327,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     prepareColumns();
     setSelectedItemListener();
     setSelectedIndexListener();
+    prepareSortPolicy();
   }
 
   private void setRowFactory() {
@@ -370,10 +376,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     if (selectedIndexProperty == null) {
       throw new IluvatarRuntimeException("JFXListView: selectedIndexProperty is null");
     }
-    selectedIndexProperty.addListener(
-        (observableValue, oldValue, newValue) -> {
-          selectedIndexSetter.accept((Integer) newValue);
-        });
+    selectedIndexProperty.addListener((observableValue, oldValue, newValue) -> {
+      selectedIndexSetter.accept((Integer) newValue);
+    });
   }
 
   @NotNull
@@ -428,13 +433,20 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     return result;
   }
 
-  @NotNull
-  private ObservableList<TableColumn<EntityType, ?>> prepareSortOrder() {
-    @Nullable ObservableList<TableColumn<EntityType, ?>> result =
-        tableView.getSortOrder();
-    if (result == null) {
-      throw new IluvatarRuntimeException("JFXListView: sortOrder is null");
-    }
-    return result;
+  private void prepareSortPolicy() {
+    tableView.setSortPolicy(tableView -> {
+      Comparator<EntityType> comparator = (row1, row2) -> {
+        int result = (row1 == totalRow) ? 1 : (row2 == totalRow) ? -1 : 0;
+        if (result == 0) {
+          @Nullable Comparator<EntityType> tableComparator = tableView.getComparator();
+          if (tableComparator != null) {
+            result = tableComparator.compare(row1, row2);
+          }
+        }
+        return result;
+      };
+      FXCollections.sort(tableView.getItems(), comparator);
+      return true;
+    });
   }
 }

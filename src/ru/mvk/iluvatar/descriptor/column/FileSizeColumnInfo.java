@@ -14,7 +14,7 @@ part of representation of size in this units. If integral part is greater than 0
 than 1024, then corresponding unit is selected. If size is greater than 1024 Tb, then Tb
 is selected. Size is represented with a two-digit accuracy, except for bytes.
 */
-public class FileSizeColumnInfo extends StringColumnInfo {
+public class FileSizeColumnInfo extends NumColumnInfo {
   private static final char UNIT = 'б';
   @NotNull
   private static final char UNIT_PREFIXES[] = {'К', 'М', 'Г', 'Т', 'Т'};
