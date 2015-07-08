@@ -185,6 +185,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     @NotNull TableViewSelectionModel<EntityType> tableViewSelectionModel =
         getTableViewSelectionModel();
     int itemsCount = getTableViewItemsCount();
+    if (totalRow != null) {
+      itemsCount--;
+    }
     if ((rowIndex >= 0) && (rowIndex < itemsCount)) {
       tableViewSelectionModel.select(rowIndex);
       editButton.setDisable(false);
@@ -367,7 +370,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   private ChangeListener<EntityType> prepareSelectedItemListener() {
     return (observableValue, oldValue, newValue) -> {
       selectedEntitySetter.accept(newValue);
-      if (newValue != null) {
+      if (newValue != null && newValue != totalRow) {
         editButton.setDisable(false);
         removeButton.setDisable(false);
       } else {
