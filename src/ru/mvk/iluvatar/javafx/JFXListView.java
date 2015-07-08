@@ -286,7 +286,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   }
 
   private void runRemoveButtonHandler() {
-    if (!removeButton.isDisabled()) {
+    if (!removeButton.isDisabled() && removeButton.isVisible()) {
       removeButtonHandler.run();
     }
   }
@@ -315,6 +315,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     @NotNull String removeButtonCaption = stringSupplier.apply("Remove");
     @NotNull Button result = new Button(removeButtonCaption);
     result.setId(removeButtonId);
+    if (!listViewInfo.isRemoveAllowed()) {
+      result.setVisible(false);
+    }
     return result;
   }
 

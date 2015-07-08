@@ -18,11 +18,13 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
   private final Map<String, ColumnInfo> columns;
   @NotNull
   private final Class<EntityType> entityType;
-  private final boolean hasTotalRow;
+  private boolean totalRow;
+  private boolean removeAllowed;
 
-  public ListViewInfoImpl(@NotNull Class<EntityType> entityType, boolean hasTotalRow) {
+  public ListViewInfoImpl(@NotNull Class<EntityType> entityType) {
     this.entityType = entityType;
-    this.hasTotalRow = hasTotalRow;
+    totalRow = false;
+    removeAllowed = true;
     columns = new LinkedHashMap<>();
   }
 
@@ -38,8 +40,23 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
   }
 
   @Override
-  public boolean hasTotalRow() {
-    return hasTotalRow;
+  public boolean isTotalRow() {
+    return totalRow;
+  }
+
+  @Override
+  public void setTotalRow(boolean totalRow) {
+    this.totalRow = totalRow;
+  }
+
+  @Override
+  public boolean isRemoveAllowed() {
+    return removeAllowed;
+  }
+
+  @Override
+  public void setRemoveAllowed(boolean removeAllowed) {
+    this.removeAllowed = removeAllowed;
   }
 
   @NotNull

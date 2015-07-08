@@ -20,52 +20,47 @@ import java.util.Map.Entry;
 public class ListViewInfoImplUnitTests {
   @Test
   public void constructor_ShouldSetColumnsCountToZero() {
-    @NotNull ListViewInfo<Object> listViewInfo =
-        new ListViewInfoImpl<>(Object.class, false);
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);
     int columnsCount = listViewInfo.getColumnsCount();
     Assert.assertEquals("Constructor should set value of 'columnsCount' to 0", 0,
-        columnsCount);
+                           columnsCount);
   }
 
   @Test
   public void constructor_ShouldSetEntityType() {
     @NotNull Class<Object> entityType = Object.class;
-    @NotNull ListViewInfo<Object> listViewInfo =
-        new ListViewInfoImpl<>(entityType, false);
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
     @NotNull Class<?> listViewInfoEntityType = listViewInfo.getEntityType();
     Assert.assertEquals("Constructor should set correct value of 'entityType'",
-        entityType, listViewInfoEntityType);
+                           entityType, listViewInfoEntityType);
   }
 
 
   @Test(expected = IluvatarRuntimeException.class)
   public void getColumn_IllegalKey_ShouldThrowIluvatarRuntimeException() {
-    @NotNull ListViewInfo<Object> listViewInfo =
-        new ListViewInfoImpl<>(Object.class, false);
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);
     listViewInfo.getColumnInfo("width");
   }
 
   @Test
   public void addColumnInfo_ShouldIncreaseColumnsCount() {
-    @NotNull ListViewInfo<Object> listViewInfo =
-        new ListViewInfoImpl<>(Object.class, false);
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);
     listViewInfo.addColumnInfo("state", new NumColumnInfo("State", 10));
     int columnsCount = listViewInfo.getColumnsCount();
     Assert.assertEquals("addFieldInfo() should increase value of 'fieldsCount'", 1,
-        columnsCount);
+                           columnsCount);
   }
 
   @Test
   public void addColumnInfo_ShouldAddGettableColumnInfo() {
     @NotNull String key = "price";
     @NotNull ColumnInfo columnInfo = new NumColumnInfo("Price", 7);
-    @NotNull ListViewInfo<Object> listViewInfo =
-        new ListViewInfoImpl<>(Object.class, false);
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);
     listViewInfo.addColumnInfo(key, columnInfo);
     @NotNull ColumnInfo listViewInfoColumnInfo = listViewInfo.getColumnInfo(key);
     Assert.assertEquals("addColumnInfo(key, columnInfo) should add columnInfo " +
-            "'columnInfo', that is gettable by key 'key'", columnInfo,
-        listViewInfoColumnInfo);
+                            "'columnInfo', that is gettable by key 'key'", columnInfo,
+                           listViewInfoColumnInfo);
   }
 
   @Test
@@ -79,14 +74,13 @@ public class ListViewInfoImplUnitTests {
       @Nullable Entry<String, ColumnInfo> entry = columnInfoIterator.next();
       @NotNull String entryKey = CommonTestUtils.getEntryKey(entry);
       Assert.assertEquals("getIterator() should maintain order of addition", key,
-          entryKey);
+                             entryKey);
     }
   }
 
   @NotNull
   private ListViewInfo<Object> prepareListViewInfo(@NotNull List<String> keyList) {
-    @NotNull ListViewInfo<Object> listViewInfo =
-        new ListViewInfoImpl<>(Object.class, false);
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);
     for (String key : keyList) {
       listViewInfo.addColumnInfo(key, new NumColumnInfo(key, 10));
     }

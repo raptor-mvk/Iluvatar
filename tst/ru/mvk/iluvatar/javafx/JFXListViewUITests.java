@@ -582,7 +582,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
   @NotNull
   private ListViewInfo<Student> prepareListViewInfo() {
-    @NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class, false);
+    @NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
     result.addColumnInfo("id", new NumColumnInfo("id", 10));
     result.addColumnInfo("name", new StringColumnInfo("name", 50));
     result.addColumnInfo("gpa", new NumColumnInfo("gpa", 5));

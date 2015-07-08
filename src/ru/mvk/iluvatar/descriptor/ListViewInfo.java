@@ -15,7 +15,13 @@ public interface ListViewInfo<EntityType> {
 
   int getColumnsCount();
 
-  boolean hasTotalRow();
+  boolean isTotalRow();
+
+  void setTotalRow(boolean totalRow);
+
+  boolean isRemoveAllowed();
+
+  void setRemoveAllowed(boolean removeAllowed);
 
   @NotNull
   Iterator<Entry<String, ColumnInfo>> getIterator();
