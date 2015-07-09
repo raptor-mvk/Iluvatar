@@ -5,6 +5,7 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 
+@Deprecated
 public class DurationFieldInfo extends SizedFieldInfoImpl {
   // width is number of digits in "hour" part
   public DurationFieldInfo(@NotNull String name, int width) {

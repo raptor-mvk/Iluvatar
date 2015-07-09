@@ -13,11 +13,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.mvk.iluvatar.descriptor.field.DurationFieldInfo;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.utils.UITests;
 
+@Deprecated
+@Ignore
 public class DurationFieldUITests extends UITests<DurationField> {
   private static final int SECONDS_IN_HOUR = 3600;
   private static final int SECONDS_IN_MINUTE = 60;
@@ -75,54 +78,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     int selectionLength = field.getSelection().getLength();
     Assert.assertEquals("mouseClick should select single digit", 1, selectionLength);
   }
-/* TODO: refactor
-  @Test
-  public void mouseClickOnDigitPosition_ShouldSelectCorrespondingDigit() {
-    @NotNull TextField field = safeFindById(ID);
-    // caret position is empirically determined
-    int expectedCaretPosition = 6;
-    safeClickById(ID);
-    int selectionStart = field.getSelection().getStart();
-    Assert.assertEquals("mouse click on digit position should select corresponding digit",
-        expectedCaretPosition, selectionStart);
-  }
 
-  @Test
-  public void mouseClickOnNonDigitPosition_ShouldSelectDigitToTheRight() {
-    @NotNull TextField field = safeFindById(ID);
-    // coordinates and caret position are empirically determined
-    int expectedCaretPosition = 6;
-    safeMoveById(ID).moveBy(2.5, 0.0).click();
-    int selectionStart = field.getSelection().getStart();
-    Assert.assertEquals("mouse click on digit position should select corresponding digit",
-        expectedCaretPosition, selectionStart);
-  }
-*/
-
-  /* TODO: refactor
-  @Test
-  public void mouseClickRighterThanLastDigit_ShouldSelectLastDigit() {
-    @NotNull TextField field = safeFindById(ID);
-    int expectedCaretPosition = 7;
-    // coordinates are empirically determined
-    safeMoveById(ID).moveBy(23.0, 0.0).click();
-    int selectionStart = field.getSelection().getStart();
-    Assert.assertEquals("mouse click righter than last digit should select last digit",
-        expectedCaretPosition, selectionStart);
-  }
-
-  @Test
-  public void mouseClickLefterThanFirstDigit_ShouldSelectTheRightestDigit() {
-    @NotNull TextField field = safeFindById(ID);
-    runAndWait(() -> field.positionCaret(5));
-    int expectedCaretPosition = 0;
-    // coordinates are empirically determined
-    safeMoveById(ID).moveBy(-32.0, 0.0).click();
-    int selectionStart = field.getSelection().getStart();
-    Assert.assertEquals("mouse click righter than last digit should select first digit",
-        expectedCaretPosition, selectionStart);
-  }
-*/
   @Test
   public void input_ShouldSetValue() {
     @NotNull String inputText = "281709";

@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Deprecated
 public class DurationField extends MaskedTextField implements Field<Integer> {
   private static final int SECONDS_IN_HOUR = 3600;
   private static final int SECONDS_IN_MINUTE = 60;

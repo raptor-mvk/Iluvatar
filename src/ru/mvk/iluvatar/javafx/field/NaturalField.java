@@ -4,104 +4,43 @@
 
 package ru.mvk.iluvatar.javafx.field;
 
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.field.NumberFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class NaturalField<Type> extends SizedTextField implements Field<Type> {
+public class NaturalField<Type> extends SizedTextField<Type> {
   @NotNull
-  private final Class<Type> type;
-  @NotNull
-  private final Matcher numberMatcher;
-  @NotNull
-  private final Matcher zeroEqualMatcher;
-  @NotNull
-  private Consumer<Type> fieldUpdater;
+  private final Matcher naturalMatcher;
 
   public NaturalField(@NotNull NumberFieldInfo<Type> fieldInfo) {
-    super(fieldInfo.getWidth());
-    fieldUpdater = (value) -> {
-    };
-    type = fieldInfo.getType();
-    @Nullable Class<?> fieldType = getClass();
-    if (fieldType == null) {
-      throw new IluvatarRuntimeException("NaturalField: fieldInfo class is null");
-    }
-    numberMatcher = FieldUtils.getNumberMatcher(fieldType);
-    zeroEqualMatcher = FieldUtils.getZeroEqualMatcher(fieldType);
-    setListener();
+    super(fieldInfo.getWidth(), fieldInfo.getType());
+    naturalMatcher = Pattern.compile("(\\d){0," + getMaxLength() + "}").matcher("");
   }
 
-  private void setListener() {
-    @Nullable StringProperty fieldTextProperty = textProperty();
-    if (fieldTextProperty == null) {
-      throw new IluvatarRuntimeException("NaturalField: textProperty is null");
-    }
-    @NotNull ChangeListener<String> fieldChangeListener = prepareChangeListener();
-    fieldTextProperty.addListener(fieldChangeListener);
+  @Override
+  protected boolean check(@NotNull String value) {
+    return naturalMatcher.reset(value).matches();
   }
 
-  @NotNull
-  private ChangeListener<String> prepareChangeListener() {
-    @NotNull Function<String, ?> typeCaster = FieldUtils.getTypeCaster(type);
-    return (observableValue, oldValue, newValue) -> {
-      if (isCorrect(newValue)) {
-        if (isZeroEqual(newValue)) {
-          newValue = "0";
-        }
-        @NotNull Type fieldValue = convertFieldValue(newValue, typeCaster);
-        fieldUpdater.accept(fieldValue);
-      } else {
-        restoreOldValue(oldValue, newValue);
-      }
-    };
-  }
-
-  private boolean isCorrect(@NotNull String value) {
-    numberMatcher.reset(value);
-    return (value.length() <= getMaxLength()) && numberMatcher.matches();
-  }
-
-  private boolean isZeroEqual(@NotNull String value) {
-    zeroEqualMatcher.reset(value);
-    return zeroEqualMatcher.matches();
-  }
-
-  @NotNull
-  private Type convertFieldValue(@NotNull String value,
-                                 @NotNull Function<String, ?> typeCaster) {
+  @Override
+  protected Type convertValue(@NotNull String value) {
+    @NotNull Type result;
     if (value.isEmpty()) {
       value = "0";
     }
-    @Nullable Object result = typeCaster.apply(value);
-    @Nullable Type typedResult = type.cast(result);
-    if (typedResult == null) {
-      throw new IluvatarRuntimeException("NaturalField: could not cast value to " +
-          "correct type");
+    try {
+      @NotNull Constructor<Type> constructor =
+          getType().getDeclaredConstructor(String.class);
+      result = constructor.newInstance(value);
+    } catch (NoSuchMethodException | InvocationTargetException |
+                 InstantiationException | IllegalAccessException e) {
+      throw new IluvatarRuntimeException("NaturalField: could not convert value");
     }
-    return typedResult;
+    return result;
   }
-
-  @Override
-  public void setFieldUpdater(@NotNull Consumer<Type> fieldUpdater) {
-    this.fieldUpdater = fieldUpdater;
-  }
-
-  @Override
-  public void setFieldValue(@NotNull Object value) {
-    if (type.isInstance(value)) {
-      @NotNull String text = value.toString();
-      setText(text);
-    } else {
-      throw new IluvatarRuntimeException("NaturalField: incorrect value type");
-    }
-  }
-
 }

@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 /* Masked text field. Mask supports following special characters:
   # - any digit.
  */
+
+@Deprecated
 abstract class MaskedTextField extends BasicSizedTextField {
   @NotNull
   private final List<Integer> digitPositions;

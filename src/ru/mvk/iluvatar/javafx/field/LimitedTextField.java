@@ -12,42 +12,19 @@ import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 import java.util.function.Consumer;
 
-public class LimitedTextField extends SizedTextField implements Field<String> {
-  @NotNull
-  private Consumer<String> fieldUpdater;
+public class LimitedTextField extends SizedTextField<String> {
 
   public LimitedTextField(@NotNull SizedFieldInfo fieldInfo) {
-    super(fieldInfo.getWidth());
-    fieldUpdater = (value) -> {
-    };
-    setChangeListener();
+    super(fieldInfo.getWidth(), String.class);
   }
 
   @Override
-  public void setFieldUpdater(@NotNull Consumer<String> fieldUpdater) {
-    this.fieldUpdater = fieldUpdater;
+  protected boolean check(@NotNull String value) {
+    return value.length() <= getMaxLength();
   }
 
   @Override
-  public void setFieldValue(@NotNull Object value) {
-    if (value instanceof String) {
-      setText((String) value);
-    } else {
-      throw new IluvatarRuntimeException("LimitedTextField: incorrect value type");
-    }
-  }
-
-  private void setChangeListener() {
-    @Nullable StringProperty fieldTextProperty = textProperty();
-    if (fieldTextProperty == null) {
-      throw new IluvatarRuntimeException("LimitedTextField: textProperty is null");
-    }
-    fieldTextProperty.addListener((observableValue, oldValue, newValue) -> {
-      if (newValue.length() > getMaxLength()) {
-        restoreOldValue(oldValue, newValue);
-      } else {
-        fieldUpdater.accept(newValue);
-      }
-    });
+  protected String convertValue(@NotNull String value) {
+    return value;
   }
 }

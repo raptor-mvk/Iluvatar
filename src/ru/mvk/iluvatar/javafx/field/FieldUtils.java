@@ -14,6 +14,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Deprecated
 public class FieldUtils {
   @NotNull
   private static final Pattern NATURAL_NUMBER_PATTERN = Pattern.compile("^\\d*$");

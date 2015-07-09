@@ -10,11 +10,14 @@ import javafx.scene.input.KeyCode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.mvk.iluvatar.descriptor.field.IntegerFieldInfo;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.utils.UITests;
 
+@Deprecated
+@Ignore
 public class IntegerFieldUITests extends UITests<IntegerField<?>> {
   private static final int MAX_LENGTH = 9;
   @NotNull

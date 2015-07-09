@@ -6,9 +6,12 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
+@Deprecated
+@Ignore
 public class RealFieldInfoUnitTests {
   @Test
   public void constructor_ShouldSetName() {

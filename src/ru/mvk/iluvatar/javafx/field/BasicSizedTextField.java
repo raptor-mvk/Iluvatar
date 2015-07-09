@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
+@Deprecated
 abstract class BasicSizedTextField extends TextField {
   private final int maxLength;
 

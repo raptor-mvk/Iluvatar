@@ -10,11 +10,14 @@ import javafx.scene.input.KeyCode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.mvk.iluvatar.descriptor.field.RealFieldInfo;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.utils.UITests;
 
+@Deprecated
+@Ignore
 public class RealFieldUITests extends UITests<RealField<?>> {
   private static final int MAX_LENGTH = 8;
   @NotNull

@@ -6,8 +6,11 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Deprecated
+@Ignore
 public class IntegerFieldInfoUnitTests {
   @Test
   public void constructor_ShouldSetName() {
