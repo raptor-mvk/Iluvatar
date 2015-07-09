@@ -35,6 +35,21 @@ public class ListViewInfoImplUnitTests {
                            entityType, listViewInfoEntityType);
   }
 
+  @Test
+  public void constructor_ShouldSetTotalRowToFalse() {
+    @NotNull Class<Object> entityType = Object.class;
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
+    boolean totalRow = listViewInfo.isTotalRow();
+    Assert.assertFalse("Constructor should set 'totalRow' to false", totalRow);
+  }
+
+  @Test
+  public void constructor_ShouldSetRemoveAllowedToTrue() {
+    @NotNull Class<Object> entityType = Object.class;
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
+    boolean removeAllowed = listViewInfo.isRemoveAllowed();
+    Assert.assertTrue("Constructor should set 'removeAllowed' to true", removeAllowed);
+  }
 
   @Test(expected = IluvatarRuntimeException.class)
   public void getColumn_IllegalKey_ShouldThrowIluvatarRuntimeException() {
@@ -42,6 +57,25 @@ public class ListViewInfoImplUnitTests {
     listViewInfo.getColumnInfo("width");
   }
 
+  @Test
+  public void setTotalRow_ShouldSetCorrectTotalRow() {
+    @NotNull Class<Object> entityType = Object.class;
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
+    listViewInfo.setTotalRow(true);
+    boolean totalRow = listViewInfo.isTotalRow();
+    Assert.assertTrue("setTotalRow() should set correct value of 'totalRow'", totalRow);
+  }
+
+  @Test
+  public void setRemoveAllowed_ShouldSetCorrectRemoveAllowed() {
+    @NotNull Class<Object> entityType = Object.class;
+    @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
+    listViewInfo.setRemoveAllowed(false);
+    boolean removeAllowed = listViewInfo.isRemoveAllowed();
+    Assert.assertFalse("setRemoveAllowed() should set correct value of 'removeAllowed'",
+                          removeAllowed);
+  }
+  
   @Test
   public void addColumnInfo_ShouldIncreaseColumnsCount() {
     @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);
