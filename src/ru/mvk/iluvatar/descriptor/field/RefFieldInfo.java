@@ -6,24 +6,44 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class RefFieldInfo<Type> extends SizedFieldInfoImpl
-    implements ListFieldInfo<Type> {
+public class RefFieldInfo<Type extends Serializable, RefType extends RefAble>
+    extends SizedFieldInfoImpl implements ListAdapter<Type, RefType> {
   @NotNull
-  private final Supplier<List<Type>> listSupplier;
+  private final ListAdapter<Type, RefType> listAdapter;
 
   RefFieldInfo(@NotNull String name, int width,
-               @NotNull Supplier<List<Type>> listSupplier) {
+               @NotNull ListAdapter<Type, RefType> listAdapter) {
     super(name, width);
-    this.listSupplier = listSupplier;
+    this.listAdapter = listAdapter;
   }
 
   @NotNull
   @Override
-  public Supplier<List<Type>> getListSupplier() {
-    return listSupplier;
+  public Class<Type> getType() {
+    return listAdapter.getType();
+  }
+
+  @NotNull
+  @Override
+  public Class<RefType> getRefType() {
+    return listAdapter.getRefType();
+  }
+
+  @NotNull
+  @Override
+  public Supplier<List<RefType>> getListSupplier() {
+    return listAdapter.getListSupplier();
+  }
+
+  @NotNull
+  @Override
+  public Function<Serializable, RefType> getFinder() {
+    return listAdapter.getFinder();
   }
 
   @NotNull

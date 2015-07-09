@@ -219,7 +219,7 @@ public class JFXView<EntityType> implements View<EntityType> {
           getPropertyDescriptor(fieldKey, object);
       @NotNull Object value = getFieldValue(propertyDescriptor, object);
       if (field instanceof Field) {
-        ((Field) field).setFieldValue(value);
+        ((Field<?>) field).setFieldValue(value);
       } else {
         throw new IluvatarRuntimeException("JFXView: Incorrect field type");
       }

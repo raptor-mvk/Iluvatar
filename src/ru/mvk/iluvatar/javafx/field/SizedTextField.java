@@ -26,7 +26,7 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
 
   SizedTextField(int maxLength, @NotNull Class<Type> type) {
     if (maxLength <= 0) {
-      throw new IluvatarRuntimeException("BasicSizedTextField: non-positive width");
+      throw new IluvatarRuntimeException("SizedTextField: non-positive width");
     }
     this.maxLength = maxLength;
     // force double length for too short fields

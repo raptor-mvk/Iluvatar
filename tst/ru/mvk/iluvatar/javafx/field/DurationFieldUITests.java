@@ -68,7 +68,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("focus after caret move should move caret to first digit",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -88,7 +88,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @Nullable Integer fieldValue = fieldValueTester.getValue();
     Assert.assertEquals("input natural number should set correct value", expectedValue,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -100,7 +100,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String fieldFilteredText = StringUtils.remove(fieldText, ':');
     @NotNull Integer value = restoreValue(fieldFilteredText);
     Assert.assertEquals("setFieldValue should set correct value, when seconds count is " +
-        "one-digit", expectedValue, value);
+                            "one-digit", expectedValue, value);
   }
 
   @Test
@@ -112,7 +112,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String fieldFilteredText = StringUtils.remove(fieldText, ':');
     @NotNull Integer value = restoreValue(fieldFilteredText);
     Assert.assertEquals("setFieldValue should set correct value, when seconds count is " +
-        "one-digit", expectedValue, value);
+                            "one-digit", expectedValue, value);
   }
 
   @Test
@@ -124,7 +124,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String fieldFilteredText = StringUtils.remove(fieldText, ':');
     @NotNull Integer value = restoreValue(fieldFilteredText);
     Assert.assertEquals("setFieldValue should set correct value, when seconds count is " +
-        "one-digit", expectedValue, value);
+                            "one-digit", expectedValue, value);
   }
 
   @Test
@@ -136,7 +136,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String fieldFilteredText = StringUtils.remove(fieldText, ':');
     @NotNull Integer value = restoreValue(fieldFilteredText);
     Assert.assertEquals("setFieldValue should set correct value, when minutes count is " +
-        "one-digit", expectedValue, value);
+                            "one-digit", expectedValue, value);
   }
 
   @Test
@@ -148,7 +148,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String fieldFilteredText = StringUtils.remove(fieldText, ':');
     @NotNull Integer value = restoreValue(fieldFilteredText);
     Assert.assertEquals("setFieldValue should set correct value, when hours count is " +
-        "one-digit", expectedValue, value);
+                            "one-digit", expectedValue, value);
   }
 
   @Test
@@ -161,7 +161,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("field should not accept incorrect first 'minutes' digit",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -174,7 +174,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("field should not accept incorrect first 'seconds' digit",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -188,7 +188,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("right arrow key should move caret to left", expectedValue,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -202,7 +202,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("left arrow key should move caret to right", expectedValue,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -216,7 +216,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("backSpace key should move caret to left", expectedValue,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -229,7 +229,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("backSpace key should replace previous digit with zero",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -241,7 +241,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = MASK.replace('#', '0');
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("delete should set text to zeroed mask", expectedValue,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -254,7 +254,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = MASK.replace('#', '0');
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("empty field should set text to zeroed mask", expectedValue,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -268,7 +268,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("delete key should move caret to the leftmost position",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -282,7 +282,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("home key should move caret to the leftmost position",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -296,7 +296,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String expectedValue = getExpectedText(expectedInput);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("end key should move caret to the rightmost position",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -308,7 +308,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("field should contain whole text, when input is short and " +
-        "contains only digits", expectedValue, fieldValue);
+                            "contains only digits", expectedValue, fieldValue);
   }
 
   @Test
@@ -320,7 +320,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("field should contain truncated text, when input is long and " +
-        "contains only digits", expectedValue, fieldValue);
+                            "contains only digits", expectedValue, fieldValue);
   }
 
   @Test
@@ -333,7 +333,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("field should contain all digits, when input is short and mixed",
-        expectedValue, fieldValue);
+                           expectedValue, fieldValue);
   }
 
   @Test
@@ -346,7 +346,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     type(inputText);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("field should contain digits truncated to maxLength, when " +
-        "input is long and mixed", expectedValue, fieldValue);
+                            "input is long and mixed", expectedValue, fieldValue);
   }
 
   @Test
@@ -356,7 +356,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull MaskedTextField field = safeFindById(ID);
     @NotNull String fieldValue = field.getValue();
     Assert.assertEquals("paste from clipboard, that contains more than 1 character," +
-        "should not change text", DEFAULT_VALUE, fieldValue);
+                            "should not change text", DEFAULT_VALUE, fieldValue);
   }
 
   @NotNull
@@ -395,7 +395,7 @@ public class DurationFieldUITests extends UITests<DurationField> {
     @NotNull String minutesString = text.substring(2, 4);
     @NotNull String hoursString = text.substring(0, 2);
     return Integer.parseInt(hoursString) * SECONDS_IN_HOUR +
-        Integer.parseInt(minutesString) * SECONDS_IN_MINUTE +
-        Integer.parseInt(secondsString);
+               Integer.parseInt(minutesString) * SECONDS_IN_MINUTE +
+               Integer.parseInt(secondsString);
   }
 }

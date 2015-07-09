@@ -48,7 +48,7 @@ class JFXTableColumn<EntityType, CellType>
   private void setCellFactory() {
     setCellFactory(param -> new TableCell<EntityType, CellType>() {
       @Override
-      public void updateItem(@Nullable Object item, boolean empty) {
+      public void updateItem(@Nullable CellType item, boolean empty) {
         @NotNull ViewFormatter viewFormatter = columnInfo.getViewFormatter();
         @NotNull String value = viewFormatter.apply(item) + getStringSuffix();
         setText(value);

@@ -12,5 +12,5 @@ import java.util.function.Function;
 public interface ViewFormatter extends Function<Object, String> {
   @NotNull
   @Override
-  public String apply(@Nullable Object argument);
+  String apply(@Nullable Object argument);
 }
