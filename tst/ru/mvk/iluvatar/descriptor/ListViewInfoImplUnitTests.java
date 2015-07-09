@@ -75,7 +75,7 @@ public class ListViewInfoImplUnitTests {
     Assert.assertFalse("setRemoveAllowed() should set correct value of 'removeAllowed'",
                           removeAllowed);
   }
-  
+
   @Test
   public void addColumnInfo_ShouldIncreaseColumnsCount() {
     @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(Object.class);

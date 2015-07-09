@@ -201,7 +201,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 
   @Override
   public void selectRowByEntity(@Nullable EntityType entity) {
-    if (entity != null) {
+    if (entity != totalRow && entity != null) {
       trySelectRowByEntity(entity);
       editButton.setDisable(false);
       removeButton.setDisable(false);
