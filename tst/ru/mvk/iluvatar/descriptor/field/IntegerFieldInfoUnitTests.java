@@ -19,7 +19,7 @@ public class IntegerFieldInfoUnitTests {
         new IntegerFieldInfo<>(Short.class, name, 10);
     @NotNull String fieldName = integerFieldInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        fieldName);
+                           fieldName);
   }
 
   @Test
@@ -29,7 +29,7 @@ public class IntegerFieldInfoUnitTests {
         new IntegerFieldInfo<>(Long.class, "value", width);
     int fieldWidth = integerFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        fieldWidth);
+                           fieldWidth);
   }
 
   @Test
@@ -39,6 +39,6 @@ public class IntegerFieldInfoUnitTests {
         new IntegerFieldInfo<>(type, "width", 4);
     @NotNull Class<?> fieldType = integerFieldInfo.getType();
     Assert.assertEquals("constructor should set correct value of 'type'", type,
-        fieldType);
+                           fieldType);
   }
 }

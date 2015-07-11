@@ -32,7 +32,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
     safeClickById(ID).type(inputText);
     @Nullable Integer fieldValue = fieldValueTester.getValue();
     Assert.assertEquals("input integer should set corresponding value", input,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -42,7 +42,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
     emptyField(ID);
     @Nullable Integer fieldValue = fieldValueTester.getValue();
     Assert.assertEquals("empty field should set value to zero", new Integer(0),
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -51,7 +51,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
     safeClickById(ID).type(inputText);
     @Nullable Integer fieldValue = fieldValueTester.getValue();
     Assert.assertEquals("input \"-\" should set value to zero", new Integer(0),
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -133,7 +133,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length();
     Assert.assertEquals("input into filled field should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -146,7 +146,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length() - 1;
     Assert.assertEquals("input wrong character inside text should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -159,7 +159,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
     @NotNull TextField field = safeFindById(ID);
     int caretPosition = field.getCaretPosition();
     Assert.assertEquals("paste from clipboard into filled field should not move caret", 0,
-        caretPosition);
+                           caretPosition);
   }
 
   @NotNull

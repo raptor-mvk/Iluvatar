@@ -52,7 +52,7 @@ public class HibernateAdapterImpl implements HibernateAdapter {
     @Nullable Session result = sessionFactory.getCurrentSession();
     if (result == null) {
       throw new IluvatarRuntimeException("HibernateAdapterImpl: currentSession is " +
-          "null");
+                                             "null");
     }
     return result;
   }

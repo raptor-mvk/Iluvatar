@@ -15,10 +15,12 @@ import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.ViewInfo;
+import ru.mvk.iluvatar.descriptor.field.ListFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.NamedFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.javafx.field.Field;
+import ru.mvk.iluvatar.javafx.field.RefList;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
@@ -215,6 +217,9 @@ public class JFXView<EntityType> implements View<EntityType> {
                              @NotNull EntityType object) {
     try {
       @NotNull Node field = getFieldNode(fieldKey);
+      if (field instanceof RefList) {
+        ((RefList)field).reload();
+      }
       @NotNull PropertyDescriptor propertyDescriptor =
           getPropertyDescriptor(fieldKey, object);
       @NotNull Object value = getFieldValue(propertyDescriptor, object);
@@ -225,9 +230,9 @@ public class JFXView<EntityType> implements View<EntityType> {
       }
       setFieldUpdater(field, propertyDescriptor, object);
     } catch (IllegalAccessException | InvocationTargetException |
-        NoSuchMethodException e) {
+                 NoSuchMethodException e) {
       throw new IluvatarRuntimeException("JFXView: Could not access field '" +
-          fieldKey + '\'');
+                                             fieldKey + '\'');
     }
   }
 
@@ -236,7 +241,7 @@ public class JFXView<EntityType> implements View<EntityType> {
     @Nullable Node result = fields.get(fieldKey);
     if (result == null) {
       throw new IluvatarRuntimeException("JFXView: field '" + fieldKey + "' was not " +
-          "found");
+                                             "found");
     }
     return result;
   }
@@ -250,7 +255,7 @@ public class JFXView<EntityType> implements View<EntityType> {
       fieldClass = Class.forName(fieldClassName);
     } catch (ClassNotFoundException e) {
       throw new IluvatarRuntimeException("FieldUtils: Could not load class " +
-          fieldClassName);
+                                             fieldClassName);
     }
     if (fieldClass != null) {
       if (fieldInfo instanceof SizedFieldInfo) {
@@ -261,7 +266,7 @@ public class JFXView<EntityType> implements View<EntityType> {
     }
     if (!(fieldInstance instanceof Node)) {
       throw new IluvatarRuntimeException("JFXView: instantiated field is not " +
-          "JavaFX Node");
+                                             "JavaFX Node");
     }
     return (Node) fieldInstance;
   }
@@ -282,9 +287,9 @@ public class JFXView<EntityType> implements View<EntityType> {
     try {
       result = fieldConstructor.newInstance(fieldInfo);
     } catch (InstantiationException | IllegalAccessException |
-        InvocationTargetException e) {
+                 InvocationTargetException e) {
       throw new IluvatarRuntimeException("JFXView: Could not instantiate field for " +
-          fieldClass);
+                                             fieldClass);
     }
     return result;
   }
@@ -300,9 +305,9 @@ public class JFXView<EntityType> implements View<EntityType> {
     try {
       result = fieldConstructor.newInstance();
     } catch (InstantiationException | IllegalAccessException |
-        InvocationTargetException e) {
+                 InvocationTargetException e) {
       throw new IluvatarRuntimeException("JFXView: Could not instantiate field for " +
-          fieldClass);
+                                             fieldClass);
     }
     return result;
   }
@@ -315,7 +320,7 @@ public class JFXView<EntityType> implements View<EntityType> {
         PropertyUtils.getPropertyDescriptor(object, fieldKey);
     if (propertyDescriptor == null) {
       throw new IluvatarRuntimeException("JFXView: could not access field '" +
-          fieldKey + "'");
+                                             fieldKey + "'");
     }
     return propertyDescriptor;
   }
@@ -323,7 +328,7 @@ public class JFXView<EntityType> implements View<EntityType> {
   @NotNull
   private Object getFieldValue(@NotNull PropertyDescriptor propertyDescriptor,
                                @NotNull EntityType object) throws IllegalAccessException,
-      InvocationTargetException {
+                                                                      InvocationTargetException {
     @Nullable Method readMethod = PropertyUtils.getReadMethod(propertyDescriptor);
     if (readMethod == null) {
       throw new IluvatarRuntimeException("JFXView: could not access field");

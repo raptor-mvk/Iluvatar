@@ -76,7 +76,7 @@ public class SQLiteHelper {
     @NotNull Configuration configuration = prepareConfiguration(dbFileName);
     @NotNull Properties properties = configuration.getProperties();
     @NotNull ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-        .applySettings(properties).build();
+                                                   .applySettings(properties).build();
     return configuration.buildSessionFactory(serviceRegistry);
   }
 

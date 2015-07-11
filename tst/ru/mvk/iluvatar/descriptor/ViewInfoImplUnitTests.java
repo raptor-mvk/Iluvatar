@@ -24,7 +24,7 @@ public class ViewInfoImplUnitTests {
     @NotNull ViewInfo<Object> viewInfo = new ViewInfoImpl<>(Object.class);
     int fieldsCount = viewInfo.getFieldsCount();
     Assert.assertEquals("Constructor should set value of 'fieldsCount' to 0", 0,
-        fieldsCount);
+                           fieldsCount);
   }
 
   @Test
@@ -33,7 +33,7 @@ public class ViewInfoImplUnitTests {
     @NotNull ViewInfo<Object> viewInfo = new ViewInfoImpl<>(entityType);
     @NotNull Class<?> viewInfoEntityType = viewInfo.getEntityType();
     Assert.assertEquals("Constructor should set correct value of 'entityType'",
-        entityType, viewInfoEntityType);
+                           entityType, viewInfoEntityType);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
@@ -48,7 +48,7 @@ public class ViewInfoImplUnitTests {
     viewInfo.addFieldInfo("name", new CheckBoxInfo("Name"));
     int fieldsCount = viewInfo.getFieldsCount();
     Assert.assertEquals("addFieldInfo() should increase value of 'fieldsCount'", 1,
-        fieldsCount);
+                           fieldsCount);
   }
 
   @Test
@@ -59,8 +59,8 @@ public class ViewInfoImplUnitTests {
     viewInfo.addFieldInfo(key, fieldInfo);
     @NotNull NamedFieldInfo viewInfoFieldInfo = viewInfo.getFieldInfo(key);
     Assert.assertEquals("addFieldInfo(key, fieldInfo) should add fieldInfo " +
-            "'fieldInfo', that is gettable by key 'key'", viewInfoFieldInfo,
-        viewInfoFieldInfo);
+                            "'fieldInfo', that is gettable by key 'key'", viewInfoFieldInfo,
+                           viewInfoFieldInfo);
   }
 
   @Test
@@ -74,7 +74,7 @@ public class ViewInfoImplUnitTests {
       @Nullable Entry<String, NamedFieldInfo> entry = fieldInfoIterator.next();
       @NotNull String entryKey = CommonTestUtils.getEntryKey(entry);
       Assert.assertEquals("getIterator() should maintain order of addition", key,
-          entryKey);
+                             entryKey);
     }
   }
 

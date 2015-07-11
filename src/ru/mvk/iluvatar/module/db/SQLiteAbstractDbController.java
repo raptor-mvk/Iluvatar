@@ -29,7 +29,7 @@ public abstract class SQLiteAbstractDbController implements DbController {
     @Nullable Object dbVersion = getValue("pragma user_version;");
     if (!(dbVersion instanceof Integer)) {
       throw new IluvatarRuntimeException("SQLiteAbstractDbController: user_version " +
-          "has wrong type");
+                                             "has wrong type");
     }
     return (int) dbVersion;
   }
@@ -42,7 +42,7 @@ public abstract class SQLiteAbstractDbController implements DbController {
     if (dbVersion <= appDbVersion) {
       result = hibernateAdapter.executeInTransaction((session) -> {
         @NotNull Query query = hibernateAdapter.prepareSqlQuery("pragma user_version=" +
-            appDbVersion + ';', session);
+                                                                    appDbVersion + ';', session);
         return (query.executeUpdate() == 0);
       });
     } else {
@@ -60,9 +60,9 @@ public abstract class SQLiteAbstractDbController implements DbController {
     long appDbVersion = getAppDbVersion();
     @Nullable Boolean result = hibernateAdapter.executeInTransaction((session) -> {
       @NotNull Query idQuery = hibernateAdapter.prepareSqlQuery("pragma application_id=" +
-          appId + ';', session);
+                                                                    appId + ';', session);
       @NotNull Query dbVersionQuery = hibernateAdapter.prepareSqlQuery("pragma " +
-          "user_version=" + appDbVersion + ';', session);
+                                                                           "user_version=" + appDbVersion + ';', session);
       return (idQuery.executeUpdate() == 0) && (dbVersionQuery.executeUpdate() == 0);
     });
     if (result == null) {
@@ -97,7 +97,7 @@ public abstract class SQLiteAbstractDbController implements DbController {
       @Nullable List<?> queryResult = query.list();
       if (queryResult == null) {
         throw new IluvatarRuntimeException("SQLiteAbstractDbController: list() " +
-            "returned null");
+                                               "returned null");
       }
       return queryResult.get(0);
     });

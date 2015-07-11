@@ -89,7 +89,7 @@ public class FieldUtils {
     @Nullable Matcher result = NUMBER_MATCHER_MAP.get(fieldType);
     if (result == null) {
       throw new IluvatarRuntimeException("FieldUtils: Unsupported field type '" +
-          fieldType + "'");
+                                             fieldType + "'");
     }
     return result;
   }
@@ -99,7 +99,7 @@ public class FieldUtils {
     @Nullable Matcher result = ZERO_EQUAL_MATCHER_MAP.get(fieldType);
     if (result == null) {
       throw new IluvatarRuntimeException("FieldUtils: Unsupported field type '" +
-          fieldType + "'");
+                                             fieldType + "'");
     }
     return result;
   }
@@ -109,7 +109,7 @@ public class FieldUtils {
     @Nullable Function<String, ?> result = TYPE_CASTERS_MAP.get(type);
     if (result == null) {
       throw new IluvatarRuntimeException("FieldUtils: Unsupported class '" + type +
-          "'");
+                                             "'");
     }
     return result;
   }

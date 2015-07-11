@@ -17,7 +17,7 @@ public class NaturalFieldInfoUnitTests {
         new NaturalFieldInfo<>(Byte.class, name, 2);
     @NotNull String fieldName = naturalFieldInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        fieldName);
+                           fieldName);
   }
 
   @Test
@@ -27,7 +27,7 @@ public class NaturalFieldInfoUnitTests {
         new NaturalFieldInfo<>(Long.class, "mark", width);
     int fieldWidth = naturalFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        fieldWidth);
+                           fieldWidth);
   }
 
   @Test
@@ -37,7 +37,7 @@ public class NaturalFieldInfoUnitTests {
         new NaturalFieldInfo<>(type, "level", 2);
     @NotNull Class<?> fieldType = naturalFieldInfo.getType();
     Assert.assertEquals("constructor should set correct value of 'type'", type,
-        fieldType);
+                           fieldType);
   }
 
   @Test

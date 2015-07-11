@@ -15,7 +15,7 @@ public class TextFieldInfoUnitTests {
     @NotNull TextFieldInfo textFieldInfo = new TextFieldInfo(name, 20);
     @NotNull String fieldName = textFieldInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        fieldName);
+                           fieldName);
   }
 
   @Test
@@ -24,6 +24,6 @@ public class TextFieldInfoUnitTests {
     @NotNull TextFieldInfo textFieldInfo = new TextFieldInfo("id", width);
     int fieldWidth = textFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        fieldWidth);
+                           fieldWidth);
   }
 }

@@ -6,7 +6,6 @@ package ru.mvk.iluvatar.view;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
 import java.util.function.UnaryOperator;
 
 public interface StringSupplier extends UnaryOperator<String> {

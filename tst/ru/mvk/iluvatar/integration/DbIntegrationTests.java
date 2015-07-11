@@ -48,7 +48,7 @@ public class DbIntegrationTests {
       @NotNull Long id = dao.create(expectedTestObject);
       @Nullable String name = getTestObjectName(id);
       Assert.assertEquals("create() should create database entry", expectedName,
-          name);
+                             name);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -66,7 +66,7 @@ public class DbIntegrationTests {
       putTestObject(expectedTestObject);
       @Nullable TestObject testObject = dao.read(expectedId);
       Assert.assertEquals("read() should return database entry", expectedTestObject,
-          testObject);
+                             testObject);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -113,7 +113,7 @@ public class DbIntegrationTests {
       dao.update(expectedTestObject);
       @Nullable String name = getTestObjectName(expectedId);
       Assert.assertNull("update() should not create database entry for new entity",
-          name);
+                           name);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -151,7 +151,7 @@ public class DbIntegrationTests {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
     Assert.assertFalse("delete() should not throw any exception, when entity was not " +
-        "found in the database", exceptionCaught);
+                           "found in the database", exceptionCaught);
   }
 
   @Test
@@ -163,7 +163,7 @@ public class DbIntegrationTests {
       prepareDbWithTestObjectList(expectedList);
       @NotNull List<TestObject> list = dao.list();
       boolean listsAreEqual = expectedList.size() == list.size() &&
-          expectedList.containsAll(list) && list.containsAll(expectedList);
+                                  expectedList.containsAll(list) && list.containsAll(expectedList);
       Assert.assertTrue("list() should return all database entries", listsAreEqual);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
@@ -179,15 +179,15 @@ public class DbIntegrationTests {
       prepareDbWithTestObjectList(expectedList);
       @NotNull List<TestObject> list = dao.orderedList("name", false);
       boolean listsAreEqual = expectedList.size() == list.size() &&
-          expectedList.containsAll(list) && list.containsAll(expectedList);
+                                  expectedList.containsAll(list) && list.containsAll(expectedList);
       for (int i = 1, count = list.size(); i < count; i++) {
         @NotNull String previousTestObjectName = list.get(i - 1).getName();
         @NotNull String currentTestObjectName = list.get(i).getName();
         listsAreEqual = listsAreEqual &&
-            previousTestObjectName.compareTo(currentTestObjectName) >= 0;
+                            previousTestObjectName.compareTo(currentTestObjectName) >= 0;
       }
       Assert.assertTrue("list() should return all database entries sorted in " +
-          "ascending order by id", listsAreEqual);
+                            "ascending order by id", listsAreEqual);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -202,15 +202,15 @@ public class DbIntegrationTests {
       prepareDbWithTestObjectList(expectedList);
       @NotNull List<TestObject> list = dao.orderedList("id", true);
       boolean listsAreEqual = expectedList.size() == list.size() &&
-          expectedList.containsAll(list) && list.containsAll(expectedList);
+                                  expectedList.containsAll(list) && list.containsAll(expectedList);
       for (int i = 1, count = list.size(); i < count; i++) {
         @NotNull TestObject previousTestObject = list.get(i - 1);
         @NotNull TestObject currentObject = list.get(i);
         listsAreEqual = listsAreEqual &&
-            previousTestObject.getId() <= currentObject.getId();
+                            previousTestObject.getId() <= currentObject.getId();
       }
       Assert.assertTrue("list() should return all database entries sorted in " +
-          "ascending order by id", listsAreEqual);
+                            "ascending order by id", listsAreEqual);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -223,7 +223,7 @@ public class DbIntegrationTests {
     try {
       boolean result = dbController.isDbSuitable();
       Assert.assertFalse("isDbSuitable() should return false, when appId is incorrect",
-          result);
+                            result);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -237,7 +237,7 @@ public class DbIntegrationTests {
     try {
       boolean result = dbController.isDbSuitable();
       Assert.assertTrue("isDbSuitable() should return true, when appId is correct",
-          result);
+                           result);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -263,7 +263,7 @@ public class DbIntegrationTests {
     try {
       int dbVersion = dbController.getDbVersion();
       Assert.assertEquals("getDbVersion() should correct database version",
-          APP_DB_VERSION, dbVersion);
+                             APP_DB_VERSION, dbVersion);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -279,7 +279,7 @@ public class DbIntegrationTests {
       dbController.updateDb();
       int dbVersion = dbController.getDbVersion();
       Assert.assertEquals("updateDb() should not change dbVersion, when it is greater, " +
-          "than appDbVersion", expectedDbVersion, dbVersion);
+                              "than appDbVersion", expectedDbVersion, dbVersion);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -294,7 +294,7 @@ public class DbIntegrationTests {
       prepareDbWithServiceInfo(APP_ID, expectedDbVersion);
       boolean result = dbController.updateDb();
       Assert.assertFalse("updateDb() should return false, when dbVersion is greater, " +
-          "than appDbVersion", result);
+                             "than appDbVersion", result);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -309,7 +309,7 @@ public class DbIntegrationTests {
       dbController.updateDb();
       int dbVersion = dbController.getDbVersion();
       Assert.assertEquals("updateDb() should set dbVersion value to appDbVersion",
-          APP_DB_VERSION, dbVersion);
+                             APP_DB_VERSION, dbVersion);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -323,7 +323,7 @@ public class DbIntegrationTests {
       dbController.createDb();
       int dbVersion = dbController.getDbVersion();
       Assert.assertEquals("createDb() should set dbVersion value to appDbVersion",
-          APP_DB_VERSION, dbVersion);
+                             APP_DB_VERSION, dbVersion);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -337,7 +337,7 @@ public class DbIntegrationTests {
       dbController.createDb();
       boolean result = dbController.isDbSuitable();
       Assert.assertTrue("createDb() should set appId value to appId",
-          result);
+                           result);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
     }
@@ -397,7 +397,7 @@ public class DbIntegrationTests {
       long id = testObject.getId();
       @NotNull String name = testObject.getName();
       sqLiteHelper.execute("insert into object (rowid, name) values (" + id + ", '" +
-          name + "');");
+                               name + "');");
     } finally {
       sqLiteHelper.disconnect();
     }

@@ -15,6 +15,6 @@ public class CheckBoxInfoUnitTests {
     @NotNull NamedFieldInfo checkBoxInfo = new CheckBoxInfo(name);
     @NotNull String checkBoxName = checkBoxInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        checkBoxName);
+                           checkBoxName);
   }
 }

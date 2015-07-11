@@ -8,10 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
-public interface RefAble {
+public interface RefAble<Type extends Serializable> {
   @NotNull
-  Serializable getId();
-
-  @NotNull
-  String getName();
+  Type getId();
 }

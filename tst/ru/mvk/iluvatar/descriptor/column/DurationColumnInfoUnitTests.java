@@ -17,7 +17,7 @@ public class DurationColumnInfoUnitTests {
     @NotNull ColumnInfo durationColumnInfo = new DurationColumnInfo(name, 5);
     @NotNull String columnName = durationColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        columnName);
+                           columnName);
   }
 
   @Test
@@ -26,7 +26,7 @@ public class DurationColumnInfoUnitTests {
     @NotNull ColumnInfo durationColumnInfo = new DurationColumnInfo("duration", width);
     int columnWidth = durationColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        columnWidth);
+                           columnWidth);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
@@ -46,7 +46,7 @@ public class DurationColumnInfoUnitTests {
     long value = 32867165335L;
     @NotNull String result = viewFormatter.apply(value);
     Assert.assertEquals("viewFormatter should return empty string for long value",
-        "", result);
+                           "", result);
   }
 
   @Test
@@ -56,7 +56,7 @@ public class DurationColumnInfoUnitTests {
     short value = (short) 223;
     @NotNull String result = viewFormatter.apply(value);
     Assert.assertEquals("viewFormatter should return empty string for short value",
-        "", result);
+                           "", result);
   }
 
   @Test
@@ -67,7 +67,7 @@ public class DurationColumnInfoUnitTests {
     @NotNull String result = viewFormatter.apply(value);
     @NotNull String expectedResult = Long.toString(value / 60) + " м";
     Assert.assertEquals("viewFormatter should return correct string for integer " +
-        "duration less, than 1 hour", expectedResult, result);
+                            "duration less, than 1 hour", expectedResult, result);
   }
 
   @Test
@@ -80,7 +80,7 @@ public class DurationColumnInfoUnitTests {
     @NotNull String expectedResult =
         String.format(Locale.US, "%.1f", expectedValue) + " м";
     Assert.assertEquals("viewFormatter should return correct string for real " +
-        "duration less, than 1 hour", expectedResult, result);
+                            "duration less, than 1 hour", expectedResult, result);
   }
 
   @Test
@@ -93,7 +93,7 @@ public class DurationColumnInfoUnitTests {
     @NotNull String expectedResult =
         ((int) expectedValue / 60) + " ч " + ((int) expectedValue % 60) + " м";
     Assert.assertEquals("viewFormatter should return correct string for integer " +
-        "duration more, than 1 hour", expectedResult, result);
+                            "duration more, than 1 hour", expectedResult, result);
   }
 
   @Test
@@ -106,7 +106,7 @@ public class DurationColumnInfoUnitTests {
     @NotNull String expectedResult =
         ((int) expectedValue / 60) + " ч " + ((int) expectedValue % 60) + " м";
     Assert.assertEquals("viewFormatter should return correct string for integer " +
-        "duration more, than 1 hour", expectedResult, result);
+                            "duration more, than 1 hour", expectedResult, result);
   }
 
   @Test
@@ -119,6 +119,6 @@ public class DurationColumnInfoUnitTests {
     @NotNull String expectedResult =
         ((int) expectedValue / 60) + " ч " + ((int) expectedValue % 60) + " м";
     Assert.assertEquals("viewFormatter should return correct string for duration more, " +
-        "than 100 hours", expectedResult, result);
+                            "than 100 hours", expectedResult, result);
   }
 }

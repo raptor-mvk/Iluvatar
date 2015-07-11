@@ -24,9 +24,7 @@ import ru.mvk.iluvatar.utils.UITests;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
@@ -39,6 +37,8 @@ public class JFXViewUITests extends UITests<View<Student>> {
   private final Consumer<Boolean> saveButtonHandler = saveButtonState::setValue;
   @NotNull
   private final Runnable cancelButtonHandler = () -> cancelButtonState.setValue(true);
+  @NotNull
+  private final List<Student> studentList = prepareStudents();
   @NotNull
   private final ViewInfo<Student> viewInfo = prepareViewInfo();
   @NotNull
@@ -70,8 +70,18 @@ public class JFXViewUITests extends UITests<View<Student>> {
     nodeTypes.put("gpa", RealField.class);
     nodeTypes.put("penalty", IntegerField.class);
     nodeTypes.put("graduated", CheckBoxField.class);
-    nodeTypes.put("lecturesTime", DurationField.class);
+    nodeTypes.put("neighbour", RefField.class);
     assertFieldsHaveCorrectTypes(view, iterator, nodeTypes);
+  }
+
+  @Test
+  public void neighbourField_ShouldContainCorrectList() {
+    @NotNull View<Student> view = getObjectUnderTest();
+    @NotNull String fieldId = view.getFieldId("neighbour");
+    @NotNull RefField<Integer, Student> field = safeFindById(fieldId);
+    @NotNull List<Student> fieldItems = getRefFieldItems(field);
+    Assert.assertEquals("neighbour field should contain correct value list",
+                           studentList, fieldItems);
   }
 
   @Test
@@ -89,7 +99,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     @NotNull String expectedCaption = stringSupplier.apply("Save");
     @NotNull String saveButtonCaption = saveButton.getText();
     Assert.assertEquals("Save button should have correct caption", expectedCaption,
-        saveButtonCaption);
+                           saveButtonCaption);
   }
 
   @Test
@@ -100,7 +110,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     @NotNull String expectedCaption = stringSupplier.apply("Cancel");
     @NotNull String cancelButtonCaption = cancelButton.getText();
     Assert.assertEquals("Cancel button should have correct caption", expectedCaption,
-        cancelButtonCaption);
+                           cancelButtonCaption);
   }
 
   @Test
@@ -111,7 +121,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(saveButtonId);
     @Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
     Assert.assertEquals("click Save button should execute saveButtonHandler with " +
-        "false parameter", false, saveButtonWasClicked);
+                            "false parameter", false, saveButtonWasClicked);
   }
 
   @Test
@@ -122,7 +132,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(cancelButtonId);
     @Nullable Boolean cancelButtonWasClicked = cancelButtonState.getValue();
     Assert.assertEquals("Click Cancel button should execute cancelButtonHandler", true,
-        cancelButtonWasClicked);
+                           cancelButtonWasClicked);
   }
 
   @Test
@@ -135,7 +145,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(idValueString);
     int studentIdValue = student.getId();
     Assert.assertEquals("input into 'id' field should set value of 'id'", idValue,
-        studentIdValue);
+                           studentIdValue);
   }
 
   @Test
@@ -147,7 +157,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(nameValue);
     @NotNull String studentNameValue = student.getName();
     Assert.assertEquals("input into 'name' field should set value of 'name'", nameValue,
-        studentNameValue);
+                           studentNameValue);
   }
 
   @Test
@@ -163,7 +173,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(gpaValueString);
     double studentGpaValue = student.getGpa();
     Assert.assertEquals("input into 'gpa' field should set value of 'gpa'", gpaValue,
-        studentGpaValue, DOUBLE_PRECISION);
+                           studentGpaValue, DOUBLE_PRECISION);
   }
 
   @Test
@@ -176,7 +186,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(penaltyValueString);
     int studentPenaltyValue = student.getPenalty();
     Assert.assertEquals("input into 'penalty' field should set value of 'penalty'",
-        penaltyValue, studentPenaltyValue);
+                           penaltyValue, studentPenaltyValue);
   }
 
   @Test
@@ -187,23 +197,19 @@ public class JFXViewUITests extends UITests<View<Student>> {
     safeClickById(fieldId);
     boolean studentGraduatedValue = student.isGraduated();
     Assert.assertEquals("input into 'id' field should set value of 'id'", graduatedValue,
-        studentGraduatedValue);
+                           studentGraduatedValue);
   }
 
   @Test
-  public void inputIntoLecturesTimeField_ShouldSetLecturesTimeValue() {
+  public void selectionInNeighbourField_ShouldSetNeighbourValue() {
     @NotNull View<Student> view = getObjectUnderTest();
-    @NotNull String fieldId = view.getFieldId("lecturesTime");
-    int lecturesTimeValue = 43874;
-    @NotNull String lecturesTimeValueString =
-        getDurationFieldExpectedText(lecturesTimeValue, false);
-    emptyField(fieldId);
-    @NotNull DurationField field = safeFindById(fieldId);
-    runAndWait(field::requestFocus);
-    type(lecturesTimeValueString);
-    int studentLecturesTimeValue = student.getLecturesTime();
-    Assert.assertEquals("input into 'lecturesTime' field should set value of " +
-        "'lecturesTime'", lecturesTimeValue, studentLecturesTimeValue);
+    @NotNull String fieldId = view.getFieldId("neighbour");
+    safeClickById(fieldId);
+    type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+    int expectedNeighbourValue = studentList.get(1).getId();
+    int studentNeighbourValue = student.getNeighbour();
+    Assert.assertEquals("selection into 'neighbour' field should set value of " +
+                            "'neighbour'", expectedNeighbourValue, studentNeighbourValue);
   }
 
   @Test
@@ -212,7 +218,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     push(KeyCode.ENTER);
     @Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
     Assert.assertEquals("enter key should execute saveButtonHandler with " +
-        "false parameter", false, saveButtonWasClicked);
+                            "false parameter", false, saveButtonWasClicked);
   }
 
   @Test
@@ -221,7 +227,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     push(KeyCode.ESCAPE);
     @Nullable Boolean cancelButtonWasClicked = cancelButtonState.getValue();
     Assert.assertEquals("escape key button should execute cancelButtonHandler", true,
-        cancelButtonWasClicked);
+                           cancelButtonWasClicked);
   }
 
   @NotNull
@@ -243,7 +249,8 @@ public class JFXViewUITests extends UITests<View<Student>> {
     result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa", 5));
     result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
     result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
-    result.addFieldInfo("lecturesTime", new DurationFieldInfo("lecturesTime", 2));
+    @NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
+    result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
     return result;
   }
 
@@ -256,6 +263,22 @@ public class JFXViewUITests extends UITests<View<Student>> {
     result.setPenalty((short) -2);
     result.setGraduated(false);
     result.setLecturesTime(113560);
+    result.setNeighbour(1);
+    return result;
+  }
+
+  private List<Student> prepareStudents() {
+    @NotNull List<Student> result = new ArrayList<>();
+    @NotNull Student student = new Student();
+    student.setId(3);
+    student.setName("Jim Wealth");
+    result.add(student);
+    student.setId(5);
+    student.setName("Tony Peterson");
+    result.add(student);
+    student.setId(2);
+    student.setName("Richard Somebody");
+    result.add(student);
     return result;
   }
 }

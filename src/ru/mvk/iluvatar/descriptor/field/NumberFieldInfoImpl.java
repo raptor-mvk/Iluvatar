@@ -16,7 +16,7 @@ abstract class NumberFieldInfoImpl<Type> extends SizedFieldInfoImpl
     super(name, width);
     if (!isTypeCorrect(type)) {
       throw new IluvatarRuntimeException("NumberFieldInfoImpl: incorrect type in " +
-          "constructor");
+                                             "constructor");
     }
     this.type = type;
   }

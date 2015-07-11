@@ -16,7 +16,7 @@ public class BooleanColumnInfoUnitTests {
     @NotNull ColumnInfo booleanColumnInfo = new BooleanColumnInfo(name, 5);
     @NotNull String columnName = booleanColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        columnName);
+                           columnName);
   }
 
   @Test
@@ -25,7 +25,7 @@ public class BooleanColumnInfoUnitTests {
     @NotNull ColumnInfo booleanColumnInfo = new BooleanColumnInfo("sized", width);
     int columnWidth = booleanColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        columnWidth);
+                           columnWidth);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
@@ -61,6 +61,6 @@ public class BooleanColumnInfoUnitTests {
     @NotNull Object object = new Object();
     @NotNull String result = viewFormatter.apply(object);
     Assert.assertEquals("viewFormatter should return '' for non-boolean value", "",
-        result);
+                           result);
   }
 }

@@ -28,4 +28,7 @@ public interface Dao<EntityType, PrimaryKeyType extends Serializable> {
 
   @NotNull
   Class<EntityType> getEntityType();
+
+  @NotNull
+  Class<PrimaryKeyType> getPrimaryKeyType();
 }

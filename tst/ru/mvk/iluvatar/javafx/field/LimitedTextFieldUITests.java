@@ -28,7 +28,7 @@ public class LimitedTextFieldUITests extends UITests<LimitedTextField> {
     safeClickById(ID).type(inputText);
     @Nullable String fieldValue = fieldValueTester.getValue();
     Assert.assertEquals("input into field should set correct value", inputText,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -70,7 +70,7 @@ public class LimitedTextFieldUITests extends UITests<LimitedTextField> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length();
     Assert.assertEquals("input into filled field should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -83,7 +83,7 @@ public class LimitedTextFieldUITests extends UITests<LimitedTextField> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length() - 1;
     Assert.assertEquals("input inside filled field should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -96,7 +96,7 @@ public class LimitedTextFieldUITests extends UITests<LimitedTextField> {
     @NotNull TextField field = safeFindById(ID);
     int caretPosition = field.getCaretPosition();
     Assert.assertEquals("paste from clipboard into filled field should not move caret", 0,
-        caretPosition);
+                           caretPosition);
   }
 
   @NotNull

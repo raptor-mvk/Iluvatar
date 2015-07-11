@@ -16,7 +16,7 @@ public class StringColumnInfoUnitTests {
     @NotNull ColumnInfo stringColumnInfo = new NumColumnInfo(name, 20);
     @NotNull String columnName = stringColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        columnName);
+                           columnName);
   }
 
   @Test
@@ -25,7 +25,7 @@ public class StringColumnInfoUnitTests {
     @NotNull ColumnInfo stringColumnInfo = new NumColumnInfo("mail", width);
     int columnWidth = stringColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        columnWidth);
+                           columnWidth);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
@@ -46,7 +46,7 @@ public class StringColumnInfoUnitTests {
     @NotNull String expectedResult = Integer.toString(value);
     @NotNull String result = viewFormatter.apply(value);
     Assert.assertEquals("viewFormatter should call toString() for integer value",
-        expectedResult, result);
+                           expectedResult, result);
   }
 
   @Test
@@ -56,6 +56,6 @@ public class StringColumnInfoUnitTests {
     @NotNull String expectedResult = "Smith";
     @NotNull String result = viewFormatter.apply(expectedResult);
     Assert.assertEquals("viewFormatter should do nothing for string value",
-        expectedResult, result);
+                           expectedResult, result);
   }
 }

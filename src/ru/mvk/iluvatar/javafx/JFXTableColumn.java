@@ -28,7 +28,7 @@ class JFXTableColumn<EntityType, CellType>
     this.columnKey = columnKey;
     setCellValueFactory(new PropertyValueFactory<>(columnKey));
     setWidths();
-    setCellFactory();
+    prepareCellFactory();
   }
 
   @NotNull
@@ -45,15 +45,20 @@ class JFXTableColumn<EntityType, CellType>
     setMaxWidth(width);
   }
 
-  private void setCellFactory() {
+  private void prepareCellFactory() {
     setCellFactory(param -> new TableCell<EntityType, CellType>() {
       @Override
       public void updateItem(@Nullable CellType item, boolean empty) {
-        @NotNull ViewFormatter viewFormatter = columnInfo.getViewFormatter();
-        @NotNull String value = viewFormatter.apply(item) + getStringSuffix();
-        setText(value);
-        @NotNull Pos cellAlignment = columnInfo.getJFXAlignment();
-        setAlignment(cellAlignment);
+        super.updateItem(item, empty);
+        if (empty || item == null) {
+          setText(null);
+        } else {
+          @NotNull ViewFormatter viewFormatter = columnInfo.getViewFormatter();
+          @NotNull String value = viewFormatter.apply(item) + getStringSuffix();
+          setText(value);
+          @NotNull Pos cellAlignment = columnInfo.getJFXAlignment();
+          setAlignment(cellAlignment);
+        }
       }
     });
   }

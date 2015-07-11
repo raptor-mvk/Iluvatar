@@ -12,15 +12,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.loadui.testfx.GuiTest;
 import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
-import ru.mvk.iluvatar.descriptor.field.DurationFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.NamedFieldInfo;
+import ru.mvk.iluvatar.descriptor.field.RefAble;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
+import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
+import ru.mvk.iluvatar.javafx.field.RefField;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
@@ -31,6 +32,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
@@ -57,7 +59,7 @@ public abstract class UITests<Type> extends GuiTest {
 
   protected final void assertColumnLabelsAreCorrect(@NotNull TableView<?> tableView,
                                                     @NotNull Iterator<Entry<String,
-                                                        ColumnInfo>> iterator,
+                                                                               ColumnInfo>> iterator,
                                                     @NotNull
                                                     StringSupplier stringSupplier) {
     for (int i = 0; iterator.hasNext(); i++) {
@@ -71,7 +73,7 @@ public abstract class UITests<Type> extends GuiTest {
 
   protected final void assertFieldLabelsAreCorrect(@NotNull View<?> view,
                                                    @NotNull Iterator<Entry<String,
-                                                       NamedFieldInfo>> iterator,
+                                                                              NamedFieldInfo>> iterator,
                                                    @NotNull
                                                    StringSupplier stringSupplier) {
     while (iterator.hasNext()) {
@@ -91,12 +93,12 @@ public abstract class UITests<Type> extends GuiTest {
     @NotNull Label fieldLabel = safeFindById(id);
     @Nullable String fieldLabelText = fieldLabel.getText();
     Assert.assertEquals("Label with id '" + id + "' should contain text " + expected,
-        expected, fieldLabelText);
+                           expected, fieldLabelText);
   }
 
   protected final void assertFieldsHaveCorrectTypes(@NotNull View<?> view,
                                                     @NotNull Iterator<Entry<String,
-                                                        NamedFieldInfo>> iterator,
+                                                                               NamedFieldInfo>> iterator,
                                                     @NotNull
                                                     Map<String, Class<? extends Node>>
                                                         nodeTypes) {
@@ -118,12 +120,12 @@ public abstract class UITests<Type> extends GuiTest {
     @NotNull Node field = safeFindById(id);
     boolean result = nodeType.isInstance(field);
     Assert.assertTrue("Field with id '" + id + "' should be of type '" + typeName + "'",
-        result);
+                         result);
   }
 
   protected final void assertFieldsHaveCorrectValues(@NotNull View<?> view,
                                                      @NotNull Iterator<Entry<String,
-                                                         NamedFieldInfo>> iterator,
+                                                                                NamedFieldInfo>> iterator,
                                                      @NotNull Object entity) {
     while (iterator.hasNext()) {
       @Nullable Entry<String, NamedFieldInfo> entry = iterator.next();
@@ -132,10 +134,6 @@ public abstract class UITests<Type> extends GuiTest {
       @NotNull Object expectedValue = getFieldValue(entity, fieldKey);
       @NotNull String stringExpectedValue = expectedValue.toString();
       if (fieldInfo instanceof SizedFieldInfo) {
-        if (fieldInfo instanceof DurationFieldInfo) {
-          stringExpectedValue =
-              getDurationFieldExpectedText((Integer) expectedValue, true);
-        }
         assertTextFieldByKeyContainsText(view, fieldKey, stringExpectedValue);
       } else {
         assertCheckBoxHasState(view, fieldKey, (Boolean) expectedValue);
@@ -145,7 +143,7 @@ public abstract class UITests<Type> extends GuiTest {
 
   protected final void assertNodesHaveCorrectTabOrder(@NotNull View<?> view,
                                                       @NotNull Iterator<Entry<String,
-                                                          NamedFieldInfo>> iterator) {
+                                                                                 NamedFieldInfo>> iterator) {
     assertFieldsHaveCorrectTabOrder(view, iterator);
     @NotNull String saveButtonId = view.getSaveButtonId();
     assertNodeIsFocused(saveButtonId);
@@ -156,7 +154,7 @@ public abstract class UITests<Type> extends GuiTest {
 
   protected final void assertFieldsHaveCorrectTabOrder(@NotNull View<?> view,
                                                        @NotNull Iterator<Entry<String,
-                                                           NamedFieldInfo>> iterator) {
+                                                                                  NamedFieldInfo>> iterator) {
     while (iterator.hasNext()) {
       @Nullable Entry<String, NamedFieldInfo> entry = iterator.next();
       @NotNull String fieldKey = CommonTestUtils.getEntryKey(entry);
@@ -170,7 +168,7 @@ public abstract class UITests<Type> extends GuiTest {
     @NotNull Node field = safeFindById(nodeId);
     boolean isFieldFocused = field.isFocused();
     Assert.assertTrue("Node with id '" + nodeId + "' should be focused",
-        isFieldFocused);
+                         isFieldFocused);
   }
 
   protected final void assertTextFieldByIdContainsText(@NotNull String id,
@@ -178,7 +176,7 @@ public abstract class UITests<Type> extends GuiTest {
     @NotNull TextField textField = safeFindById(id);
     @Nullable String fieldText = textField.getText();
     Assert.assertEquals("Field with id '" + id + "' should contain text " + expected,
-        expected, fieldText);
+                           expected, fieldText);
   }
 
   final void assertTextFieldByKeyContainsText(@NotNull View<?> view, @NotNull String key,
@@ -194,7 +192,7 @@ public abstract class UITests<Type> extends GuiTest {
     boolean checkBoxState = checkBox.isSelected();
     @NotNull String insertion = expectedState ? "" : "not";
     Assert.assertEquals("Checkbox with id '" + id + "' should " + insertion + " be " +
-        "checked", expectedState, checkBoxState);
+                            "checked", expectedState, checkBoxState);
   }
 
   final <EntityType> void assertColumnLabelContainsText(@NotNull
@@ -212,7 +210,7 @@ public abstract class UITests<Type> extends GuiTest {
     }
     @Nullable String columnLabel = column.getText();
     Assert.assertEquals("Label of column #" + (index + 1) + " should be correct",
-        expected, columnLabel);
+                           expected, columnLabel);
   }
 
   protected final void runAndWait(@NotNull Runnable runnable) {
@@ -317,7 +315,7 @@ public abstract class UITests<Type> extends GuiTest {
       }
       return readMethod.invoke(entity);
     } catch (IllegalAccessException | InvocationTargetException |
-        NoSuchMethodException e) {
+                 NoSuchMethodException e) {
       throw new RuntimeException("Could not read field value");
     }
   }
@@ -341,7 +339,7 @@ public abstract class UITests<Type> extends GuiTest {
   }
 
   @NotNull
-  final GuiTest safeRightClickById(@NotNull String id) {
+  protected final GuiTest safeRightClickById(@NotNull String id) {
     @Nullable GuiTest result = rightClick('#' + id);
     if (result == null) {
       throw new RuntimeException("Click result is null");
@@ -349,20 +347,25 @@ public abstract class UITests<Type> extends GuiTest {
     return result;
   }
 
-  @NotNull
-  protected String getDurationFieldExpectedText(int value, boolean useDelimiter) {
-    @NotNull String seconds = Integer.toString(value % SECONDS_IN_MINUTE);
-    @NotNull String paddedSeconds = StringUtils.leftPad(seconds, 2, '0');
-    @NotNull String minutes =
-        Integer.toString(value % SECONDS_IN_HOUR / SECONDS_IN_MINUTE);
-    @NotNull String paddedMinutes = StringUtils.leftPad(minutes, 2, '0');
-    @NotNull String hours = Integer.toString(value / SECONDS_IN_HOUR);
-    @NotNull String result;
-    if (useDelimiter) {
-      result = hours + ':' + paddedMinutes + ':' + paddedSeconds;
-    } else {
-      result = hours + paddedMinutes + paddedSeconds;
+  @Nullable
+  protected <RefType extends RefAble> RefType getRefFieldSelected(@NotNull
+                                                                  RefField<?, RefType>
+                                                                      field) {
+    @Nullable SingleSelectionModel<RefType> selectionModel = field.getSelectionModel();
+    if (selectionModel == null) {
+      throw new IluvatarRuntimeException("SelectionModel is null");
     }
-    return result;
+    return selectionModel.getSelectedItem();
+  }
+
+  @NotNull
+  protected <RefType extends RefAble> List<RefType> getRefFieldItems(@NotNull
+                                                                     RefField<?, RefType>
+                                                                           field) {
+    @Nullable List<RefType> items = field.getItems();
+    if (items == null) {
+      throw new RuntimeException("Items are null");
+    }
+    return items;
   }
 }

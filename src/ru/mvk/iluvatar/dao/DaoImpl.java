@@ -45,7 +45,7 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
   @Override
   public PrimaryKeyType create(@NotNull EntityType entity) {
     @Nullable Serializable primaryKey = executeInTransaction((session) ->
-        session.save(entity));
+                                                                 session.save(entity));
     return castPrimaryKey(primaryKey);
   }
 
@@ -54,7 +54,7 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
   public EntityType read(@NotNull Serializable id) {
     @NotNull Class<EntityType> entityType = getEntityType();
     @Nullable Object result = executeInTransaction((session) ->
-        session.get(entityType, id));
+                                                       session.get(entityType, id));
     return entityType.cast(result);
   }
 
@@ -133,8 +133,9 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
     return criteria;
   }
 
+  @Override
   @NotNull
-  private Class<PrimaryKeyType> getPrimaryKeyType() {
+  public Class<PrimaryKeyType> getPrimaryKeyType() {
     return primaryKeyType;
   }
 

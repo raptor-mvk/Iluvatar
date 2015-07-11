@@ -4,13 +4,8 @@
 
 package ru.mvk.iluvatar.javafx.field;
 
-import javafx.beans.property.StringProperty;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
-import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
-
-import java.util.function.Consumer;
 
 public class LimitedTextField extends SizedTextField<String> {
 

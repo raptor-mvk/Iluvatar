@@ -15,8 +15,8 @@ public class NaturalFieldInfo<Type> extends NumberFieldInfoImpl<Type> {
   @Override
   boolean isTypeCorrect(@NotNull Class<Type> type) {
     return type.equals(Float.class) || type.equals(Double.class) ||
-        type.equals(Byte.class) || type.equals(Short.class) ||
-        type.equals(Integer.class) || type.equals(Long.class);
+               type.equals(Byte.class) || type.equals(Short.class) ||
+               type.equals(Integer.class) || type.equals(Long.class);
   }
 
   @NotNull

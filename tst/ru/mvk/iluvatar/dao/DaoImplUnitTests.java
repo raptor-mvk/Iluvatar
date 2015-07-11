@@ -19,11 +19,24 @@ public class DaoImplUnitTests {
     @NotNull Session session = PowerMockUtils.mock(Session.class);
     @NotNull SessionFactory sessionFactory = prepareSessionFactory(session);
     @NotNull HibernateAdapter hibernateAdapter = new HibernateAdapterImpl(sessionFactory);
-    @NotNull Dao<Object, Integer> dao = new DaoImpl<>(expectedEntityType,
-        Integer.class, hibernateAdapter);
+    @NotNull Dao<Object, Integer> dao =
+        new DaoImpl<>(expectedEntityType, Integer.class, hibernateAdapter);
     @NotNull Class<?> entityType = dao.getEntityType();
     Assert.assertEquals("constructor should set correct value of 'entityType'",
-        expectedEntityType, entityType);
+                           expectedEntityType, entityType);
+  }
+
+  @Test
+  public void constructor_ShouldSetPrimaryKeyType() {
+    @NotNull Class<Integer> expectedPrimaryKeyType = Integer.class;
+    @NotNull Session session = PowerMockUtils.mock(Session.class);
+    @NotNull SessionFactory sessionFactory = prepareSessionFactory(session);
+    @NotNull HibernateAdapter hibernateAdapter = new HibernateAdapterImpl(sessionFactory);
+    @NotNull Dao<Object, Integer> dao =
+        new DaoImpl<>(Object.class, expectedPrimaryKeyType, hibernateAdapter);
+    @NotNull Class<?> primaryKeyType = dao.getPrimaryKeyType();
+    Assert.assertEquals("constructor should set correct value of 'entityType'",
+                           expectedPrimaryKeyType, primaryKeyType);
   }
 
   @NotNull

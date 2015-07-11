@@ -7,13 +7,12 @@ package ru.mvk.iluvatar.javafx.field;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.text.Font;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.mvk.iluvatar.descriptor.field.ListFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.RefAble;
-import ru.mvk.iluvatar.descriptor.field.RefFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 import java.io.Serializable;
@@ -26,9 +25,9 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
   private Consumer<Type> fieldUpdater = (value) -> {
   };
   @NotNull
-  RefFieldInfo<Type, RefType> refFieldInfo;
+  ListFieldInfo<Type, RefType> refFieldInfo;
 
-  RefField(@NotNull RefFieldInfo<Type, RefType> refFieldInfo) {
+  public RefField(@NotNull ListFieldInfo<Type, RefType> refFieldInfo) {
     int width = refFieldInfo.getWidth();
     if (width <= 0) {
       throw new IluvatarRuntimeException("RefField: non-positive width");
@@ -40,7 +39,7 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     } else {
       setAllWidths(width * 2);
     }
-    setActionHandler();
+    prepareActionHandler();
   }
 
   private void setAllWidths(int length) {
@@ -52,7 +51,7 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     setMaxWidth(width);
   }
 
-  private void setActionHandler() {
+  private void prepareActionHandler() {
     setOnAction((event) -> {
       @NotNull SingleSelectionModel<RefType> selectionModel = prepareSelectionModel();
       @Nullable RefType selected = selectionModel.getSelectedItem();
@@ -78,7 +77,7 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     }
     @NotNull SingleSelectionModel<RefType> selectionModel = prepareSelectionModel();
     @Nullable RefType item;
-    item = refFieldInfo.getFinder().apply((Serializable)value);
+    item = refFieldInfo.getFinder().apply((Serializable) value);
     selectionModel.select(item);
   }
 
@@ -88,16 +87,6 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     @NotNull ObservableList<RefType> itemsObservableList =
         FXCollections.observableList(itemsList);
     setItems(itemsObservableList);
-    setCellFactory(param -> new ListCell<RefType>() {
-      @Override
-      public void updateItem(@Nullable RefType item, boolean empty) {
-        @NotNull String value = "";
-        if (item != null) {
-          value = item.getName();
-        }
-        setText(value);
-      }
-    });
   }
 
   @NotNull

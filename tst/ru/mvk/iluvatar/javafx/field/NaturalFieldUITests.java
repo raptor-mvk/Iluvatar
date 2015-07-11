@@ -29,7 +29,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
     safeClickById(ID).type(inputText);
     @Nullable Long fieldValue = fieldValueTester.getValue();
     Assert.assertEquals("input natural number should set correct value", input,
-        fieldValue);
+                           fieldValue);
   }
 
   @Test
@@ -128,7 +128,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length();
     Assert.assertEquals("input into filled field should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -141,7 +141,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length() - 1;
     Assert.assertEquals("input wrong character inside text should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -154,7 +154,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
     @NotNull TextField field = safeFindById(ID);
     int caretPosition = field.getCaretPosition();
     Assert.assertEquals("paste from clipboard into filled field should not move caret", 0,
-        caretPosition);
+                           caretPosition);
   }
 
   @NotNull

@@ -17,7 +17,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull ColumnInfo fileSizeColumnInfo = new FileSizeColumnInfo(name, 20);
     @NotNull String columnName = fileSizeColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        columnName);
+                           columnName);
   }
 
   @Test
@@ -26,7 +26,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull ColumnInfo fileSizeColumnInfo = new FileSizeColumnInfo("file", width);
     int columnWidth = fileSizeColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        columnWidth);
+                           columnWidth);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
@@ -46,7 +46,7 @@ public class FileSizeColumnInfoUnitTests {
     int value = 2234714;
     @NotNull String result = viewFormatter.apply(value);
     Assert.assertEquals("viewFormatter should return empty string for integer value",
-        "", result);
+                           "", result);
   }
 
   @Test
@@ -57,7 +57,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull String result = viewFormatter.apply(value);
     @NotNull String expectedResult = Long.toString(value) + " б";
     Assert.assertEquals("viewFormatter should return correct string for size less, " +
-        "than 1 Kb", expectedResult, result);
+                            "than 1 Kb", expectedResult, result);
   }
 
   @Test
@@ -70,7 +70,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull String expectedResult =
         String.format(Locale.US, "%.2f", expectedValue) + " Кб";
     Assert.assertEquals("viewFormatter should return correct string for size less, " +
-        "than 1 Kb", expectedResult, result);
+                            "than 1 Kb", expectedResult, result);
   }
 
   @Test
@@ -83,7 +83,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull String expectedResult =
         String.format(Locale.US, "%.1f", expectedValue) + " Мб";
     Assert.assertEquals("viewFormatter should return correct string for size less, " +
-        "than 1 Gb", expectedResult, result);
+                            "than 1 Gb", expectedResult, result);
   }
 
   @Test
@@ -96,7 +96,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull String expectedResult =
         String.format(Locale.US, "%.2f", expectedValue) + " Гб";
     Assert.assertEquals("viewFormatter should return correct string for size less, " +
-        "than 1 Tb", expectedResult, result);
+                            "than 1 Tb", expectedResult, result);
   }
 
   @Test
@@ -109,7 +109,7 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull String expectedResult =
         String.format(Locale.US, "%.0f", expectedValue) + " Тб";
     Assert.assertEquals("viewFormatter should return correct string for size more, " +
-        "than 1 Tb", expectedResult, result);
+                            "than 1 Tb", expectedResult, result);
   }
 
   @Test
@@ -122,6 +122,6 @@ public class FileSizeColumnInfoUnitTests {
     @NotNull String expectedResult =
         String.format(Locale.US, "%.2f", expectedValue) + " Тб";
     Assert.assertEquals("viewFormatter should return correct string for size more, " +
-        "than 1024 Tb", expectedResult, result);
+                            "than 1024 Tb", expectedResult, result);
   }
 }

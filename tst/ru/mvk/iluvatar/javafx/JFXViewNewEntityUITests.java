@@ -70,7 +70,6 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     nodeTypes.put("gpa", RealField.class);
     nodeTypes.put("penalty", IntegerField.class);
     nodeTypes.put("graduated", CheckBoxField.class);
-    nodeTypes.put("lecturesTime", DurationField.class);
     assertFieldsHaveCorrectTypes(view, iterator, nodeTypes);
   }
 
@@ -89,7 +88,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     @NotNull String expectedCaption = stringSupplier.apply("Save");
     @NotNull String saveButtonCaption = saveButton.getText();
     Assert.assertEquals("Save button should have correct caption", expectedCaption,
-        saveButtonCaption);
+                           saveButtonCaption);
   }
 
   @Test
@@ -100,7 +99,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     @NotNull String expectedCaption = stringSupplier.apply("Cancel");
     @NotNull String cancelButtonCaption = cancelButton.getText();
     Assert.assertEquals("Cancel button should have correct caption", expectedCaption,
-        cancelButtonCaption);
+                           cancelButtonCaption);
   }
 
   @Test
@@ -111,7 +110,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(saveButtonId);
     @Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
     Assert.assertEquals("Click Save button should execute saveButtonHandler", true,
-        saveButtonWasClicked);
+                           saveButtonWasClicked);
   }
 
   @Test
@@ -122,7 +121,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(cancelButtonId);
     @Nullable Boolean cancelButtonWasClicked = cancelButtonState.getValue();
     Assert.assertEquals("Click Cancel button should execute cancelButtonHandler", true,
-        cancelButtonWasClicked);
+                           cancelButtonWasClicked);
   }
 
   @Test
@@ -135,7 +134,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(idValueString);
     int studentIdValue = student.getId();
     Assert.assertEquals("input into 'id' field should set value of 'id'", idValue,
-        studentIdValue);
+                           studentIdValue);
   }
 
   @Test
@@ -147,7 +146,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(nameValue);
     @NotNull String studentNameValue = student.getName();
     Assert.assertEquals("input into 'name' field should set value of 'name'", nameValue,
-        studentNameValue);
+                           studentNameValue);
   }
 
   @Test
@@ -163,7 +162,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(gpaValueString);
     double studentGpaValue = student.getGpa();
     Assert.assertEquals("input into 'gpa' field should set value of 'gpa'", gpaValue,
-        studentGpaValue, DOUBLE_PRECISION);
+                           studentGpaValue, DOUBLE_PRECISION);
   }
 
   @Test
@@ -176,7 +175,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(fieldId).type(penaltyValueString);
     int studentPenaltyValue = student.getPenalty();
     Assert.assertEquals("input into 'penalty' field should set value of 'penalty'",
-        penaltyValue, studentPenaltyValue);
+                           penaltyValue, studentPenaltyValue);
   }
 
   @Test
@@ -187,23 +186,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     safeClickById(fieldId);
     boolean studentGraduatedValue = student.isGraduated();
     Assert.assertEquals("input into 'id' field should set value of 'id'",
-        studentGraduatedValue, graduatedValue);
-  }
-
-  @Test
-  public void inputIntoLecturesTimeField_ShouldSetLecturesTimeValue() {
-    @NotNull View<Student> view = getObjectUnderTest();
-    @NotNull String fieldId = view.getFieldId("lecturesTime");
-    int lecturesTimeValue = 81472;
-    @NotNull String lecturesTimeValueString =
-        getDurationFieldExpectedText(lecturesTimeValue, false);
-    emptyField(fieldId);
-    @NotNull DurationField field = safeFindById(fieldId);
-    runAndWait(field::requestFocus);
-    type(lecturesTimeValueString);
-    int studentLecturesTimeValue = student.getLecturesTime();
-    Assert.assertEquals("input into 'lecturesTime' field should set value of " +
-        "'lecturesTime'", lecturesTimeValue, studentLecturesTimeValue);
+                           studentGraduatedValue, graduatedValue);
   }
 
   @Test
@@ -212,7 +195,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     push(KeyCode.ENTER);
     @Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
     Assert.assertEquals("enter key button should execute saveButtonHandler with " +
-        "true parameter", true, saveButtonWasClicked);
+                            "true parameter", true, saveButtonWasClicked);
   }
 
   @Test
@@ -221,7 +204,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     push(KeyCode.ESCAPE);
     @Nullable Boolean cancelButtonWasClicked = cancelButtonState.getValue();
     Assert.assertEquals("escape key button should execute cancelButtonHandler", true,
-        cancelButtonWasClicked);
+                           cancelButtonWasClicked);
   }
 
   @NotNull
@@ -243,7 +226,6 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa", 5));
     result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
     result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
-    result.addFieldInfo("lecturesTime", new DurationFieldInfo("lecturesTime", 2));
     return result;
   }
 

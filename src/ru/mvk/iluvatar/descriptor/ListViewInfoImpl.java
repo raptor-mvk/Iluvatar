@@ -71,7 +71,7 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
     @Nullable ColumnInfo result = columns.get(columnKey);
     if (result == null) {
       throw new IluvatarRuntimeException("SimpleListViewInfo: no column with key '" +
-          columnKey + "'");
+                                             columnKey + "'");
     }
     return result;
   }

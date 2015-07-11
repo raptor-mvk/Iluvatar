@@ -76,10 +76,10 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
       }
       return newEntity;
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException |
-        InstantiationException e) {
+                 InstantiationException e) {
       @NotNull String className = entityType.getSimpleName();
       throw new IluvatarRuntimeException("SimpleViewService: Could not create new " +
-          "instance of '" + className + "' class");
+                                             "instance of '" + className + "' class");
     }
   }
 

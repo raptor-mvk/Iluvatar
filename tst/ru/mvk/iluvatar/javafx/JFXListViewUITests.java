@@ -15,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.mvk.iluvatar.descriptor.ListViewInfo;
 import ru.mvk.iluvatar.descriptor.ListViewInfoImpl;
@@ -491,33 +490,6 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
                            false, removeButtonWasClicked);
   }
 
-  // internal implementation makes enter key equivalent to double click
-  @Test
-  @Ignore
-  public void doubleClick_NotEmptyRow_ShouldCallEditButtonHandler() {
-    @NotNull ListView<Student> listView = getObjectUnderTest();
-    editButtonState.setValue(false);
-    @NotNull String tableId = listView.getTableId();
-    // coordinates are determined empirically
-    safeMoveById(tableId).moveBy(0.0, -145.0).doubleClick();
-    @Nullable Boolean editButtonWasClicked = editButtonState.getValue();
-    Assert.assertEquals("enter key button should execute editButtonHandler", true,
-                           editButtonWasClicked);
-  }
-
-  // internal implementation makes enter key equivalent to double click
-  @Ignore
-  @Test
-  public void doubleClick_EmptyRow_ShouldDoNothing() {
-    @NotNull ListView<Student> listView = getObjectUnderTest();
-    editButtonState.setValue(false);
-    @NotNull String tableId = listView.getTableId();
-    safeMoveById(tableId).doubleClick();
-    @Nullable Boolean editButtonWasClicked = editButtonState.getValue();
-    Assert.assertEquals("enter key button should do nothing, when there is no selection",
-                           false, editButtonWasClicked);
-  }
-
   @Test
   public void totalRowShouldContainTotalSupplierResult() {
     @Nullable List<Student> students = getTableViewItems();
@@ -664,7 +636,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
     result.setId(324);
     result.setName("Total");
     result.setGpa(1.0);
-    result.setPenalty((short)0);
+    result.setPenalty((short) 0);
     result.setGraduated(true);
     result.setFileSize(0L);
     result.setLecturesTime(0);

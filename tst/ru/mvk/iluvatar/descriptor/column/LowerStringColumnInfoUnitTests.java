@@ -16,7 +16,7 @@ public class LowerStringColumnInfoUnitTests {
     @NotNull ColumnInfo lowerStringColumnInfo = new StringColumnInfo(name, 20);
     @NotNull String columnName = lowerStringColumnInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        columnName);
+                           columnName);
   }
 
   @Test
@@ -26,7 +26,7 @@ public class LowerStringColumnInfoUnitTests {
         new StringColumnInfo("surname", width);
     int columnWidth = lowerStringColumnInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        columnWidth);
+                           columnWidth);
   }
 
   @Test(expected = IluvatarRuntimeException.class)
@@ -46,7 +46,7 @@ public class LowerStringColumnInfoUnitTests {
     int value = 2234714;
     @NotNull String result = viewFormatter.apply(value);
     Assert.assertEquals("viewFormatter should return empty string for integer value",
-        "", result);
+                           "", result);
   }
 
   @Test
@@ -56,6 +56,6 @@ public class LowerStringColumnInfoUnitTests {
     @NotNull String expectedResult = "watson";
     @NotNull String result = viewFormatter.apply(expectedResult + expectedResult);
     Assert.assertEquals("viewFormatter should return second half of string value",
-        expectedResult, result);
+                           expectedResult, result);
   }
 }

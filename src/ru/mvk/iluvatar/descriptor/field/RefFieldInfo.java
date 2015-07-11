@@ -12,12 +12,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class RefFieldInfo<Type extends Serializable, RefType extends RefAble>
-    extends SizedFieldInfoImpl implements ListAdapter<Type, RefType> {
+    extends SizedFieldInfoImpl implements ListFieldInfo<Type, RefType> {
   @NotNull
   private final ListAdapter<Type, RefType> listAdapter;
 
-  RefFieldInfo(@NotNull String name, int width,
-               @NotNull ListAdapter<Type, RefType> listAdapter) {
+  public RefFieldInfo(@NotNull String name, int width,
+                      @NotNull ListAdapter<Type, RefType> listAdapter) {
     super(name, width);
     this.listAdapter = listAdapter;
   }

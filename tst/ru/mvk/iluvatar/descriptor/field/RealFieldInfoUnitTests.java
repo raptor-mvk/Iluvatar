@@ -20,7 +20,7 @@ public class RealFieldInfoUnitTests {
         new RealFieldInfo<>(Double.class, name, 5);
     @NotNull String fieldName = realFieldInfo.getName();
     Assert.assertEquals("constructor should set correct value of 'name'", name,
-        fieldName);
+                           fieldName);
   }
 
   @Test
@@ -30,7 +30,7 @@ public class RealFieldInfoUnitTests {
         new RealFieldInfo<>(Float.class, "percent", width);
     int fieldWidth = realFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
-        fieldWidth);
+                           fieldWidth);
   }
 
   @Test
@@ -40,7 +40,7 @@ public class RealFieldInfoUnitTests {
         new RealFieldInfo<>(type, "price", 6);
     @NotNull Class<?> fieldType = realFieldInfo.getType();
     Assert.assertEquals("constructor should set correct value of 'type'", type,
-        fieldType);
+                           fieldType);
   }
 
   @Test

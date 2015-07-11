@@ -38,7 +38,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
       fieldValue = Double.NaN;
     }
     Assert.assertEquals("input real number should set correct value", input, fieldValue,
-        DOUBLE_PRECISION);
+                           DOUBLE_PRECISION);
   }
 
   @Test
@@ -50,7 +50,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
       fieldValue = Double.NaN;
     }
     Assert.assertEquals("input \"-\" should set value to zero", 0.0, fieldValue,
-        DOUBLE_PRECISION);
+                           DOUBLE_PRECISION);
   }
 
   @Test
@@ -62,7 +62,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
       fieldValue = Double.NaN;
     }
     Assert.assertEquals("input \".\" should set value to zero", 0.0, fieldValue,
-        DOUBLE_PRECISION);
+                           DOUBLE_PRECISION);
   }
 
   @Test
@@ -74,7 +74,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
       fieldValue = Double.NaN;
     }
     Assert.assertEquals("input \"-.\" should set value to zero", 0.0, fieldValue,
-        DOUBLE_PRECISION);
+                           DOUBLE_PRECISION);
   }
 
   @Test
@@ -87,7 +87,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
       fieldValue = Double.NaN;
     }
     Assert.assertEquals("empty field should set value to zero", 0.0, fieldValue,
-        DOUBLE_PRECISION);
+                           DOUBLE_PRECISION);
   }
 
   @Test
@@ -162,7 +162,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length();
     Assert.assertEquals("input into filled field should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -175,7 +175,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
     int caretPosition = field.getCaretPosition();
     int expectedCaretPosition = inputText.length() - 1;
     Assert.assertEquals("input wrong character inside text should not move caret",
-        expectedCaretPosition, caretPosition);
+                           expectedCaretPosition, caretPosition);
   }
 
   @Test
@@ -188,7 +188,7 @@ public class RealFieldUITests extends UITests<RealField<?>> {
     @NotNull TextField field = safeFindById(ID);
     int caretPosition = field.getCaretPosition();
     Assert.assertEquals("paste from clipboard into filled field should not move caret", 0,
-        caretPosition);
+                           caretPosition);
   }
 
   @NotNull
