@@ -6,10 +6,14 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 
-@Deprecated
-public class RealFieldInfo<Type> extends NaturalFieldInfo<Type> {
-  public RealFieldInfo(@NotNull Class<Type> type, @NotNull String name, int width) {
-    super(type, name, width);
+public class RealFieldInfo<Type> extends NaturalFieldInfo<Type>
+    implements FloatNumberFieldInfo<Type> {
+  private final int fractionWidth;
+
+  public RealFieldInfo(@NotNull Class<Type> type, @NotNull String name,
+                       @NotNull FloatDescriptor floatDescriptor) {
+    super(type, name, floatDescriptor.getMaxWidth());
+    fractionWidth = floatDescriptor.getFractionWidth();
   }
 
   @Override
@@ -21,5 +25,10 @@ public class RealFieldInfo<Type> extends NaturalFieldInfo<Type> {
   @Override
   public String getJFXFieldClassName() {
     return "ru.mvk.iluvatar.javafx.field.RealField";
+  }
+
+  @Override
+  public int getFractionWidth() {
+    return fractionWidth;
   }
 }

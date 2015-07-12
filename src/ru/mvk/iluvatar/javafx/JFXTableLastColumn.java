@@ -7,7 +7,7 @@ package ru.mvk.iluvatar.javafx;
 import org.jetbrains.annotations.NotNull;
 import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 
-public class JFXTableLastColumn<EntityType, CellType>
+class JFXTableLastColumn<EntityType, CellType>
     extends JFXTableColumn<EntityType, CellType> {
   JFXTableLastColumn(@NotNull String columnName, @NotNull ColumnInfo columnInfo,
                      @NotNull String columnKey) {
@@ -15,7 +15,7 @@ public class JFXTableLastColumn<EntityType, CellType>
   }
 
   @Override
-  protected String getStringSuffix() {
+  String getStringSuffix() {
     return "    ";
   }
 }

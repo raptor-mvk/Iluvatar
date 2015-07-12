@@ -7,6 +7,7 @@ package ru.mvk.iluvatar.descriptor.field;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 public class TextFieldInfoUnitTests {
   @Test
@@ -25,5 +26,10 @@ public class TextFieldInfoUnitTests {
     int fieldWidth = textFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
                            fieldWidth);
+  }
+
+  @Test(expected = IluvatarRuntimeException.class)
+  public void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException() {
+    new TextFieldInfo("error", 0);
   }
 }

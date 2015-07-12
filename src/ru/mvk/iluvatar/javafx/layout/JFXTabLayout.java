@@ -23,6 +23,7 @@ public class JFXTabLayout extends JFXLayout {
   private final TabPane root = new TabPane();
 
 
+  @SuppressWarnings("WeakerAccess")
   public JFXTabLayout() {
     root.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
   }
@@ -82,7 +83,7 @@ public class JFXTabLayout extends JFXLayout {
   }
 
   @NotNull
-  protected ObservableList<Tab> getTabList() {
+  ObservableList<Tab> getTabList() {
     @Nullable ObservableList<Tab> tabList = root.getTabs();
     if (tabList == null) {
       throw new IluvatarRuntimeException("JFXTabLayout: tab list is null");

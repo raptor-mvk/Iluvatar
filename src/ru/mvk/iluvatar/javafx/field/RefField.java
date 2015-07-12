@@ -25,7 +25,7 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
   private Consumer<Type> fieldUpdater = (value) -> {
   };
   @NotNull
-  ListFieldInfo<Type, RefType> refFieldInfo;
+  private final ListFieldInfo<Type, RefType> refFieldInfo;
 
   public RefField(@NotNull ListFieldInfo<Type, RefType> refFieldInfo) {
     int width = refFieldInfo.getWidth();
@@ -53,12 +53,11 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
 
   private void prepareActionHandler() {
     setOnAction((event) -> {
-      @NotNull SingleSelectionModel<RefType> selectionModel = prepareSelectionModel();
-      @Nullable RefType selected = selectionModel.getSelectedItem();
-      if (selected == null) {
+      @Nullable RefType value = getValue();
+      if (value == null) {
         fieldUpdater.accept(null);
       } else {
-        @NotNull Serializable id = selected.getId();
+        @NotNull Serializable id = value.getId();
         @NotNull Type typedId = refFieldInfo.getType().cast(id);
         fieldUpdater.accept(typedId);
       }
@@ -75,10 +74,8 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     if (!(value instanceof Serializable)) {
       throw new IluvatarRuntimeException("RefField: wrong value type");
     }
-    @NotNull SingleSelectionModel<RefType> selectionModel = prepareSelectionModel();
-    @Nullable RefType item;
-    item = refFieldInfo.getFinder().apply((Serializable) value);
-    selectionModel.select(item);
+    @Nullable RefType item = refFieldInfo.getFinder().apply((Serializable) value);
+    setValue(item);
   }
 
   @Override
@@ -87,14 +84,5 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     @NotNull ObservableList<RefType> itemsObservableList =
         FXCollections.observableList(itemsList);
     setItems(itemsObservableList);
-  }
-
-  @NotNull
-  private SingleSelectionModel<RefType> prepareSelectionModel() {
-    @Nullable SingleSelectionModel<RefType> result = getSelectionModel();
-    if (result == null) {
-      throw new IluvatarRuntimeException("RefField: selectionModel is null");
-    }
-    return result;
   }
 }

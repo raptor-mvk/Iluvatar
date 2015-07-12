@@ -18,7 +18,7 @@ public class DaoListAdapter<EntityType extends RefAble,
                                PrimaryKeyType extends Serializable>
     implements ListAdapter<PrimaryKeyType, EntityType> {
   @NotNull
-  Dao<EntityType, PrimaryKeyType> dao;
+  private final Dao<EntityType, PrimaryKeyType> dao;
 
   public DaoListAdapter(@NotNull Dao<EntityType, PrimaryKeyType> dao) {
     this.dao = dao;

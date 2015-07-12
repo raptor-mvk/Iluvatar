@@ -62,6 +62,10 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
 
   abstract Type convertValue(@NotNull String value);
 
+  String valueToString(@NotNull Type value) {
+    return value.toString();
+  }
+
   private void setKeyListeners() {
     setOnKeyPressed((event) -> prevCaretPos = getCaretPosition());
     setOnKeyReleased((event) -> {
@@ -98,14 +102,14 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
   }
 
   @Override
-  public void setFieldUpdater(@NotNull Consumer<Type> fieldUpdater) {
+  public final void setFieldUpdater(@NotNull Consumer<Type> fieldUpdater) {
     this.fieldUpdater = fieldUpdater;
   }
 
   @Override
-  public void setFieldValue(@NotNull Object value) {
+  public final void setFieldValue(@NotNull Object value) {
     if (type.isInstance(value)) {
-      @NotNull String text = value.toString();
+      @NotNull String text = valueToString(type.cast(value));
       setText(text);
     } else {
       throw new IluvatarRuntimeException("SizedTextField: incorrect value type");

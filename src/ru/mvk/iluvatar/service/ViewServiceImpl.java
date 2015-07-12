@@ -148,7 +148,7 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
     selectedIndex = index;
   }
 
-  void setEntity(@Nullable EntityType entity) {
+  private void setEntity(@Nullable EntityType entity) {
     this.entity = entity;
   }
 

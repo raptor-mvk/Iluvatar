@@ -58,19 +58,19 @@ public class ListViewInfoImplUnitTests {
   }
 
   @Test
-  public void setTotalRow_ShouldSetCorrectTotalRow() {
+  public void showTotalRow_ShouldSeTotalRowToTrue() {
     @NotNull Class<Object> entityType = Object.class;
     @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
-    listViewInfo.setTotalRow(true);
+    listViewInfo.showTotalRow();
     boolean totalRow = listViewInfo.isTotalRow();
     Assert.assertTrue("setTotalRow() should set correct value of 'totalRow'", totalRow);
   }
 
   @Test
-  public void setRemoveAllowed_ShouldSetCorrectRemoveAllowed() {
+  public void disableRemove_ShouldSetRemoveAllowedToFalse() {
     @NotNull Class<Object> entityType = Object.class;
     @NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
-    listViewInfo.setRemoveAllowed(false);
+    listViewInfo.disableRemove();
     boolean removeAllowed = listViewInfo.isRemoveAllowed();
     Assert.assertFalse("setRemoveAllowed() should set correct value of 'removeAllowed'",
                           removeAllowed);

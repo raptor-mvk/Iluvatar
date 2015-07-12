@@ -19,18 +19,22 @@ public class NaturalField<Type> extends SizedTextField<Type> {
 
   public NaturalField(@NotNull NumberFieldInfo<Type> fieldInfo) {
     super(fieldInfo.getWidth(), fieldInfo.getType());
-    naturalMatcher = Pattern.compile("(\\d){0," + getMaxLength() + "}").matcher("");
+    naturalMatcher = Pattern.compile("^(\\d){0," + getMaxLength() + "}$").matcher("");
   }
 
   @Override
-  protected boolean check(@NotNull String value) {
+  boolean check(@NotNull String value) {
     return naturalMatcher.reset(value).matches();
+  }
+
+  boolean isZeroValued(@NotNull String value) {
+    return value.isEmpty();
   }
 
   @Override
   protected Type convertValue(@NotNull String value) {
     @NotNull Type result;
-    if (value.isEmpty()) {
+    if (isZeroValued(value)) {
       value = "0";
     }
     try {

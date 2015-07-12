@@ -6,11 +6,9 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
-@Deprecated
-@Ignore
 public class IntegerFieldInfoUnitTests {
   @Test
   public void constructor_ShouldSetName() {
@@ -30,6 +28,11 @@ public class IntegerFieldInfoUnitTests {
     int fieldWidth = integerFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
                            fieldWidth);
+  }
+
+  @Test(expected = IluvatarRuntimeException.class)
+  public void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException() {
+    new IntegerFieldInfo<>(Integer.class, "test", -3);
   }
 
   @Test

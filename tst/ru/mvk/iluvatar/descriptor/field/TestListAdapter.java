@@ -45,7 +45,7 @@ public class TestListAdapter implements ListAdapter<Integer, Student> {
     return (id) -> {
       @Nullable Student result = null;
       for (Student student : students) {
-        if (student.getId() == id) {
+        if (student.getId().equals(id)) {
           result = student;
           break;
         }

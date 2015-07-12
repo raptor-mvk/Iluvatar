@@ -45,8 +45,8 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
   }
 
   @Override
-  public void setTotalRow(boolean totalRow) {
-    this.totalRow = totalRow;
+  public void showTotalRow() {
+    this.totalRow = true;
   }
 
   @Override
@@ -55,8 +55,8 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
   }
 
   @Override
-  public void setRemoveAllowed(boolean removeAllowed) {
-    this.removeAllowed = removeAllowed;
+  public void disableRemove() {
+    this.removeAllowed = false;
   }
 
   @NotNull

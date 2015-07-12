@@ -58,7 +58,7 @@ public class RefFieldUITests extends UITests<RefField<Integer, Student>> {
     runAndWait(field::reload);
     runAndWait(() -> field.setFieldValue(id));
     System.out.println("after");
-    @Nullable Student fieldSelectedItem = getRefFieldSelected(field);
+    @Nullable Student fieldSelectedItem = field.getValue();
     Assert.assertEquals("setFieldValue should select correct value", expectedItem,
                            fieldSelectedItem);
   }
@@ -70,7 +70,7 @@ public class RefFieldUITests extends UITests<RefField<Integer, Student>> {
     safeClickById(ID);
     type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
     @NotNull Student expectedItem = studentList.get(1);
-    @Nullable Student fieldSelectedItem = getRefFieldSelected(field);
+    @Nullable Student fieldSelectedItem = field.getValue();
     Assert.assertEquals("selection should set correct value", expectedItem,
                            fieldSelectedItem);
   }
@@ -93,12 +93,14 @@ public class RefFieldUITests extends UITests<RefField<Integer, Student>> {
     student.setId(5);
     student.setName("First");
     result.add(student);
-    student.setId(3);
-    student.setName("Second");
-    result.add(student);
-    student.setId(8);
-    student.setName("Third");
-    result.add(student);
+    @NotNull Student student2 = new Student();
+    student2.setId(3);
+    student2.setName("Second");
+    result.add(student2);
+    @NotNull Student student3 = new Student();
+    student3.setId(8);
+    student3.setName("Third");
+    result.add(student3);
     return result;
   }
 }

@@ -14,8 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 import ru.mvk.iluvatar.descriptor.column.ViewFormatter;
 
-class JFXTableColumn<EntityType, CellType>
-    extends TableColumn<EntityType, CellType> {
+class JFXTableColumn<EntityType, CellType> extends TableColumn<EntityType, CellType> {
   @NotNull
   private final ColumnInfo columnInfo;
   @NotNull
@@ -63,7 +62,7 @@ class JFXTableColumn<EntityType, CellType>
     });
   }
 
-  protected String getStringSuffix() {
+  String getStringSuffix() {
     return "";
   }
 }

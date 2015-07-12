@@ -57,7 +57,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
   public void fieldValuesShouldBeCorrect() {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-    assertFieldsHaveCorrectValues(view, iterator, student);
+    assertFieldsValues(view, iterator, student);
   }
 
   @Test
@@ -88,7 +88,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
   public void nodesTabOrderShouldBeCorrect() {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-    assertNodesHaveCorrectTabOrder(view, iterator);
+    assertNodesOrder(view, iterator);
   }
 
   @Test
@@ -205,7 +205,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull String fieldId = view.getFieldId("neighbour");
     safeClickById(fieldId);
-    type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+    type(KeyCode.UP).type(KeyCode.ENTER);
     int expectedNeighbourValue = studentList.get(1).getId();
     int studentNeighbourValue = student.getNeighbour();
     Assert.assertEquals("selection into 'neighbour' field should set value of " +
@@ -246,7 +246,8 @@ public class JFXViewUITests extends UITests<View<Student>> {
     @NotNull ViewInfo<Student> result = new ViewInfoImpl<>(Student.class);
     result.addFieldInfo("id", new NaturalFieldInfo<>(Integer.class, "id", 10));
     result.addFieldInfo("name", new TextFieldInfo("name", 100));
-    result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa", 5));
+    result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa",
+                                                      new FloatDescriptor(5, 2)));
     result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
     result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
     @NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
@@ -263,7 +264,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     result.setPenalty((short) -2);
     result.setGraduated(false);
     result.setLecturesTime(113560);
-    result.setNeighbour(1);
+    result.setNeighbour(2);
     return result;
   }
 
@@ -273,12 +274,14 @@ public class JFXViewUITests extends UITests<View<Student>> {
     student.setId(3);
     student.setName("Jim Wealth");
     result.add(student);
-    student.setId(5);
-    student.setName("Tony Peterson");
-    result.add(student);
-    student.setId(2);
-    student.setName("Richard Somebody");
-    result.add(student);
+    @NotNull Student student2 = new Student();
+    student2.setId(5);
+    student2.setName("Tony Peterson");
+    result.add(student2);
+    @NotNull Student student3 = new Student();
+    student3.setId(2);
+    student3.setName("Richard Somebody");
+    result.add(student3);
     return result;
   }
 }

@@ -1,7 +1,320 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <entry_points version="2.0" />
+    <entry_points version="2.0">
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void viewFormatter_ShouldReturnPlusForTrueValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void viewFormatter_ShouldReturnMinusForFalseValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void viewFormatter_ShouldReturnEmptyStringForNonBooleanValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.BooleanColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.field.CheckBoxFieldUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.CheckBoxInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.dao.DaoImplUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.service.ViewServiceDescriptorUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.TextFieldInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.field.RefFieldUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewNoRemoveUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.IntegerFieldInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.FloatDescriptorTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplRead_ShouldReturnDatabaseEntry()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplRead_WrongId_ShouldReturnNull()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplCreate_ShouldCreateDatabaseEntry()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplUpdate_NoEntry_ShouldNotCreateDatabaseEntry()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplUpdate_ShouldUpdateDatabaseEntry()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplDelete_ShouldDeleteDatabaseEntry()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplDelete_WrongEntity_ShouldNotThrowException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplList_NameFalse_ShouldReturnAllEntriesSortedInDescendingOrderById()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplList_ShouldReturnAllEntries()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void daoImplList_IdTrue_ShouldReturnAllEntriesSortedInAscendingOrderById()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerIsDbSuitable_NoDb_ShouldReturnFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerGetDbVersion_NoDb_ShouldReturnZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerIsDbSuitable_ShouldReturnTrueWhenAppIdIsCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerGetDbVersion_ShouldReturnCorrectDbVersion()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerUpdateDb_ShouldSetDbVersionValueToAppDbVersion()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void createDb_ShouldSetDbVersionValueToAppDbVersion()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void createDb_ShouldSetAppIdValueToAppId()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerUpdateDb_TooLargeVersion_ShouldReturnFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.integration.DbIntegrationTests void dbControllerUpdateDb_TooLargeVersion_ShouldNotChangeDbVersion()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void registerLocale_CorrectPropertiesFileName_ShouldReturnTrue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void registerLocale_WrongPropertiesFileName_ShouldReturnFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void apply_ResourceName_ShouldReturnResourceValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void apply_ResourceNameNotFound_ShouldReturnResourceName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void apply_ResourceNameAndLocaleNotSet_ShouldReturnResourceName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void setLocale_RegisteredLocale_ShouldReturnTrue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void setLocale_LocaleNotRegistered_ShouldReturnFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.properties.BundleStringSupplierIntegrationTests void registerLocale_LocaleWasNotSet_ShouldCallSetLocale()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.CheckBoxFieldUITests void clickTwice_ShouldSetValueToTrue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.CheckBoxFieldUITests void click_ShouldSetValueToFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.CheckBoxInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.dao.DaoImplUnitTests void constructor_ShouldSetPrimaryKeyType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.dao.DaoImplUnitTests void constructor_ShouldSetEntityType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForDurationMoreThan100Hours()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForRealDurationMoreThanHour()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForIntegerDurationMoreThanHour()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForRealDurationLessThanHour()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForIntegerDurationLessThanHour()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnEmptyStringForShortValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void viewFormatter_ShouldReturnEmptyStringForLongValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.DurationColumnInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void pasteFromClipboardIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void inputWrongCharacterInsideText_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void inputIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void longMixedPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void shortMixedPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void longRealPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void shortRealPasteFromClipboard_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void longMixedInput_FieldShouldContainOnlyNumberTruncatedToMaxLength()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void shortMixedInput_FieldShouldContainOnlyNumber()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void longRealInput_FieldShouldContainTruncatedText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void longFractionInput_FieldShouldContainTruncatedText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void shortRealInput_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void emptyField_SetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void inputMinusPoint_ShouldSetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void inputPoint_ShouldSetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void inputMinus_ShouldSetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void input_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldNotAcceptLongType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldNotAcceptIntegerType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldNotAcceptShortType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldNotAcceptByteType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldAcceptDoubleType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldAcceptFloatType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldSetType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldSetFractionWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void setFieldValue_LongText_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void setFieldValue_EmptyText_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void setFieldValue_ShortText_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void pasteFromClipboardIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void inputInsideFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void inputIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void longPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void shortPasteFromClipboard_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void longInput_FieldShouldContainTruncatedText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void shortInput_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.LimitedTextFieldUITests void input_ShouldSetValue()" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void escapeKey_ShouldCallCancelButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void enterKey_ShouldCallSaveButtonHandlerWithTrueParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void clickOntoGraduatedField_ShouldSetGraduatedValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void inputIntoPenaltyField_ShouldSetPenaltyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void inputIntoGpaField_ShouldSetGpaValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void inputIntoNameField_ShouldSetNameValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void inputIntoIdField_ShouldSetIdValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void clickCancel_ShouldCallCancelButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void clickSave_ShouldCallSaveButtonHandlerWithTrueParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void cancelButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void saveButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void nodesTabOrderShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void fieldsShouldBeOfCorrectTypes()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void fieldValuesShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewNewEntityUITests void fieldLabelsShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void setFieldValue_MixedText_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void setFieldValue_LongNumber_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void setFieldValue_EmptyText_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void setFieldValue_ShortNumber_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void pasteFromClipboardIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void inputWrongCharacterInsideText_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void inputIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void longMixedPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void shortMixedPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void longIntegerPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void shortIntegerPasteFromClipboard_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void shortRealInput_FieldShouldContainOnlyDigits()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void longMixedInput_FieldShouldContainOnlyIntegerTruncatedToMaxLength()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void shortMixedInput_FieldShouldContainOnlyInteger()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void longIntegerInput_FieldShouldContainTruncatedText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void shortIntegerInput_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void inputMinus_ShouldSetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void emptyField_SetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void input_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.IntegerFieldInfoUnitTests void constructor_ShouldSetType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.IntegerFieldInfoUnitTests void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.IntegerFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.IntegerFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForSizeMoreThan1024Tb()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForSizeMoreThanTb()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForSizeLessThanTb()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForSizeLessThanGb()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForSizeLessThanMb()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnCorrectValueForSizeLessThanKb()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void viewFormatter_ShouldReturnEmptyStringForIntegerValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.FileSizeColumnInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.FloatDescriptorTests void constructor_TooLargeFractionWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.FloatDescriptorTests void constructor_NonPositiveFractionWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.FloatDescriptorTests void constructor_NonPositiveMaxWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.FloatDescriptorTests void constructor_ShouldSetFractionWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.FloatDescriptorTests void constructor_ShouldSetMaxWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewNoRemoveUITests void listViewInfoRemoveAllowedIsFalse_RemoveButtonShouldBeInvisible()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void totalRowSelection_RemoveButtonShouldBeDisabled()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void totalRowSelection_EditButtonShouldBeDisabled()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void totalRowShouldContainTotalSupplierResult()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void deleteKey_noSelection_ShouldDoNothing()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void enterKey_noSelection_ShouldDoNothing()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void deleteKey_ShouldCallRemoveButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void enterKey_ShouldCallEditButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void insertKey_ShouldCallAddButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void noSelection_RemoveButtonShouldBeDisabled()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void noSelection_EditButtonShouldBeDisabled()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void clickRemove_ShouldCallRemoveButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void clickEdit_ShouldCallEditButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void clickAdd_ShouldCallAddButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void removeButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void editButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void addButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void moveSelection_ShouldCallSelectedIndexSetter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void moveSelection_ShouldCallSelectedItemSetter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByEntity_WrongEntity_ShouldCallSelectedIndexSetterNegativeIndex()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByEntity_WrongEntity_ShouldCallSelectedItemSetterNullParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByEntity_WrongEntity_ShouldSelectNothing()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByEntity_CorrectEntity_ShouldCallSelectedIndexSetter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByEntity_CorrectEntity_ShouldCallSelectedItemSetter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByEntity_CorrectEntity_ShouldSelectCorrectRow()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_TooLarge_ShouldCallSelectedIndexSetterNegativeIndex()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_TooLarge_ShouldCallSelectedItemSetterNullParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_TooLarge_ShouldSelectNothing()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_Negative_ShouldCallSelectedIndexSetterNegativeIndex()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_Negative_ShouldCallSelectedItemSetterNullParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_Negative_ShouldSelectNothing()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_Positive_ShouldCallSelectedIndexSetter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_Positive_ShouldCallSelectedItemSetter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void selectRowByIndex_Positive_ShouldSelectCorrectRow()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void clearSelection_ShouldCallSelectedIndexSetterNegativeIndex()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void clearSelection_ShouldCallSelectedItemSetterNullParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void clearSelection_ShouldSelectNothing()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void tableShouldContainStudentsData()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void columnLabelsShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXListViewUITests void tableShouldHaveCorrectNumberOfColumns()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void escapeKey_ShouldCallCancelButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void enterKey_ShouldCallSaveButtonHandlerWithFalseParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void selectionInNeighbourField_ShouldSetNeighbourValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void clickOntoGraduatedField_ShouldSetGraduatedValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void inputIntoPenaltyField_ShouldSetPenaltyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void inputIntoGpaField_ShouldSetGpaValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void inputIntoNameField_ShouldSetNameValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void inputIntoIdField_ShouldSetIdValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void clickCancel_ShouldCallCancelButtonHandler()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void clickSave_ShouldCallSaveButtonHandlerWithFalseParameter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void cancelButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void saveButton_ShouldHaveCorrectCaption()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void nodesTabOrderShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void neighbourField_ShouldContainCorrectList()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void fieldsShouldBeOfCorrectTypes()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void fieldValuesShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.JFXViewUITests void fieldLabelsShouldBeCorrect()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void getIterator_ShouldMaintainOrderOfAddition()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void addColumnInfo_ShouldAddGettableColumnInfo()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void addColumnInfo_ShouldIncreaseColumnsCount()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void disableRemove_ShouldSetRemoveAllowedToFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void showTotalRow_ShouldSeTotalRowToTrue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void getColumn_IllegalKey_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void constructor_ShouldSetRemoveAllowedToTrue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void constructor_ShouldSetTotalRowToFalse()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void constructor_ShouldSetEntityType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ListViewInfoImplUnitTests void constructor_ShouldSetColumnsCountToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests void viewFormatter_ShouldReturnSecondHalfOfStringValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests void viewFormatter_ShouldReturnEmptyStringForIntegerValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.LowerStringColumnInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldNotAcceptObjectType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldAcceptDoubleType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldAcceptFloatType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldAcceptLongType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldAcceptIntegerType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldAcceptShortType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldAcceptByteType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldSetType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.NaturalFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void setFieldValue_MixedText_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void setFieldValue_LongNumber_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void setFieldValue_EmptyText_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void setFieldValue_ShortNumber_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void pasteFromClipboardIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void inputWrongCharacterInsideText_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void inputIntoFilledField_ShouldNotMoveCaret()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void longMixedPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void shortMixedPasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void longNonNegativePasteFromClipboard_FieldShouldContainNoText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void shortNonNegativePasteFromClipboard_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void shortRealInput_FieldShouldContainOnlyDigits()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void shortNegativeInput_FieldShouldContainOnlyPositivePart()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void longMixedInput_FieldShouldContainOnlyDigitsTruncatedToMaxLength()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void shortMixedInput_FieldShouldContainOnlyDigits()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void longNonNegativeInput_FieldShouldContainTruncatedText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void shortNonNegativeInput_FieldShouldContainWholeText()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void emptyField_ShouldSetValueToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.NaturalFieldUITests void input_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.service.ViewServiceDescriptorUnitTests void getEntityType_ShouldReturnCorrectEntityType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.service.ViewServiceDescriptorUnitTests void constructor_ShouldSetListViewInfo()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.service.ViewServiceDescriptorUnitTests void constructor_ShouldSetViewInfo()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.service.ViewServiceDescriptorUnitTests void constructor_ShouldSetDao()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests void getIterator_ShouldMaintainOrderOfAddition()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests void addFieldInfo_ShouldAddGettableFieldInfo()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests void addFieldInfo_ShouldIncreaseFieldsCount()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests void getField_IllegalKey_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests void constructor_ShouldSetEntityType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.ViewInfoImplUnitTests void constructor_ShouldSetFieldsCountToZero()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.TextFieldInfoUnitTests void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.TextFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.TextFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RefFieldUITests void selection_shouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RefFieldUITests void setFieldValue_shouldSelectValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RefFieldUITests void shouldContainSuppliedListAfterReload()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RefFieldUITests void shouldBeNoValuesBeforeReload()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_ShouldSetFinder()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_ShouldSetListSupplier()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_ShouldSetRefType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_ShouldSetType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RefFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests void viewFormatter_ShouldDoNothingForStringValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests void viewFormatter_ShouldCallToStringForIntegerValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.StringColumnInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_MixedText_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_LongNumber_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_MinusAndPoint_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_Point_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_Minus_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_EmptyText_ShouldSetEmptyValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_LongFraction_ShouldNotChangeValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_ShortNumber_ShouldSetValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void setFieldValue_Minus_ShouldSetEmptyValue()" />
+    </entry_points>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />

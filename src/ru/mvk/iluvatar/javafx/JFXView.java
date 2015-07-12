@@ -15,7 +15,6 @@ import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.ViewInfo;
-import ru.mvk.iluvatar.descriptor.field.ListFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.NamedFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
@@ -56,6 +55,7 @@ public class JFXView<EntityType> implements View<EntityType> {
   @NotNull
   private final StringSupplier stringSupplier;
 
+  /* TODO extract private methods */
   public JFXView(@NotNull ViewInfo<EntityType> viewInfo,
                  @NotNull StringSupplier stringSupplier) {
     @NotNull Class<EntityType> entityType = viewInfo.getEntityType();
@@ -218,7 +218,7 @@ public class JFXView<EntityType> implements View<EntityType> {
     try {
       @NotNull Node field = getFieldNode(fieldKey);
       if (field instanceof RefList) {
-        ((RefList)field).reload();
+        ((RefList) field).reload();
       }
       @NotNull PropertyDescriptor propertyDescriptor =
           getPropertyDescriptor(fieldKey, object);
@@ -247,7 +247,7 @@ public class JFXView<EntityType> implements View<EntityType> {
   }
 
   @NotNull
-  public Node getField(@NotNull NamedFieldInfo fieldInfo) {
+  private Node getField(@NotNull NamedFieldInfo fieldInfo) {
     @Nullable Object fieldInstance = null;
     @Nullable String fieldClassName = fieldInfo.getJFXFieldClassName();
     @Nullable Class<?> fieldClass;

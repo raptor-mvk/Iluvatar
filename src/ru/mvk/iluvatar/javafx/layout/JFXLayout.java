@@ -36,6 +36,7 @@ public abstract class JFXLayout implements Layout {
     return new JFXView<>(viewInfo, stringSupplier);
   }
 
+  @SuppressWarnings("WeakerAccess")
   public void setStage(@Nullable Stage stage) {
     this.stage = stage;
   }

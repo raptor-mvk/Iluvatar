@@ -30,6 +30,11 @@ public class NaturalFieldInfoUnitTests {
                            fieldWidth);
   }
 
+  @Test(expected = IluvatarRuntimeException.class)
+  public void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException() {
+    new NaturalFieldInfo<>(Long.class, "wrong", -7);
+  }
+
   @Test
   public void constructor_ShouldSetType() {
     @NotNull Class<Short> type = Short.class;

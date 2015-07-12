@@ -24,9 +24,7 @@ import ru.mvk.iluvatar.utils.UITests;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
@@ -39,6 +37,8 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
   private final Consumer<Boolean> saveButtonHandler = saveButtonState::setValue;
   @NotNull
   private final Runnable cancelButtonHandler = () -> cancelButtonState.setValue(true);
+  @NotNull
+  private final List<Student> studentList = prepareStudents();
   @NotNull
   private final ViewInfo<Student> viewInfo = prepareViewInfo();
   @NotNull
@@ -57,9 +57,18 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
   public void fieldValuesShouldBeCorrect() {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-    assertFieldsHaveCorrectValues(view, iterator, student);
+    assertFieldsValues(view, iterator, student);
   }
 
+  @Test
+  public void neighbourField_ShouldContainCorrectList() {
+    @NotNull View<Student> view = getObjectUnderTest();
+    @NotNull String fieldId = view.getFieldId("neighbour");
+    @NotNull RefField<Integer, Student> field = safeFindById(fieldId);
+    @NotNull List<Student> fieldItems = getRefFieldItems(field);
+    Assert.assertEquals("neighbour field should contain correct value list",
+                           studentList, fieldItems);
+  }
   @Test
   public void fieldsShouldBeOfCorrectTypes() {
     @NotNull View<Student> view = getObjectUnderTest();
@@ -70,6 +79,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     nodeTypes.put("gpa", RealField.class);
     nodeTypes.put("penalty", IntegerField.class);
     nodeTypes.put("graduated", CheckBoxField.class);
+    nodeTypes.put("neighbour", RefField.class);
     assertFieldsHaveCorrectTypes(view, iterator, nodeTypes);
   }
 
@@ -77,7 +87,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
   public void nodesTabOrderShouldBeCorrect() {
     @NotNull View<Student> view = getObjectUnderTest();
     @NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-    assertNodesHaveCorrectTabOrder(view, iterator);
+    assertNodesOrder(view, iterator);
   }
 
   @Test
@@ -190,6 +200,18 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
   }
 
   @Test
+  public void selectionInNeighbourField_ShouldSetNeighbourValue() {
+    @NotNull View<Student> view = getObjectUnderTest();
+    @NotNull String fieldId = view.getFieldId("neighbour");
+    safeClickById(fieldId);
+    type(KeyCode.DOWN).type(KeyCode.DOWN).type(KeyCode.ENTER);
+    int expectedNeighbourValue = studentList.get(2).getId();
+    int studentNeighbourValue = student.getNeighbour();
+    Assert.assertEquals("selection into 'neighbour' field should set value of " +
+                            "'neighbour'", expectedNeighbourValue, studentNeighbourValue);
+  }
+
+  @Test
   public void enterKey_ShouldCallSaveButtonHandlerWithTrueParameter() {
     saveButtonState.setValue(false);
     push(KeyCode.ENTER);
@@ -222,8 +244,11 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
   private ViewInfo<Student> prepareViewInfo() {
     @NotNull ViewInfo<Student> result = new ViewInfoImpl<>(Student.class);
     result.addFieldInfo("id", new NaturalFieldInfo<>(Integer.class, "id", 10));
+    @NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
+    result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
     result.addFieldInfo("name", new TextFieldInfo("name", 100));
-    result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa", 5));
+    result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa",
+                                                      new FloatDescriptor(5, 2)));
     result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
     result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
     return result;
@@ -238,6 +263,24 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
     result.setPenalty((short) -100);
     result.setGraduated(true);
     result.setLecturesTime(91378);
+    result.setNeighbour(1);
+    return result;
+  }
+
+  private List<Student> prepareStudents() {
+    @NotNull List<Student> result = new ArrayList<>();
+    @NotNull Student student = new Student();
+    student.setId(1);
+    student.setName("Bill Pointy");
+    result.add(student);
+    @NotNull Student student2 = new Student();
+    student2.setId(4);
+    student2.setName("Gabriel Locust");
+    result.add(student2);
+    @NotNull Student student3 = new Student();
+    student3.setId(3);
+    student3.setName("Jimmy Finch");
+    result.add(student3);
     return result;
   }
 }

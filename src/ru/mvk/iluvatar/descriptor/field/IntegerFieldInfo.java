@@ -6,7 +6,6 @@ package ru.mvk.iluvatar.descriptor.field;
 
 import org.jetbrains.annotations.NotNull;
 
-@Deprecated
 public class IntegerFieldInfo<Type> extends NaturalFieldInfo<Type> {
   public IntegerFieldInfo(@NotNull Class<Type> type, @NotNull String name, int width) {
     super(type, name, width);

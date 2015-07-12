@@ -58,7 +58,7 @@ public class JFXListViewNoRemoveUITests extends UITests<ListView<Student>> {
     result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));
     result.addColumnInfo("fileSize", new FileSizeColumnInfo("fileSize", 10));
     result.addColumnInfo("lecturesTime", new DurationColumnInfo("lecturesTime", 8));
-    result.setRemoveAllowed(false);
+    result.disableRemove();
     return result;
   }
 }

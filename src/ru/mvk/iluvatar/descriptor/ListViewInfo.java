@@ -17,11 +17,11 @@ public interface ListViewInfo<EntityType> {
 
   boolean isTotalRow();
 
-  void setTotalRow(boolean totalRow);
+  void showTotalRow();
 
   boolean isRemoveAllowed();
 
-  void setRemoveAllowed(boolean removeAllowed);
+  void disableRemove();
 
   @NotNull
   Iterator<Entry<String, ColumnInfo>> getIterator();

@@ -23,5 +23,5 @@ public interface ListFieldInfo<Type extends Serializable, RefType extends RefAbl
   Supplier<List<RefType>> getListSupplier();
 
   @NotNull
-  public Function<Serializable, RefType> getFinder();
+  Function<Serializable, RefType> getFinder();
 }

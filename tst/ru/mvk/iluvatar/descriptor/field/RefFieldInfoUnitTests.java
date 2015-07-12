@@ -7,7 +7,9 @@ package ru.mvk.iluvatar.descriptor.field;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
+import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.test.Student;
+import ru.mvk.iluvatar.utils.PowerMockUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,11 @@ public class RefFieldInfoUnitTests {
     int fieldWidth = refFieldInfo.getWidth();
     Assert.assertEquals("constructor should set correct value of 'width'", width,
                            fieldWidth);
+  }
+
+  @Test(expected = IluvatarRuntimeException.class)
+  public void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException() {
+    new RefFieldInfo<>("catch", -1, PowerMockUtils.mock(TestListAdapter.class));
   }
 
   @Test

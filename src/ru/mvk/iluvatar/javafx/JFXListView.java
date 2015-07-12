@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/* TODO extract private methods */
 public class JFXListView<EntityType> implements ListView<EntityType> {
   @NotNull
   private final GridPane gridPane;
