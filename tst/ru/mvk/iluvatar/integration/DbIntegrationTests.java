@@ -162,8 +162,9 @@ public class DbIntegrationTests {
       @NotNull List<TestObject> expectedList = prepareList();
       prepareDbWithTestObjectList(expectedList);
       @NotNull List<TestObject> list = dao.list();
-      boolean listsAreEqual = expectedList.size() == list.size() &&
-                                  expectedList.containsAll(list) && list.containsAll(expectedList);
+      boolean listsAreEqual =
+          expectedList.size() == list.size() && expectedList.containsAll(list) &&
+              list.containsAll(expectedList);
       Assert.assertTrue("list() should return all database entries", listsAreEqual);
     } finally {
       sqLiteHelper.removeDbFile(sessionFactory, DB_FILENAME);
@@ -178,8 +179,9 @@ public class DbIntegrationTests {
       @NotNull List<TestObject> expectedList = prepareList();
       prepareDbWithTestObjectList(expectedList);
       @NotNull List<TestObject> list = dao.orderedList("name", false);
-      boolean listsAreEqual = expectedList.size() == list.size() &&
-                                  expectedList.containsAll(list) && list.containsAll(expectedList);
+      boolean listsAreEqual =
+          expectedList.size() == list.size() && expectedList.containsAll(list) &&
+              list.containsAll(expectedList);
       for (int i = 1, count = list.size(); i < count; i++) {
         @NotNull String previousTestObjectName = list.get(i - 1).getName();
         @NotNull String currentTestObjectName = list.get(i).getName();
@@ -201,8 +203,9 @@ public class DbIntegrationTests {
       @NotNull List<TestObject> expectedList = prepareList();
       prepareDbWithTestObjectList(expectedList);
       @NotNull List<TestObject> list = dao.orderedList("id", true);
-      boolean listsAreEqual = expectedList.size() == list.size() &&
-                                  expectedList.containsAll(list) && list.containsAll(expectedList);
+      boolean listsAreEqual =
+          expectedList.size() == list.size() && expectedList.containsAll(list) &&
+              list.containsAll(expectedList);
       for (int i = 1, count = list.size(); i < count; i++) {
         @NotNull TestObject previousTestObject = list.get(i - 1);
         @NotNull TestObject currentObject = list.get(i);
@@ -316,7 +319,7 @@ public class DbIntegrationTests {
   }
 
   @Test
-  public void createDb_ShouldSetDbVersionValueToAppDbVersion() {
+  public void dbControllerCreateDb_ShouldSetDbVersionValueToAppDbVersion() {
     try {
       @NotNull DbController dbController =
           new SQLiteTestDbController(hibernateAdapter, APP_ID, APP_DB_VERSION);
@@ -330,7 +333,7 @@ public class DbIntegrationTests {
   }
 
   @Test
-  public void createDb_ShouldSetAppIdValueToAppId() {
+  public void dbControllerCreateDb_ShouldSetAppIdValueToAppId() {
     try {
       @NotNull DbController dbController =
           new SQLiteTestDbController(hibernateAdapter, APP_ID, APP_DB_VERSION);

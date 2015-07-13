@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class SQLiteAbstractDbController implements DbController {
@@ -41,8 +43,9 @@ public abstract class SQLiteAbstractDbController implements DbController {
     @Nullable Boolean result;
     if (dbVersion <= appDbVersion) {
       result = hibernateAdapter.executeInTransaction((session) -> {
-        @NotNull Query query = hibernateAdapter.prepareSqlQuery("pragma user_version=" +
-                                                                    appDbVersion + ';', session);
+        @NotNull Query query =
+            hibernateAdapter.prepareSqlQuery("pragma user_version=" + appDbVersion + ';',
+                                                session);
         return (query.executeUpdate() == 0);
       });
     } else {
@@ -59,10 +62,12 @@ public abstract class SQLiteAbstractDbController implements DbController {
     long appId = getAppId();
     long appDbVersion = getAppDbVersion();
     @Nullable Boolean result = hibernateAdapter.executeInTransaction((session) -> {
-      @NotNull Query idQuery = hibernateAdapter.prepareSqlQuery("pragma application_id=" +
-                                                                    appId + ';', session);
-      @NotNull Query dbVersionQuery = hibernateAdapter.prepareSqlQuery("pragma " +
-                                                                           "user_version=" + appDbVersion + ';', session);
+      @NotNull Query idQuery =
+          hibernateAdapter.prepareSqlQuery("pragma application_id=" + appId + ';',
+                                              session);
+      @NotNull Query dbVersionQuery =
+          hibernateAdapter.prepareSqlQuery("pragma user_version=" + appDbVersion + ';',
+                                              session);
       return (idQuery.executeUpdate() == 0) && (dbVersionQuery.executeUpdate() == 0);
     });
     if (result == null) {
@@ -76,6 +81,22 @@ public abstract class SQLiteAbstractDbController implements DbController {
       @NotNull Query query = hibernateAdapter.prepareSqlQuery(sql, session);
       return query.executeUpdate();
     });
+  }
+
+  protected void executeList(@NotNull List<String> sqlList) {
+    hibernateAdapter.executeInTransaction((session) -> {
+      int result = 0;
+      for (String sql : sqlList) {
+        @NotNull Query query = hibernateAdapter.prepareSqlQuery
+                                                    (sql, session);
+        result += query.executeUpdate();
+      }
+      return result;
+    });
+  }
+
+  protected void executeArray(@NotNull String[] sqlList) {
+    executeList(Arrays.asList(sqlList));
   }
 
   @NotNull
