@@ -4,10 +4,15 @@
 
 package ru.mvk.iluvatar.javafx.field;
 
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -26,9 +31,12 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
   };
   @NotNull
   private final ListFieldInfo<Type, RefType> refFieldInfo;
+  @NotNull
+  private String prefix;
 
   public RefField(@NotNull ListFieldInfo<Type, RefType> refFieldInfo) {
     int width = refFieldInfo.getWidth();
+    prefix = "";
     if (width <= 0) {
       throw new IluvatarRuntimeException("RefField: non-positive width");
     }
@@ -39,6 +47,9 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     } else {
       setAllWidths(width * 2);
     }
+    prepareEscapeHandler();
+    prepareFocusHandler();
+    prepareKeyHandler();
     prepareActionHandler();
   }
 
@@ -54,12 +65,48 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
   private void prepareActionHandler() {
     setOnAction((event) -> {
       @Nullable RefType value = getValue();
-      if (value == null) {
-        fieldUpdater.accept(null);
-      } else {
+      if (value != null) {
         @NotNull Serializable id = value.getId();
         @NotNull Type typedId = refFieldInfo.getType().cast(id);
         fieldUpdater.accept(typedId);
+      }
+    });
+  }
+
+  private void prepareEscapeHandler() {
+    addEventFilter(KeyEvent.KEY_RELEASED, (event) -> {
+      if (event.getCode() == KeyCode.ESCAPE) {
+        prefix = "";
+        selectItemByPrefix();
+        event.consume();
+      }
+    });
+  }
+
+  private void prepareFocusHandler() {
+    @Nullable ReadOnlyBooleanProperty focused = focusedProperty();
+    if (focused == null) {
+      throw new IluvatarRuntimeException("RefField: focused property is null");
+    }
+    focused.addListener((observable, oldValue, newValue) -> {
+      if (!newValue) {
+        prefix = "";
+      }
+    });
+  }
+
+  private void prepareKeyHandler() {
+    setOnKeyReleased((event) -> {
+      int prefixLength = prefix.length();
+      if (event.getCode() == KeyCode.BACK_SPACE && prefixLength > 0) {
+        prefix = prefix.substring(0, prefixLength - 1);
+        selectItemByPrefix();
+      } else if (event.getCode() != KeyCode.ENTER){
+        @Nullable String text = event.getText();
+        if (text != null && !text.isEmpty()) {
+          prefix += event.getText();
+          selectItemByPrefix();
+        }
       }
     });
   }
@@ -83,6 +130,26 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     @NotNull List<RefType> itemsList = refFieldInfo.getListSupplier().get();
     @NotNull ObservableList<RefType> itemsObservableList =
         FXCollections.observableList(itemsList);
+    FXCollections.sort(itemsObservableList, new RefComparator<>());
     setItems(itemsObservableList);
+  }
+
+  private void selectItemByPrefix() {
+    @NotNull List<RefType> itemsList = getItems();
+    int count = itemsList.size();
+    int result = -1;
+    if (count > 0) {
+      for (int i = 0; i < count && result < 0; i++) {
+        if (prefix.compareToIgnoreCase(itemsList.get(i).toString()) <= 0) {
+          result = i;
+        }
+      }
+      if (result < 0) {
+        result = count - 1;
+      }
+    } else {
+      result = 0;
+    }
+    setValue(itemsList.get(result));
   }
 }

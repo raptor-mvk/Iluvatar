@@ -352,7 +352,8 @@ public class JFXView<EntityType> implements View<EntityType> {
           }
           writeMethod.invoke(object, fieldValue);
         } catch (IllegalAccessException | InvocationTargetException e) {
-          throw new IluvatarRuntimeException("JFXView: Could not access field");
+          throw new IluvatarRuntimeException("JFXView: Could not access field " +
+                                                 propertyDescriptor.getName());
         }
       });
     }

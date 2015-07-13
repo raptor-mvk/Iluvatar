@@ -21,6 +21,7 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
   private final Class<Type> type;
   private boolean badValue = false;
   private boolean needCaretPos = false;
+  private boolean needCheck = true;
   private int prevCaretPos = -1;
   private final int maxLength;
 
@@ -42,8 +43,8 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
 
   private void setAllWidths(int length) {
     // 0.75 is a ratio of conversion from font size to average letter width
-    Font defaultFont = Font.getDefault();
-    double width = length * defaultFont.getSize() * 0.75;
+    @NotNull Font defaultFont = Font.getDefault();
+    double width =  defaultFont.getSize() * (0.7 * length + 1.5);
     setMinWidth(width);
     setMaxWidth(width);
     setMaxWidth(width);
@@ -82,20 +83,22 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
       throw new IluvatarRuntimeException("SizedTextField: textProperty is null");
     }
     fieldTextProperty.addListener((obsValue, oldValue, newValue) -> {
-      if (badValue) {
-        if (needCaretPos) {
-          positionCaret(prevCaretPos);
-          needCaretPos = false;
-        }
-        badValue = false;
-      } else {
-        if (!check(newValue)) {
-          badValue = true;
-          needCaretPos = true;
-          setText(oldValue);
+      if (needCheck) {
+        if (badValue) {
+          if (needCaretPos) {
+            positionCaret(prevCaretPos);
+            needCaretPos = false;
+          }
+          badValue = false;
         } else {
-          @NotNull Type fieldValue = convertValue(newValue);
-          fieldUpdater.accept(fieldValue);
+          if (!check(newValue)) {
+            badValue = true;
+            needCaretPos = true;
+            setText(oldValue);
+          } else {
+            @NotNull Type fieldValue = convertValue(newValue);
+            fieldUpdater.accept(fieldValue);
+          }
         }
       }
     });
@@ -110,7 +113,9 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
   public final void setFieldValue(@NotNull Object value) {
     if (type.isInstance(value)) {
       @NotNull String text = valueToString(type.cast(value));
+      needCheck = false;
       setText(text);
+      needCheck = true;
     } else {
       throw new IluvatarRuntimeException("SizedTextField: incorrect value type");
     }

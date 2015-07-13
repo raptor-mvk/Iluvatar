@@ -21,7 +21,6 @@ import ru.mvk.iluvatar.descriptor.field.ListFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.NamedFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.RefAble;
 import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
-import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.javafx.field.RefField;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
@@ -182,10 +181,7 @@ public abstract class UITests<Type> extends GuiTest {
                                    @NotNull String key, @NotNull Object expected) {
     @NotNull String id = view.getFieldId(key);
     @NotNull RefField<?, RefType> listField = safeFindById(id);
-    @Nullable RefType fieldValue = listField.getValue();
-    if (fieldValue==null) {
-      throw new RuntimeException("Field value is null");
-    }
+    @NotNull RefType fieldValue = getRefFieldValue(listField);
     @NotNull Serializable fieldValueId = fieldValue.getId();
     Assert.assertEquals("Field with id '" + id + "' should contain text " + expected,
                            expected, fieldValueId);
@@ -367,5 +363,15 @@ public abstract class UITests<Type> extends GuiTest {
       throw new RuntimeException("Items are null");
     }
     return items;
+  }
+
+  @NotNull
+  protected <RefType extends RefAble> RefType
+  getRefFieldValue(@NotNull RefField<?, RefType> field) {
+    @Nullable RefType fieldValue = field.getValue();
+    if (fieldValue==null) {
+      throw new RuntimeException("Field value is null");
+    }
+    return fieldValue;
   }
 }
