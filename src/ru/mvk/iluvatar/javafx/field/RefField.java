@@ -5,9 +5,6 @@
 package ru.mvk.iluvatar.javafx.field;
 
 import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -97,15 +94,18 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
 
   private void prepareKeyHandler() {
     setOnKeyReleased((event) -> {
-      int prefixLength = prefix.length();
-      if (event.getCode() == KeyCode.BACK_SPACE && prefixLength > 0) {
-        prefix = prefix.substring(0, prefixLength - 1);
-        selectItemByPrefix();
-      } else if (event.getCode() != KeyCode.ENTER){
-        @Nullable String text = event.getText();
-        if (text != null && !text.isEmpty()) {
-          prefix += event.getText();
+      if (!(event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB ||
+                event.getCode() == KeyCode.ESCAPE)) {
+        int prefixLength = prefix.length();
+        if (event.getCode() == KeyCode.BACK_SPACE && prefixLength > 0) {
+          prefix = prefix.substring(0, prefixLength - 1);
           selectItemByPrefix();
+        } else {
+          @Nullable String text = event.getText();
+          if (text != null && !text.isEmpty()) {
+            prefix += event.getText();
+            selectItemByPrefix();
+          }
         }
       }
     });
