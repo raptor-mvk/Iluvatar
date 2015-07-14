@@ -21,7 +21,5 @@ public interface ViewService<EntityType> {
   Class<EntityType> getEntityType();
 
   void setTotalSupplier(@NotNull Supplier<EntityType> totalSupplier);
-
-  void setDefaultOrder(@NotNull String fieldKey, boolean isAscending);
 }
 

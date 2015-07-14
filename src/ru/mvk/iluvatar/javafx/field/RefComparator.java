@@ -17,9 +17,9 @@ public class RefComparator<Type> implements Comparator<Type> {
     } else if (item2 == null) {
       result = 1;
     } else {
-      @NotNull String value1 = item1.toString();
-      @NotNull String value2 = item2.toString();
-      result = value1.compareToIgnoreCase(value2);
+      @NotNull String value1 = item1.toString().toLowerCase().replace('¸','å');
+      @NotNull String value2 = item2.toString().toLowerCase().replace('¸','å');
+      result = value1.compareTo(value2);
     }
     return result;
   }

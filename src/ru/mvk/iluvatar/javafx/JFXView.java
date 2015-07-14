@@ -327,8 +327,8 @@ public class JFXView<EntityType> implements View<EntityType> {
 
   @NotNull
   private Object getFieldValue(@NotNull PropertyDescriptor propertyDescriptor,
-                               @NotNull EntityType object) throws IllegalAccessException,
-                                                                      InvocationTargetException {
+                               @NotNull EntityType object)
+      throws IllegalAccessException, InvocationTargetException {
     @Nullable Method readMethod = PropertyUtils.getReadMethod(propertyDescriptor);
     if (readMethod == null) {
       throw new IluvatarRuntimeException("JFXView: could not access field");

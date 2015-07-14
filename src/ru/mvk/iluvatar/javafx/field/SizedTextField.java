@@ -120,4 +120,10 @@ abstract class SizedTextField<Type> extends TextField implements Field<Type> {
       throw new IluvatarRuntimeException("SizedTextField: incorrect value type");
     }
   }
+
+  @Override
+  public void requestFocus() {
+    super.requestFocus();
+    selectAll();
+  }
 }

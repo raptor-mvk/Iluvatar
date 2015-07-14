@@ -139,12 +139,7 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
     });
   }
 
-  @Override
-  public void setDefaultOrder(@NotNull String fieldKey, boolean isAscending) {
-    listView.setListSupplier(() -> dao.orderedList(fieldKey, isAscending));
-  }
-
-  private void setSelectedIndex(int index) {
+ private void setSelectedIndex(int index) {
     selectedIndex = index;
   }
 

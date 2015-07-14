@@ -4,6 +4,8 @@
 
 package ru.mvk.iluvatar.javafx;
 
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -22,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.ListViewInfo;
 import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
+import ru.mvk.iluvatar.javafx.field.RefComparator;
 import ru.mvk.iluvatar.view.ListView;
 import ru.mvk.iluvatar.view.StringSupplier;
 
@@ -72,6 +75,8 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   private Supplier<EntityType> totalSupplier = null;
   @Nullable
   private EntityType totalRow;
+  @NotNull
+  private final Comparator<EntityType> DEFAULT_COMPARATOR = new RefComparator<>();
 
   public JFXListView(@NotNull ListViewInfo<EntityType> listViewInfo,
                      @NotNull StringSupplier stringSupplier) {
@@ -121,9 +126,10 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
       totalRow = totalSupplier.get();
       objectList.add(totalRow);
     }
-    @NotNull ObservableList<EntityType> objectObservableList =
+    @NotNull ObservableList<EntityType> observableObjectList =
         FXCollections.observableList(objectList);
-    tableView.setItems(objectObservableList);
+    FXCollections.sort(observableObjectList, DEFAULT_COMPARATOR);
+    tableView.setItems(observableObjectList);
     clearSelection();
     return gridPane;
   }
@@ -343,7 +349,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     prepareColumns();
     setSelectedItemListener();
     setSelectedIndexListener();
-    prepareSortPolicy();
+    prepareSorting();
   }
 
   private void setRowFactory() {
@@ -449,13 +455,15 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     return result;
   }
 
-  private void prepareSortPolicy() {
+  private void prepareSorting() {
     tableView.setSortPolicy(tableView -> {
       Comparator<EntityType> comparator = (row1, row2) -> {
         int result = (row1 == totalRow) ? 1 : (row2 == totalRow) ? -1 : 0;
         if (result == 0) {
           @Nullable Comparator<EntityType> tableComparator = tableView.getComparator();
-          if (tableComparator != null) {
+          if (tableComparator == null) {
+            result = DEFAULT_COMPARATOR.compare(row1, row2);
+          } else {
             result = tableComparator.compare(row1, row2);
           }
         }
