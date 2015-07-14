@@ -4,8 +4,6 @@
 
 package ru.mvk.iluvatar.javafx;
 
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -18,6 +16,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +24,7 @@ import ru.mvk.iluvatar.descriptor.ListViewInfo;
 import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.javafx.field.RefComparator;
+import ru.mvk.iluvatar.utils.IluvatarUtils;
 import ru.mvk.iluvatar.view.ListView;
 import ru.mvk.iluvatar.view.StringSupplier;
 
@@ -37,6 +37,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /* TODO extract private methods */
+/* TODO test key handler */
 public class JFXListView<EntityType> implements ListView<EntityType> {
   @NotNull
   private final GridPane gridPane;
@@ -77,10 +78,13 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
   private EntityType totalRow;
   @NotNull
   private final Comparator<EntityType> DEFAULT_COMPARATOR = new RefComparator<>();
+  @NotNull
+  private String prefix;
 
   public JFXListView(@NotNull ListViewInfo<EntityType> listViewInfo,
                      @NotNull StringSupplier stringSupplier) {
     @NotNull Class<EntityType> entityType = listViewInfo.getEntityType();
+    prefix = "";
     entityClassName = entityType.getSimpleName();
     this.stringSupplier = stringSupplier;
     this.listViewInfo = listViewInfo;
@@ -130,6 +134,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
         FXCollections.observableList(objectList);
     FXCollections.sort(observableObjectList, DEFAULT_COMPARATOR);
     tableView.setItems(observableObjectList);
+    prefix = "";
     clearSelection();
     return gridPane;
   }
@@ -350,6 +355,37 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
     setSelectedItemListener();
     setSelectedIndexListener();
     prepareSorting();
+    prepareEscapeHandler();
+    prepareKeyHandler();
+  }
+
+  private void prepareEscapeHandler() {
+    tableView.addEventFilter(KeyEvent.KEY_RELEASED, (event) -> {
+      if (event.getCode() == KeyCode.ESCAPE) {
+        prefix = "";
+        selectItemByPrefix();
+        event.consume();
+      }
+    });
+  }
+
+  private void prepareKeyHandler() {
+    tableView.setOnKeyReleased((event) -> {
+      if (!(event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB ||
+                event.getCode() == KeyCode.ESCAPE) && tableView.getComparator() == null) {
+        int prefixLength = prefix.length();
+        if (event.getCode() == KeyCode.BACK_SPACE && prefixLength > 0) {
+          prefix = prefix.substring(0, prefixLength - 1);
+          selectItemByPrefix();
+        } else {
+          @Nullable String text = event.getText();
+          if (text != null && !text.isEmpty()) {
+            prefix += IluvatarUtils.normalizeString(event.getText());
+            selectItemByPrefix();
+          }
+        }
+      }
+    });
   }
 
   private void setRowFactory() {
@@ -472,5 +508,29 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
       FXCollections.sort(tableView.getItems(), comparator);
       return true;
     });
+  }
+
+  private void selectItemByPrefix() {
+    @Nullable List<EntityType> itemsList = tableView.getItems();
+    if (itemsList != null) {
+      int count = itemsList.size();
+      int result = -1;
+      if (count > 0) {
+        for (int i = 0; i < count && result < 0; i++) {
+          @NotNull String normalized =
+              IluvatarUtils.normalizeString(itemsList.get(i).toString());
+          if (prefix.compareTo(normalized) <= 0) {
+            result = i;
+          }
+        }
+        if (result < 0) {
+          result = count - 1;
+        }
+      } else {
+        result = 0;
+      }
+      selectRowByIndex(result);
+      scrollToIndex(result);
+    }
   }
 }

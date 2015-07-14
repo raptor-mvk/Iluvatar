@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/dao/DaoImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/javafx/JFXListView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/javafx/JFXView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/javafx/field/RefComparator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/javafx/field/RefField.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/javafx/layout/JFXTabLayout.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/service/ViewServiceImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ru/mvk/iluvatar/utils/IluvatarUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tst/ru/mvk/iluvatar/javafx/JFXViewUITests.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
 </project>

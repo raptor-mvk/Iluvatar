@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.module.db.HibernateAdapter;
-import ru.mvk.iluvatar.utils.VideoGuideUtils;
+import ru.mvk.iluvatar.utils.IluvatarUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -86,7 +86,7 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
       throw new IluvatarRuntimeException("SimpleDao: list() returned null");
     }
     @NotNull Stream<EntityType> entityStream =
-        VideoGuideUtils.mapToTypedStream(entityList, entityType);
+        IluvatarUtils.mapToTypedStream(entityList, entityType);
     return entityStream.collect(Collectors.toList());
   }
 
@@ -109,7 +109,7 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
       throw new IluvatarRuntimeException("SimpleDao: list() returned null");
     }
     @NotNull Stream<EntityType> entityStream =
-        VideoGuideUtils.mapToTypedStream(entityList, entityType);
+        IluvatarUtils.mapToTypedStream(entityList, entityType);
     return entityStream.collect(Collectors.toList());
   }
 

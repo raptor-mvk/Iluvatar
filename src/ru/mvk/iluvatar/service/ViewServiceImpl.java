@@ -124,9 +124,7 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
     showListView();
     Platform.runLater(() -> {
       listView.selectRowByEntity(lastSelectedEntity);
-      if (isNewEntity) {
-        listView.scrollToEntity(lastSelectedEntity);
-      }
+      listView.scrollToEntity(lastSelectedEntity);
     });
   }
 

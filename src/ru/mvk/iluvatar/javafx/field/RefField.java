@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.field.ListFieldInfo;
 import ru.mvk.iluvatar.descriptor.field.RefAble;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
+import ru.mvk.iluvatar.utils.IluvatarUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -103,7 +104,7 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
         } else {
           @Nullable String text = event.getText();
           if (text != null && !text.isEmpty()) {
-            prefix += event.getText();
+            prefix += IluvatarUtils.normalizeString(event.getText());
             selectItemByPrefix();
           }
         }
@@ -140,7 +141,9 @@ public class RefField<Type extends Serializable, RefType extends RefAble>
     int result = -1;
     if (count > 0) {
       for (int i = 0; i < count && result < 0; i++) {
-        if (prefix.compareToIgnoreCase(itemsList.get(i).toString()) <= 0) {
+        @NotNull String normalized =
+            IluvatarUtils.normalizeString(itemsList.get(i).toString());
+        if (prefix.compareTo(normalized) <= 0) {
           result = i;
         }
       }

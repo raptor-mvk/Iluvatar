@@ -9,9 +9,10 @@ import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.stream.Stream;
 
-public class VideoGuideUtils {
+public class IluvatarUtils {
   @NotNull
   public static <Type> Stream<Type> mapToTypedStream(@NotNull Collection<?> list,
                                                      @NotNull Class<Type> type) {
@@ -28,5 +29,10 @@ public class VideoGuideUtils {
       throw new IluvatarRuntimeException("VideoGuideUtils: mapped stream is null");
     }
     return result;
+  }
+
+  @NotNull
+  public static String normalizeString(@NotNull String value) {
+    return value.toLowerCase().replace('ё', 'е');
   }
 }

@@ -280,7 +280,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
     result.add(student2);
     @NotNull Student student3 = new Student();
     student3.setId(2);
-    student3.setName("Richard Somebody");
+    student3.setName("Zigmund Somebody");
     result.add(student3);
     return result;
   }
