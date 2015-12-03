@@ -54,7 +54,7 @@ public class DurationColumnInfo extends NumColumnInfo {
       result.append(value / SECONDS_IN_HOUR).append(' ').append(HOUR_SUFFIX);
       int minutes = value % SECONDS_IN_HOUR;
       if (minutes > 0) {
-        result.append(' ').append(minutes / SECONDS_IN_MINUTE)
+        result.append(' ').append(Math.round((double) minutes / SECONDS_IN_MINUTE))
             .append(' ').append(MINUTE_SUFFIX);
       }
     }
