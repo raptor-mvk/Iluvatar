@@ -42,6 +42,15 @@ public class JFXTabViewWindowLayout extends JFXTabLayout {
     };
   }
 
+  @NotNull
+  @Override
+  public Consumer<Object> getListViewUpdater(int serviceId) {
+    return (content) -> {
+      super.getListViewUpdater(serviceId).accept(content);
+      viewWindowStage.hide();
+    };
+  }
+
   @Override
   public void setStage(@Nullable Stage stage) {
     super.setStage(stage);
