@@ -4,6 +4,7 @@
 package ru.mvk.iluvatar.javafx;
 
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -525,7 +526,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
   protected Parent getRootNode() {
     @NotNull JFXListView<Student> listView = (JFXListView<Student>) prepareListView();
     setObjectUnderTest(listView);
-    @Nullable GridPane result = listView.getListView();
+    @Nullable Parent result = listView.getListView();
     return (result == null) ? new GridPane() : result;
   }
 

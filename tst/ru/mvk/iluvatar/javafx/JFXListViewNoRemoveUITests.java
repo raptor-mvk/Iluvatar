@@ -37,7 +37,7 @@ public class JFXListViewNoRemoveUITests extends UITests<ListView<Student>> {
   protected Parent getRootNode() {
     @NotNull JFXListView<Student> listView = (JFXListView<Student>) prepareListView();
     setObjectUnderTest(listView);
-    @Nullable GridPane result = listView.getListView();
+    @Nullable Parent result = listView.getListView();
     return (result == null) ? new GridPane() : result;
   }
 

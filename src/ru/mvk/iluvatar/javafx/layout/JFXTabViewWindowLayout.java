@@ -42,23 +42,6 @@ public class JFXTabViewWindowLayout extends JFXTabLayout {
     };
   }
 
-  @NotNull
-  @Override
-  public Consumer<Object> getListViewUpdater(int serviceId) {
-    return (content) -> {
-      if (content instanceof Node) {
-        @NotNull ObservableList<Tab> tabList = getTabList();
-        @Nullable Tab tab = tabList.get(serviceId);
-        if (tab != null) {
-          @NotNull ScrollPane scrollPane = new ScrollPane();
-          scrollPane.setContent(((Node) content));
-          tab.setContent(scrollPane);
-        }
-      }
-      viewWindowStage.hide();
-    };
-  }
-
   @Override
   public void setStage(@Nullable Stage stage) {
     super.setStage(stage);
