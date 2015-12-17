@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.UnaryOperator;
 
 public interface StringSupplier extends UnaryOperator<String> {
-  @NotNull
-  @Override
-  String apply(@NotNull String stringId);
+	@NotNull
+	@Override
+	String apply(@NotNull String stringId);
 }

@@ -5,5 +5,5 @@
 package ru.mvk.iluvatar.descriptor.field;
 
 public interface SizedFieldInfo extends NamedFieldInfo {
-  int getWidth();
+	int getWidth();
 }

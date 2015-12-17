@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 public interface ViewFormatter extends Function<Object, String> {
-  @NotNull
-  @Override
-  String apply(@Nullable Object argument);
+	@NotNull
+	@Override
+	String apply(@Nullable Object argument);
 }

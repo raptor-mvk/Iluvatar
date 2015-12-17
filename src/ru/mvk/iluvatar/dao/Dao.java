@@ -10,25 +10,25 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface Dao<EntityType, PrimaryKeyType extends Serializable> {
-  @NotNull
-  PrimaryKeyType create(@NotNull EntityType entity);
+	@NotNull
+	PrimaryKeyType create(@NotNull EntityType entity);
 
-  @Nullable
-  EntityType read(@NotNull PrimaryKeyType id);
+	@Nullable
+	EntityType read(@NotNull PrimaryKeyType id);
 
-  void update(@NotNull EntityType entity);
+	void update(@NotNull EntityType entity);
 
-  void delete(@NotNull EntityType entity);
+	void delete(@NotNull EntityType entity);
 
-  @NotNull
-  List<EntityType> list();
+	@NotNull
+	List<EntityType> list();
 
-  @NotNull
-  List<EntityType> orderedList(@NotNull String field, boolean isAscending);
+	@NotNull
+	List<EntityType> orderedList(@NotNull String field, boolean isAscending);
 
-  @NotNull
-  Class<EntityType> getEntityType();
+	@NotNull
+	Class<EntityType> getEntityType();
 
-  @NotNull
-  Class<PrimaryKeyType> getPrimaryKeyType();
+	@NotNull
+	Class<PrimaryKeyType> getPrimaryKeyType();
 }

@@ -20,45 +20,45 @@ import ru.mvk.iluvatar.view.ListView;
 import java.util.ArrayList;
 
 public class JFXListViewNoRemoveUITests extends UITests<ListView<Student>> {
-  @NotNull
-  private final ListViewInfo<Student> listViewInfo = prepareListViewInfo();
+	@NotNull
+	private final ListViewInfo<Student> listViewInfo = prepareListViewInfo();
 
-  @Test
-  public void listViewInfoRemoveAllowedIsFalse_RemoveButtonShouldBeInvisible() {
-    @NotNull ListView<Student> listView = getObjectUnderTest();
-    @NotNull String removeButtonId = listView.getRemoveButtonId();
-    Assert.assertFalse("Remove button should be invisible, when " +
-                           "listViewInfo.isRemoveAllowed is false",
-                          stage.getScene().lookup('#' + removeButtonId).isVisible());
-  }
+	@Test
+	public void listViewInfoRemoveAllowedIsFalse_RemoveButtonShouldBeInvisible() {
+		@NotNull ListView<Student> listView = getObjectUnderTest();
+		@NotNull String removeButtonId = listView.getRemoveButtonId();
+		Assert.assertFalse("Remove button should be invisible, when " +
+						"listViewInfo.isRemoveAllowed is false",
+				stage.getScene().lookup('#' + removeButtonId).isVisible());
+	}
 
-  @NotNull
-  @Override
-  protected Parent getRootNode() {
-    @NotNull JFXListView<Student> listView = (JFXListView<Student>) prepareListView();
-    setObjectUnderTest(listView);
-    @Nullable Parent result = listView.getListView();
-    return (result == null) ? new GridPane() : result;
-  }
+	@NotNull
+	@Override
+	protected Parent getRootNode() {
+		@NotNull JFXListView<Student> listView = (JFXListView<Student>) prepareListView();
+		setObjectUnderTest(listView);
+		@Nullable Parent result = listView.getListView();
+		return (result == null) ? new GridPane() : result;
+	}
 
-  @NotNull
-  private ListView<Student> prepareListView() {
-    ListView<Student> result = new JFXListView<>(listViewInfo, (value) -> value);
-    result.setListSupplier(ArrayList::new);
-    return result;
-  }
+	@NotNull
+	private ListView<Student> prepareListView() {
+		ListView<Student> result = new JFXListView<>(listViewInfo, (value) -> value);
+		result.setListSupplier(ArrayList::new);
+		return result;
+	}
 
-  @NotNull
-  private ListViewInfo<Student> prepareListViewInfo() {
-    @NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
-    result.addColumnInfo("id", new NumColumnInfo("id", 10));
-    result.addColumnInfo("name", new StringColumnInfo("name", 50));
-    result.addColumnInfo("gpa", new NumColumnInfo("gpa", 5));
-    result.addColumnInfo("penalty", new NumColumnInfo("penalty", 5));
-    result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));
-    result.addColumnInfo("fileSize", new FileSizeColumnInfo("fileSize", 10));
-    result.addColumnInfo("lecturesTime", new DurationColumnInfo("lecturesTime", 8));
-    result.disableRemove();
-    return result;
-  }
+	@NotNull
+	private ListViewInfo<Student> prepareListViewInfo() {
+		@NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
+		result.addColumnInfo("id", new PlainColumnInfo("id", 10));
+		result.addColumnInfo("name", new StringColumnInfo("name", 50));
+		result.addColumnInfo("gpa", new PlainColumnInfo("gpa", 5));
+		result.addColumnInfo("penalty", new PlainColumnInfo("penalty", 5));
+		result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));
+		result.addColumnInfo("fileSize", new FileSizeColumnInfo("fileSize", 10));
+		result.addColumnInfo("lecturesTime", new DurationColumnInfo("lecturesTime", 8));
+		result.disableRemove();
+		return result;
+	}
 }

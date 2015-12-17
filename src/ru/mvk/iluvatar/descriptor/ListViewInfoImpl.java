@@ -14,70 +14,70 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
-  @NotNull
-  private final Map<String, ColumnInfo> columns;
-  @NotNull
-  private final Class<EntityType> entityType;
-  private boolean totalRow;
-  private boolean removeAllowed;
+	@NotNull
+	private final Map<String, ColumnInfo> columns;
+	@NotNull
+	private final Class<EntityType> entityType;
+	private boolean totalRow;
+	private boolean removeAllowed;
 
-  public ListViewInfoImpl(@NotNull Class<EntityType> entityType) {
-    this.entityType = entityType;
-    totalRow = false;
-    removeAllowed = true;
-    columns = new LinkedHashMap<>();
-  }
+	public ListViewInfoImpl(@NotNull Class<EntityType> entityType) {
+		this.entityType = entityType;
+		totalRow = false;
+		removeAllowed = true;
+		columns = new LinkedHashMap<>();
+	}
 
-  @NotNull
-  @Override
-  public Class<EntityType> getEntityType() {
-    return entityType;
-  }
+	@NotNull
+	@Override
+	public Class<EntityType> getEntityType() {
+		return entityType;
+	}
 
-  @Override
-  public int getColumnsCount() {
-    return columns.size();
-  }
+	@Override
+	public int getColumnsCount() {
+		return columns.size();
+	}
 
-  @Override
-  public boolean isTotalRow() {
-    return totalRow;
-  }
+	@Override
+	public boolean isTotalRow() {
+		return totalRow;
+	}
 
-  @Override
-  public void showTotalRow() {
-    this.totalRow = true;
-  }
+	@Override
+	public void showTotalRow() {
+		this.totalRow = true;
+	}
 
-  @Override
-  public boolean isRemoveAllowed() {
-    return removeAllowed;
-  }
+	@Override
+	public boolean isRemoveAllowed() {
+		return removeAllowed;
+	}
 
-  @Override
-  public void disableRemove() {
-    this.removeAllowed = false;
-  }
+	@Override
+	public void disableRemove() {
+		this.removeAllowed = false;
+	}
 
-  @NotNull
-  @Override
-  public Iterator<Entry<String, ColumnInfo>> getIterator() {
-    return columns.entrySet().iterator();
-  }
+	@NotNull
+	@Override
+	public Iterator<Entry<String, ColumnInfo>> getIterator() {
+		return columns.entrySet().iterator();
+	}
 
-  @NotNull
-  @Override
-  public ColumnInfo getColumnInfo(@NotNull String columnKey) {
-    @Nullable ColumnInfo result = columns.get(columnKey);
-    if (result == null) {
-      throw new IluvatarRuntimeException("SimpleListViewInfo: no column with key '" +
-                                             columnKey + "'");
-    }
-    return result;
-  }
+	@NotNull
+	@Override
+	public ColumnInfo getColumnInfo(@NotNull String columnKey) {
+		@Nullable ColumnInfo result = columns.get(columnKey);
+		if (result == null) {
+			throw new IluvatarRuntimeException("SimpleListViewInfo: no column with key '" +
+					columnKey + "'");
+		}
+		return result;
+	}
 
-  @Override
-  public void addColumnInfo(@NotNull String columnKey, @NotNull ColumnInfo columnInfo) {
-    columns.put(columnKey, columnInfo);
-  }
+	@Override
+	public void addColumnInfo(@NotNull String columnKey, @NotNull ColumnInfo columnInfo) {
+		columns.put(columnKey, columnInfo);
+	}
 }

@@ -8,14 +8,14 @@ import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 
 public interface ColumnInfo {
-  @NotNull
-  String getName();
+	@NotNull
+	String getName();
 
-  int getWidth();
+	int getWidth();
 
-  @NotNull
-  ViewFormatter getViewFormatter();
+	@NotNull
+	ViewFormatter getViewFormatter();
 
-  @NotNull
-  Pos getJFXAlignment();
+	@NotNull
+	Pos getJFXAlignment();
 }

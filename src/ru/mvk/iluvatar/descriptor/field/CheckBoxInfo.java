@@ -7,13 +7,13 @@ package ru.mvk.iluvatar.descriptor.field;
 import org.jetbrains.annotations.NotNull;
 
 public class CheckBoxInfo extends NamedFieldInfoImpl {
-  public CheckBoxInfo(@NotNull String name) {
-    super(name);
-  }
+	public CheckBoxInfo(@NotNull String name) {
+		super(name);
+	}
 
-  @NotNull
-  @Override
-  public String getJFXFieldClassName() {
-    return "ru.mvk.iluvatar.javafx.field.CheckBoxField";
-  }
+	@NotNull
+	@Override
+	public String getJFXFieldClassName() {
+		return "ru.mvk.iluvatar.javafx.field.CheckBoxField";
+	}
 }

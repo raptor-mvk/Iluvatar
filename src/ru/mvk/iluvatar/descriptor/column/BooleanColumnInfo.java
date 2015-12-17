@@ -7,26 +7,26 @@ package ru.mvk.iluvatar.descriptor.column;
 import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 
-public class BooleanColumnInfo extends NumColumnInfo {
-  public BooleanColumnInfo(@NotNull String name, int width) {
-    super(name, width);
-  }
+public class BooleanColumnInfo extends PlainColumnInfo {
+	public BooleanColumnInfo(@NotNull String name, int width) {
+		super(name, width);
+	}
 
-  @NotNull
-  @Override
-  public ViewFormatter getViewFormatter() {
-    return (value) -> {
-      @NotNull String result = "";
-      if (value instanceof Boolean) {
-        result = (Boolean) value ? "+" : "-";
-      }
-      return result;
-    };
-  }
+	@NotNull
+	@Override
+	public ViewFormatter getViewFormatter() {
+		return (value) -> {
+			@NotNull String result = "";
+			if (value instanceof Boolean) {
+				result = (Boolean) value ? "+" : "-";
+			}
+			return result;
+		};
+	}
 
-  @NotNull
-  @Override
-  public Pos getJFXAlignment() {
-    return Pos.CENTER;
-  }
+	@NotNull
+	@Override
+	public Pos getJFXAlignment() {
+		return Pos.CENTER;
+	}
 }

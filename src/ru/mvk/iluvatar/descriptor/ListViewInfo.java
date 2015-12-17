@@ -10,24 +10,24 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 public interface ListViewInfo<EntityType> {
-  @NotNull
-  Class<EntityType> getEntityType();
+	@NotNull
+	Class<EntityType> getEntityType();
 
-  int getColumnsCount();
+	int getColumnsCount();
 
-  boolean isTotalRow();
+	boolean isTotalRow();
 
-  void showTotalRow();
+	void showTotalRow();
 
-  boolean isRemoveAllowed();
+	boolean isRemoveAllowed();
 
-  void disableRemove();
+	void disableRemove();
 
-  @NotNull
-  Iterator<Entry<String, ColumnInfo>> getIterator();
+	@NotNull
+	Iterator<Entry<String, ColumnInfo>> getIterator();
 
-  @NotNull
-  ColumnInfo getColumnInfo(@NotNull String columnKey);
+	@NotNull
+	ColumnInfo getColumnInfo(@NotNull String columnKey);
 
-  void addColumnInfo(@NotNull String columnKey, @NotNull ColumnInfo columnInfo);
+	void addColumnInfo(@NotNull String columnKey, @NotNull ColumnInfo columnInfo);
 }

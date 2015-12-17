@@ -7,6 +7,6 @@ package ru.mvk.iluvatar.descriptor.field;
 import org.jetbrains.annotations.NotNull;
 
 public interface NumberFieldInfo<Type> extends SizedFieldInfo {
-  @NotNull
-  Class<Type> getType();
+	@NotNull
+	Class<Type> getType();
 }

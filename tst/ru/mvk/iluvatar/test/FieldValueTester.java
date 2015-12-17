@@ -7,15 +7,15 @@ package ru.mvk.iluvatar.test;
 import org.jetbrains.annotations.Nullable;
 
 public final class FieldValueTester<Type> {
-  @Nullable
-  private Type value;
+	@Nullable
+	private Type value;
 
-  @Nullable
-  public Type getValue() {
-    return value;
-  }
+	@Nullable
+	public Type getValue() {
+		return value;
+	}
 
-  public void setValue(@Nullable Type value) {
-    this.value = value;
-  }
+	public void setValue(@Nullable Type value) {
+		this.value = value;
+	}
 }

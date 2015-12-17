@@ -5,5 +5,5 @@
 package ru.mvk.iluvatar.javafx.field;
 
 public interface RefList {
-  void reload();
+	void reload();
 }

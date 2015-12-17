@@ -14,43 +14,43 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class TestListAdapter implements ListAdapter<Integer, Student> {
-  @NotNull
-  private final List<Student> students;
+	@NotNull
+	private final List<Student> students;
 
-  public TestListAdapter(@NotNull List<Student> students) {
-    this.students = students;
-  }
+	public TestListAdapter(@NotNull List<Student> students) {
+		this.students = students;
+	}
 
-  @NotNull
-  @Override
-  public Class<Integer> getType() {
-    return Integer.class;
-  }
+	@NotNull
+	@Override
+	public Class<Integer> getType() {
+		return Integer.class;
+	}
 
-  @NotNull
-  @Override
-  public Class<Student> getRefType() {
-    return Student.class;
-  }
+	@NotNull
+	@Override
+	public Class<Student> getRefType() {
+		return Student.class;
+	}
 
-  @NotNull
-  @Override
-  public Supplier<List<Student>> getListSupplier() {
-    return () -> students;
-  }
+	@NotNull
+	@Override
+	public Supplier<List<Student>> getListSupplier() {
+		return () -> students;
+	}
 
-  @NotNull
-  @Override
-  public Function<Serializable, Student> getFinder() {
-    return (id) -> {
-      @Nullable Student result = null;
-      for (Student student : students) {
-        if (student.getId().equals(id)) {
-          result = student;
-          break;
-        }
-      }
-      return result;
-    };
-  }
+	@NotNull
+	@Override
+	public Function<Serializable, Student> getFinder() {
+		return (id) -> {
+			@Nullable Student result = null;
+			for (Student student : students) {
+				if (student.getId().equals(id)) {
+					result = student;
+					break;
+				}
+			}
+			return result;
+		};
+	}
 }

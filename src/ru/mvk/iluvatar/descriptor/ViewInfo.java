@@ -12,16 +12,16 @@ import java.util.Map.Entry;
 
 
 public interface ViewInfo<EntityType> {
-  @NotNull
-  Class<EntityType> getEntityType();
+	@NotNull
+	Class<EntityType> getEntityType();
 
-  int getFieldsCount();
+	int getFieldsCount();
 
-  @NotNull
-  Iterator<Entry<String, NamedFieldInfo>> getIterator();
+	@NotNull
+	Iterator<Entry<String, NamedFieldInfo>> getIterator();
 
-  @NotNull
-  NamedFieldInfo getFieldInfo(@NotNull String fieldKey);
+	@NotNull
+	NamedFieldInfo getFieldInfo(@NotNull String fieldKey);
 
-  void addFieldInfo(@NotNull String field, @NotNull NamedFieldInfo fieldInfo);
+	void addFieldInfo(@NotNull String field, @NotNull NamedFieldInfo fieldInfo);
 }

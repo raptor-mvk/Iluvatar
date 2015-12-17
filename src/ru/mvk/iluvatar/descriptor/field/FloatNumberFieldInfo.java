@@ -5,5 +5,5 @@
 package ru.mvk.iluvatar.descriptor.field;
 
 public interface FloatNumberFieldInfo<Type> extends NumberFieldInfo<Type> {
-  int getFractionWidth();
+	int getFractionWidth();
 }

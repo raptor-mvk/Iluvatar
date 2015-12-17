@@ -18,39 +18,39 @@ import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
 public abstract class JFXLayout implements Layout {
-  @Nullable
-  private Stage stage;
-  @NotNull
-  private StringSupplier stringSupplier = (value) -> value;
+	@Nullable
+	private Stage stage;
+	@NotNull
+	private StringSupplier stringSupplier = (value) -> value;
 
-  @NotNull
-  @Override
-  public <EntityType> ListView<EntityType> getListView(@NotNull ListViewInfo<EntityType>
-                                                           listViewInfo) {
-    return new JFXListView<>(listViewInfo, stringSupplier);
-  }
+	@NotNull
+	@Override
+	public <EntityType> ListView<EntityType> getListView(@NotNull ListViewInfo<EntityType>
+			                                                     listViewInfo) {
+		return new JFXListView<>(listViewInfo, stringSupplier);
+	}
 
-  @NotNull
-  @Override
-  public <EntityType> View<EntityType> getView(@NotNull ViewInfo<EntityType> viewInfo) {
-    return new JFXView<>(viewInfo, stringSupplier);
-  }
+	@NotNull
+	@Override
+	public <EntityType> View<EntityType> getView(@NotNull ViewInfo<EntityType> viewInfo) {
+		return new JFXView<>(viewInfo, stringSupplier);
+	}
 
-  @SuppressWarnings("WeakerAccess")
-  public void setStage(@Nullable Stage stage) {
-    this.stage = stage;
-  }
+	@SuppressWarnings("WeakerAccess")
+	public void setStage(@Nullable Stage stage) {
+		this.stage = stage;
+	}
 
-  @Override
-  public void setStringSupplier(@NotNull StringSupplier stringSupplier) {
-    this.stringSupplier = stringSupplier;
-  }
+	@Override
+	public void setStringSupplier(@NotNull StringSupplier stringSupplier) {
+		this.stringSupplier = stringSupplier;
+	}
 
-  @NotNull
-  final Stage getStage() {
-    if (stage == null) {
-      throw new IluvatarRuntimeException("Stage was not set");
-    }
-    return stage;
-  }
+	@NotNull
+	final Stage getStage() {
+		if (stage == null) {
+			throw new IluvatarRuntimeException("Stage was not set");
+		}
+		return stage;
+	}
 }

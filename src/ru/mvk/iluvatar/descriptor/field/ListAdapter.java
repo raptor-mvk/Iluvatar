@@ -12,15 +12,15 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface ListAdapter<Type extends Serializable, RefType extends RefAble> {
-  @NotNull
-  Class<Type> getType();
+	@NotNull
+	Class<Type> getType();
 
-  @NotNull
-  Class<RefType> getRefType();
+	@NotNull
+	Class<RefType> getRefType();
 
-  @NotNull
-  Supplier<List<RefType>> getListSupplier();
+	@NotNull
+	Supplier<List<RefType>> getListSupplier();
 
-  @NotNull
-  Function<Serializable, RefType> getFinder();
+	@NotNull
+	Function<Serializable, RefType> getFinder();
 }

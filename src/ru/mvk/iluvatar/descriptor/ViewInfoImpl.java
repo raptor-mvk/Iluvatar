@@ -15,46 +15,46 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class ViewInfoImpl<EntityType> implements ViewInfo<EntityType> {
-  @NotNull
-  private final Map<String, NamedFieldInfo> fields;
-  @NotNull
-  private final Class<EntityType> entityType;
+	@NotNull
+	private final Map<String, NamedFieldInfo> fields;
+	@NotNull
+	private final Class<EntityType> entityType;
 
-  public ViewInfoImpl(@NotNull Class<EntityType> entityType) {
-    this.entityType = entityType;
-    fields = new LinkedHashMap<>();
-  }
+	public ViewInfoImpl(@NotNull Class<EntityType> entityType) {
+		this.entityType = entityType;
+		fields = new LinkedHashMap<>();
+	}
 
-  @NotNull
-  @Override
-  public Class<EntityType> getEntityType() {
-    return entityType;
-  }
+	@NotNull
+	@Override
+	public Class<EntityType> getEntityType() {
+		return entityType;
+	}
 
-  @Override
-  public int getFieldsCount() {
-    return fields.size();
-  }
+	@Override
+	public int getFieldsCount() {
+		return fields.size();
+	}
 
-  @NotNull
-  @Override
-  public Iterator<Entry<String, NamedFieldInfo>> getIterator() {
-    return fields.entrySet().iterator();
-  }
+	@NotNull
+	@Override
+	public Iterator<Entry<String, NamedFieldInfo>> getIterator() {
+		return fields.entrySet().iterator();
+	}
 
-  @NotNull
-  @Override
-  public NamedFieldInfo getFieldInfo(@NotNull String fieldKey) {
-    @Nullable NamedFieldInfo result = fields.get(fieldKey);
-    if (result == null) {
-      throw new IluvatarRuntimeException("SimpleViewInfo: no field with key '" +
-                                             fieldKey + "'");
-    }
-    return result;
-  }
+	@NotNull
+	@Override
+	public NamedFieldInfo getFieldInfo(@NotNull String fieldKey) {
+		@Nullable NamedFieldInfo result = fields.get(fieldKey);
+		if (result == null) {
+			throw new IluvatarRuntimeException("SimpleViewInfo: no field with key '" +
+					fieldKey + "'");
+		}
+		return result;
+	}
 
-  @Override
-  public void addFieldInfo(@NotNull String fieldKey, @NotNull NamedFieldInfo fieldInfo) {
-    fields.put(fieldKey, fieldInfo);
-  }
+	@Override
+	public void addFieldInfo(@NotNull String fieldKey, @NotNull NamedFieldInfo fieldInfo) {
+		fields.put(fieldKey, fieldInfo);
+	}
 }

@@ -9,17 +9,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public interface ViewService<EntityType> {
-  void showView(boolean isNewEntity);
+	void showView(boolean isNewEntity);
 
-  EntityType getNewEntity();
+	EntityType getNewEntity();
 
-  void showListView();
+	void showListView();
 
-  void removeEntity();
+	void removeEntity();
 
-  @NotNull
-  Class<EntityType> getEntityType();
+	@NotNull
+	Class<EntityType> getEntityType();
 
-  void setTotalSupplier(@NotNull Supplier<EntityType> totalSupplier);
+	void setTotalSupplier(@NotNull Supplier<EntityType> totalSupplier);
 }
 

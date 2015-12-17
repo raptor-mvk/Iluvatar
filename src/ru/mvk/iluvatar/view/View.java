@@ -9,22 +9,22 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public interface View<EntityType> {
-  @Nullable
-  Object getView(@NotNull EntityType entity, boolean newEntity);
+	@Nullable
+	Object getView(@NotNull EntityType entity, boolean newEntity);
 
-  @NotNull
-  String getFieldId(@NotNull String key);
+	@NotNull
+	String getFieldId(@NotNull String key);
 
-  @NotNull
-  String getLabelId(@NotNull String key);
+	@NotNull
+	String getLabelId(@NotNull String key);
 
-  @NotNull
-  String getSaveButtonId();
+	@NotNull
+	String getSaveButtonId();
 
-  @NotNull
-  String getCancelButtonId();
+	@NotNull
+	String getCancelButtonId();
 
-  void setSaveButtonHandler(Consumer<Boolean> handler);
+	void setSaveButtonHandler(Consumer<Boolean> handler);
 
-  void setCancelButtonHandler(Runnable handler);
+	void setCancelButtonHandler(Runnable handler);
 }

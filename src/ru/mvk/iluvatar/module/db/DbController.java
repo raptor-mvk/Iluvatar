@@ -4,11 +4,11 @@
 package ru.mvk.iluvatar.module.db;
 
 public interface DbController {
-  boolean isDbSuitable();
+	boolean isDbSuitable();
 
-  int getDbVersion();
+	int getDbVersion();
 
-  boolean updateDb();
+	boolean updateDb();
 
-  boolean createDb();
+	boolean createDb();
 }

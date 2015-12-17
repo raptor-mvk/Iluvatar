@@ -13,40 +13,40 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 public class JFXSimpleLayout extends JFXLayout {
-  @NotNull
-  private final ScrollPane root = new ScrollPane();
+	@NotNull
+	private final ScrollPane root = new ScrollPane();
 
-  @Override
-  public int registerViewService(@NotNull String serviceKey,
-                                 @NotNull Runnable defaultViewSetter) {
-    return 0;
-  }
+	@Override
+	public int registerViewService(@NotNull String serviceKey,
+	                               @NotNull Runnable defaultViewSetter) {
+		return 0;
+	}
 
-  @NotNull
-  @Override
-  public Consumer<Object> getViewUpdater(int serviceId) {
-    return (content) -> {
-      if (content instanceof Node) {
-        root.setContent((Node) content);
-      }
-    };
-  }
+	@NotNull
+	@Override
+	public Consumer<Object> getViewUpdater(int serviceId) {
+		return (content) -> {
+			if (content instanceof Node) {
+				root.setContent((Node) content);
+			}
+		};
+	}
 
-  @NotNull
-  @Override
-  public Consumer<Object> getListViewUpdater(int serviceId) {
-    return (content) -> {
-      if (content instanceof Node) {
-        root.setContent((Node) content);
-      }
-    };
-  }
+	@NotNull
+	@Override
+	public Consumer<Object> getListViewUpdater(int serviceId) {
+		return (content) -> {
+			if (content instanceof Node) {
+				root.setContent((Node) content);
+			}
+		};
+	}
 
-  @Override
-  public void show(int width, int height) {
-    @NotNull Stage stage = getStage();
-    stage.setScene(new Scene(root, width, height));
-    stage.setResizable(false);
-    stage.show();
-  }
+	@Override
+	public void show(int width, int height) {
+		@NotNull Stage stage = getStage();
+		stage.setScene(new Scene(root, width, height));
+		stage.setResizable(false);
+		stage.show();
+	}
 }

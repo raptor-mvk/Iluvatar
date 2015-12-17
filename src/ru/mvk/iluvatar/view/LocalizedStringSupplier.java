@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Locale;
 
 public interface LocalizedStringSupplier extends StringSupplier {
-  boolean registerLocale(@NotNull Locale newLocale);
+	boolean registerLocale(@NotNull Locale newLocale);
 
-  boolean setLocale(@NotNull Locale newLocale);
+	boolean setLocale(@NotNull Locale newLocale);
 }

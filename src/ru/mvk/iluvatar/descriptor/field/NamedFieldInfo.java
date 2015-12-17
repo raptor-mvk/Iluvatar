@@ -7,9 +7,9 @@ package ru.mvk.iluvatar.descriptor.field;
 import org.jetbrains.annotations.NotNull;
 
 public interface NamedFieldInfo {
-  @NotNull
-  String getName();
+	@NotNull
+	String getName();
 
-  @NotNull
-  String getJFXFieldClassName();
+	@NotNull
+	String getJFXFieldClassName();
 }

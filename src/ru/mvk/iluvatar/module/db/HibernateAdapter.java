@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 public interface HibernateAdapter {
-  @NotNull
-  Query prepareSqlQuery(@NotNull String sql, @NotNull Session session);
+	@NotNull
+	Query prepareSqlQuery(@NotNull String sql, @NotNull Session session);
 
-  @Nullable
-  <Type> Type executeInTransaction(@NotNull Function<Session, Type> function);
+	@Nullable
+	<Type> Type executeInTransaction(@NotNull Function<Session, Type> function);
 }

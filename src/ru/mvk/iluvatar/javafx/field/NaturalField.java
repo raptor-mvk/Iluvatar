@@ -14,37 +14,37 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NaturalField<Type> extends SizedTextField<Type> {
-  @NotNull
-  private final Matcher naturalMatcher;
+	@NotNull
+	private final Matcher naturalMatcher;
 
-  public NaturalField(@NotNull NumberFieldInfo<Type> fieldInfo) {
-    super(fieldInfo.getWidth(), fieldInfo.getType());
-    naturalMatcher = Pattern.compile("^(\\d){0," + getMaxLength() + "}$").matcher("");
-  }
+	public NaturalField(@NotNull NumberFieldInfo<Type> fieldInfo) {
+		super(fieldInfo.getWidth(), fieldInfo.getType());
+		naturalMatcher = Pattern.compile("^(\\d){0," + getMaxLength() + "}$").matcher("");
+	}
 
-  @Override
-  boolean check(@NotNull String value) {
-    return naturalMatcher.reset(value).matches();
-  }
+	@Override
+	boolean check(@NotNull String value) {
+		return naturalMatcher.reset(value).matches();
+	}
 
-  boolean isZeroValued(@NotNull String value) {
-    return value.isEmpty();
-  }
+	boolean isZeroValued(@NotNull String value) {
+		return value.isEmpty();
+	}
 
-  @Override
-  protected Type convertValue(@NotNull String value) {
-    @NotNull Type result;
-    if (isZeroValued(value)) {
-      value = "0";
-    }
-    try {
-      @NotNull Constructor<Type> constructor =
-          getType().getDeclaredConstructor(String.class);
-      result = constructor.newInstance(value);
-    } catch (NoSuchMethodException | InvocationTargetException |
-                 InstantiationException | IllegalAccessException e) {
-      throw new IluvatarRuntimeException("NaturalField: could not convert value");
-    }
-    return result;
-  }
+	@Override
+	protected Type convertValue(@NotNull String value) {
+		@NotNull Type result;
+		if (isZeroValued(value)) {
+			value = "0";
+		}
+		try {
+			@NotNull Constructor<Type> constructor =
+					getType().getDeclaredConstructor(String.class);
+			result = constructor.newInstance(value);
+		} catch (NoSuchMethodException | InvocationTargetException |
+				InstantiationException | IllegalAccessException e) {
+			throw new IluvatarRuntimeException("NaturalField: could not convert value");
+		}
+		return result;
+	}
 }

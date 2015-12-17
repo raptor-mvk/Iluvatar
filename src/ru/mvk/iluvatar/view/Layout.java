@@ -11,23 +11,23 @@ import ru.mvk.iluvatar.descriptor.ViewInfo;
 import java.util.function.Consumer;
 
 public interface Layout {
-  @NotNull
-  <EntityType> ListView<EntityType> getListView(@NotNull
-                                                ListViewInfo<EntityType> listViewInfo);
+	@NotNull
+	<EntityType> ListView<EntityType> getListView(@NotNull
+	                                              ListViewInfo<EntityType> listViewInfo);
 
-  @NotNull
-  <EntityType> View<EntityType> getView(@NotNull ViewInfo<EntityType> viewInfo);
+	@NotNull
+	<EntityType> View<EntityType> getView(@NotNull ViewInfo<EntityType> viewInfo);
 
-  int registerViewService(@NotNull String serviceKey,
-                          @NotNull Runnable defaultViewSetter);
+	int registerViewService(@NotNull String serviceKey,
+	                        @NotNull Runnable defaultViewSetter);
 
-  @NotNull
-  Consumer<Object> getViewUpdater(int serviceId);
+	@NotNull
+	Consumer<Object> getViewUpdater(int serviceId);
 
-  @NotNull
-  Consumer<Object> getListViewUpdater(int serviceId);
+	@NotNull
+	Consumer<Object> getListViewUpdater(int serviceId);
 
-  void show(int width, int height);
+	void show(int width, int height);
 
-  void setStringSupplier(@NotNull StringSupplier stringSupplier);
+	void setStringSupplier(@NotNull StringSupplier stringSupplier);
 }

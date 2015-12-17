@@ -7,7 +7,7 @@ package ru.mvk.iluvatar.exception;
 import org.jetbrains.annotations.NotNull;
 
 public class IluvatarRuntimeException extends RuntimeException {
-  public IluvatarRuntimeException(@NotNull String message) {
-    super(message);
-  }
+	public IluvatarRuntimeException(@NotNull String message) {
+		super(message);
+	}
 }

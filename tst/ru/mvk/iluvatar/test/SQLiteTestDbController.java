@@ -9,33 +9,33 @@ import ru.mvk.iluvatar.module.db.HibernateAdapter;
 import ru.mvk.iluvatar.module.db.SQLiteAbstractDbController;
 
 public class SQLiteTestDbController extends SQLiteAbstractDbController {
-  private final int appId;
-  private final int appDbVersion;
+	private final int appId;
+	private final int appDbVersion;
 
-  public SQLiteTestDbController(@NotNull HibernateAdapter hibernateAdapter, int appId,
-                                int appDbVersion) {
-    super(hibernateAdapter);
-    this.appId = appId;
-    this.appDbVersion = appDbVersion;
-  }
+	public SQLiteTestDbController(@NotNull HibernateAdapter hibernateAdapter, int appId,
+	                              int appDbVersion) {
+		super(hibernateAdapter);
+		this.appId = appId;
+		this.appDbVersion = appDbVersion;
+	}
 
-  @Override
-  protected boolean updateDbSchema(int fromDbVersion) {
-    return true;
-  }
+	@Override
+	protected boolean updateDbSchema(int fromDbVersion) {
+		return true;
+	}
 
-  @Override
-  protected boolean createDbSchema() {
-    return true;
-  }
+	@Override
+	protected boolean createDbSchema() {
+		return true;
+	}
 
-  @Override
-  protected int getAppId() {
-    return appId;
-  }
+	@Override
+	protected int getAppId() {
+		return appId;
+	}
 
-  @Override
-  protected int getAppDbVersion() {
-    return appDbVersion;
-  }
+	@Override
+	protected int getAppDbVersion() {
+		return appDbVersion;
+	}
 }
