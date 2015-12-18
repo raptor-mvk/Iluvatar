@@ -3,6 +3,7 @@
  */
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
@@ -120,5 +121,13 @@ public class DurationColumnInfoUnitTests {
 				((int) expectedValue / 60) + " ч " + ((int) expectedValue % 60) + " м";
 		Assert.assertEquals("viewFormatter should return correct string for duration more, " +
 				"than 100 hours", expectedResult, result);
+	}
+
+	@Test
+	public void getJFXAlignment_ShouldReturnCenterRight() {
+		@NotNull ColumnInfo durationColumnInfo = new DurationColumnInfo("shift", 6);
+		@NotNull Pos alignment = durationColumnInfo.getJFXAlignment();
+		Assert.assertEquals("getJFXAlignment() should return Pos.CENTER_RIGHT",
+				Pos.CENTER_RIGHT, alignment);
 	}
 }

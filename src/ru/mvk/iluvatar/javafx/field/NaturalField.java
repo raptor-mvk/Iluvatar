@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NaturalField<Type> extends SizedTextField<Type> {
+public class NaturalField<Type extends Number> extends SizedTextField<Type> {
 	@NotNull
 	private final Matcher naturalMatcher;
 

@@ -10,7 +10,7 @@ import ru.mvk.iluvatar.descriptor.field.NumberFieldInfo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IntegerField<Type> extends NaturalField<Type> {
+public class IntegerField<Type extends Number> extends NaturalField<Type> {
 	@NotNull
 	private final Matcher integerMatcher;
 

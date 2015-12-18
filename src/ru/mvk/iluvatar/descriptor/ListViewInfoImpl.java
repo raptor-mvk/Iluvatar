@@ -40,7 +40,7 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
 	}
 
 	@Override
-	public boolean isTotalRow() {
+	public boolean hasTotalRow() {
 		return totalRow;
 	}
 
@@ -70,7 +70,7 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
 	public ColumnInfo getColumnInfo(@NotNull String columnKey) {
 		@Nullable ColumnInfo result = columns.get(columnKey);
 		if (result == null) {
-			throw new IluvatarRuntimeException("SimpleListViewInfo: no column with key '" +
+			throw new IluvatarRuntimeException("ListViewInfoImpl: no column with key '" +
 					columnKey + "'");
 		}
 		return result;

@@ -248,8 +248,8 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		@NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
 		result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
 		result.addFieldInfo("name", new TextFieldInfo("name", 100));
-		result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa",
-				new FloatDescriptor(5, 2)));
+		result.addFieldInfo("gpa", new RationalFieldInfo<>(Double.class, "gpa",
+				new RealDescriptor(5, 2)));
 		result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
 		result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
 		return result;

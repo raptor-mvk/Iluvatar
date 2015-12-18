@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.Test;
-import ru.mvk.iluvatar.descriptor.field.FloatDescriptor;
-import ru.mvk.iluvatar.descriptor.field.RealFieldInfo;
+import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
+import ru.mvk.iluvatar.descriptor.field.RationalFieldInfo;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.utils.UITests;
 
@@ -202,9 +202,9 @@ public class RealFieldUITests extends UITests<RealField<?>> {
 	@Override
 
 	protected Parent getRootNode() {
-		@NotNull RealFieldInfo<Double> fieldInfo =
-				new RealFieldInfo<>(Double.class, "price",
-						new FloatDescriptor(MAX_LENGTH, FRACTION_LENGTH));
+		@NotNull RationalFieldInfo<Double> fieldInfo =
+				new RationalFieldInfo<>(Double.class, "price",
+						new RealDescriptor(MAX_LENGTH, FRACTION_LENGTH));
 		@NotNull RealField<Double> field = new RealField<>(fieldInfo);
 		field.setFieldUpdater(fieldValueTester::setValue);
 		field.setId(ID);

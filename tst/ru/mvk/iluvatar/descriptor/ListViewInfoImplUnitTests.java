@@ -39,7 +39,7 @@ public class ListViewInfoImplUnitTests {
 	public void constructor_ShouldSetTotalRowToFalse() {
 		@NotNull Class<Object> entityType = Object.class;
 		@NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
-		boolean totalRow = listViewInfo.isTotalRow();
+		boolean totalRow = listViewInfo.hasTotalRow();
 		Assert.assertFalse("Constructor should set 'totalRow' to false", totalRow);
 	}
 
@@ -62,7 +62,7 @@ public class ListViewInfoImplUnitTests {
 		@NotNull Class<Object> entityType = Object.class;
 		@NotNull ListViewInfo<Object> listViewInfo = new ListViewInfoImpl<>(entityType);
 		listViewInfo.showTotalRow();
-		boolean totalRow = listViewInfo.isTotalRow();
+		boolean totalRow = listViewInfo.hasTotalRow();
 		Assert.assertTrue("setTotalRow() should set correct value of 'totalRow'", totalRow);
 	}
 

@@ -595,7 +595,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
 		result.showTotalRow();
 		result.addColumnInfo("id", new PlainColumnInfo("id", 10));
-		result.addColumnInfo("name", new StringColumnInfo("name", 50));
+		result.addColumnInfo("name", new TextColumnInfo("name", 50));
 		result.addColumnInfo("gpa", new PlainColumnInfo("gpa", 5));
 		result.addColumnInfo("penalty", new PlainColumnInfo("penalty", 5));
 		result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));

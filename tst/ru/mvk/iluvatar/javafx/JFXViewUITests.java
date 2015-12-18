@@ -282,13 +282,15 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		@NotNull ViewInfo<Student> result = new ViewInfoImpl<>(Student.class);
 		result.addFieldInfo("id", new NaturalFieldInfo<>(Integer.class, "id", 10));
 		result.addFieldInfo("name", new TextFieldInfo("name", 100));
-		result.addFieldInfo("gpa", new RealFieldInfo<>(Double.class, "gpa",
-				new FloatDescriptor(5, 2)));
+		result.addFieldInfo("gpa", new RationalFieldInfo<>(Double.class, "gpa",
+				new RealDescriptor(5, 2)));
 		result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
 		result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
 		@NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
 		result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
-		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate"));
+		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate", 10,
+				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1),
+						DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
 		return result;
 	}
 

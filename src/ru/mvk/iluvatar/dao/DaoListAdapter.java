@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/* TODO test */
+/* TODO: tests */
 public class DaoListAdapter<EntityType extends RefAble,
 		PrimaryKeyType extends Serializable>
 		implements ListAdapter<PrimaryKeyType, EntityType> {

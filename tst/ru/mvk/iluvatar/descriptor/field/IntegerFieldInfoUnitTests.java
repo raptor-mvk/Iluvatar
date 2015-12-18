@@ -44,4 +44,13 @@ public class IntegerFieldInfoUnitTests {
 		Assert.assertEquals("constructor should set correct value of 'type'", type,
 				fieldType);
 	}
+
+	@Test
+	public void getJFXFieldClassName_ShouldReturnIntegerField() {
+		@NotNull NumberFieldInfo<Long> integerFieldInfo =
+				new IntegerFieldInfo<>(Long.class, "age", 8);
+		@NotNull String fieldName = integerFieldInfo.getJFXFieldClassName();
+		Assert.assertEquals("getJFXFieldClassName() should return IntegerField",
+				"ru.mvk.iluvatar.javafx.field.IntegerField", fieldName);
+	}
 }

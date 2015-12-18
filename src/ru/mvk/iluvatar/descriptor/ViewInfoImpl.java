@@ -47,7 +47,7 @@ public class ViewInfoImpl<EntityType> implements ViewInfo<EntityType> {
 	public NamedFieldInfo getFieldInfo(@NotNull String fieldKey) {
 		@Nullable NamedFieldInfo result = fields.get(fieldKey);
 		if (result == null) {
-			throw new IluvatarRuntimeException("SimpleViewInfo: no field with key '" +
+			throw new IluvatarRuntimeException("ViewInfoImpl: no field with key '" +
 					fieldKey + "'");
 		}
 		return result;

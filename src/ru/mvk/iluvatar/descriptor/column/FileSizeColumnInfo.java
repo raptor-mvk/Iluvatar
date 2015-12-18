@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/* TODO: unit prefixes localization */
+/* TODO: number format? */
 /* Descriptor for column, that contains size of a file measured in bytes. Size is
 represented in bytes, Kilobytes, Megabytes, Gigabytes or Terabytes depends on integral
 part of representation of size in this units. If integral part is greater than 0 and less

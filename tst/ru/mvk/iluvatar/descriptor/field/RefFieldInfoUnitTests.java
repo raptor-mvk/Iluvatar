@@ -18,8 +18,10 @@ public class RefFieldInfoUnitTests {
 	@Test
 	public void constructor_ShouldSetName() {
 		@NotNull String name = "author";
+		@NotNull List<Student> studentList = new ArrayList<>();
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(studentList);
 		@NotNull ListFieldInfo<Integer, Student> refFieldInfo =
-				new RefFieldInfo<>(name, 40, new TestListAdapter(new ArrayList<>()));
+				new RefFieldInfo<>(name, 40, testListAdapter);
 		@NotNull String fieldName = refFieldInfo.getName();
 		Assert.assertEquals("constructor should set correct value of 'name'", name,
 				fieldName);
@@ -28,8 +30,10 @@ public class RefFieldInfoUnitTests {
 	@Test
 	public void constructor_ShouldSetWidth() {
 		int width = 5;
+		@NotNull List<Student> studentList = new ArrayList<>();
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(studentList);
 		@NotNull ListFieldInfo refFieldInfo =
-				new RefFieldInfo<>("parent", width, new TestListAdapter(new ArrayList<>()));
+				new RefFieldInfo<>("parent", width, testListAdapter);
 		int fieldWidth = refFieldInfo.getWidth();
 		Assert.assertEquals("constructor should set correct value of 'width'", width,
 				fieldWidth);
@@ -37,13 +41,15 @@ public class RefFieldInfoUnitTests {
 
 	@Test(expected = IluvatarRuntimeException.class)
 	public void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException() {
-		new RefFieldInfo<>("catch", -1, PowerMockUtils.mock(TestListAdapter.class));
+		@NotNull TestListAdapter testListAdapter = PowerMockUtils.mock(TestListAdapter.class);
+		new RefFieldInfo<>("catch", -1, testListAdapter);
 	}
 
 	@Test
 	public void constructor_ShouldSetType() {
-		@NotNull ListFieldInfo refFieldInfo =
-				new RefFieldInfo<>("root", 10, new TestListAdapter(new ArrayList<>()));
+		@NotNull List<Student> studentList = new ArrayList<>();
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(studentList);
+		@NotNull ListFieldInfo refFieldInfo = new RefFieldInfo<>("root", 10, testListAdapter);
 		Class<?> type = refFieldInfo.getType();
 		Assert.assertEquals("constructor should set correct value of 'type'", Integer.class,
 				type);
@@ -51,8 +57,10 @@ public class RefFieldInfoUnitTests {
 
 	@Test
 	public void constructor_ShouldSetRefType() {
+		@NotNull List<Student> studentList = new ArrayList<>();
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(studentList);
 		@NotNull ListFieldInfo refFieldInfo =
-				new RefFieldInfo<>("window", 15, new TestListAdapter(new ArrayList<>()));
+				new RefFieldInfo<>("window", 15, testListAdapter);
 		Class<?> type = refFieldInfo.getRefType();
 		Assert.assertEquals("constructor should set correct value of 'refType'",
 				Student.class, type);
@@ -63,8 +71,9 @@ public class RefFieldInfoUnitTests {
 		@NotNull ArrayList<Student> expectedList = new ArrayList<>();
 		expectedList.add(new Student());
 		expectedList.add(new Student());
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(expectedList);
 		@NotNull ListFieldInfo<Integer, Student> refFieldInfo =
-				new RefFieldInfo<>("label", 20, new TestListAdapter(expectedList));
+				new RefFieldInfo<>("label", 20, testListAdapter);
 		@NotNull List<Student> refFieldList = refFieldInfo.getListSupplier().get();
 		Assert.assertEquals("constructor should set correct value of 'listSupplier'",
 				expectedList, refFieldList);
@@ -73,13 +82,25 @@ public class RefFieldInfoUnitTests {
 	@Test
 	public void constructor_ShouldSetFinder() {
 		@NotNull List<Student> studentList = prepareStudents();
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(studentList);
 		@NotNull ListFieldInfo<Integer, Student> refFieldInfo =
-				new RefFieldInfo<>("label", 20, new TestListAdapter(studentList));
+				new RefFieldInfo<>("label", 20, testListAdapter);
 		@NotNull Student expectedStudent = studentList.get(1);
 		int studentId = expectedStudent.getId();
 		@NotNull Student foundStudent = refFieldInfo.getFinder().apply(studentId);
 		Assert.assertEquals("constructor should set correct value of 'finder'",
 				expectedStudent, foundStudent);
+	}
+
+	@Test
+	public void getJFXFieldClassName_ShouldReturnRefField() {
+		@NotNull List<Student> studentList = prepareStudents();
+		@NotNull TestListAdapter testListAdapter = new TestListAdapter(studentList);
+		@NotNull ListFieldInfo<Integer, Student> refFieldInfo =
+				new RefFieldInfo<>("friend", 20, testListAdapter);
+		@NotNull String fieldName = refFieldInfo.getJFXFieldClassName();
+		Assert.assertEquals("getJFXFieldClassName() should return RefField",
+				"ru.mvk.iluvatar.javafx.field.RefField", fieldName);
 	}
 
 	@NotNull

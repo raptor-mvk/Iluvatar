@@ -15,7 +15,7 @@ public class PlainColumnInfo implements ColumnInfo {
 
 	public PlainColumnInfo(@NotNull String name, int width) {
 		if (width <= 0) {
-			throw new IluvatarRuntimeException("StringColumnInfo: non-positive width");
+			throw new IluvatarRuntimeException("PlainColumnInfo: non-positive width");
 		}
 		this.name = name;
 		this.width = width;

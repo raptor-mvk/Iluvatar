@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/* TODO: suffixes localization */
+/* TODO: minutes accuracy? */
 /* Descriptor for column, that contains duration measured in seconds. Duration is
 represented in minutes or hours and minutes depends on its value. If duration is less,
 than 1 hour, then duration is represented in minutes with a one-digit accuracy, otherwise

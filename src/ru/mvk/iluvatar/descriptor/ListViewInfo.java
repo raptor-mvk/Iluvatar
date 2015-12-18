@@ -15,7 +15,7 @@ public interface ListViewInfo<EntityType> {
 
 	int getColumnsCount();
 
-	boolean isTotalRow();
+	boolean hasTotalRow();
 
 	void showTotalRow();
 

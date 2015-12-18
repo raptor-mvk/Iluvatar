@@ -4,6 +4,7 @@
 
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
@@ -57,5 +58,13 @@ public class PlainColumnInfoUnitTests {
 		@NotNull String result = viewFormatter.apply(expectedResult);
 		Assert.assertEquals("viewFormatter should do nothing for string value",
 				expectedResult, result);
+	}
+
+	@Test
+	public void getJFXAlignment_ShouldReturnCenterRight() {
+		@NotNull ColumnInfo plainColumnInfo = new PlainColumnInfo("height", 4);
+		@NotNull Pos alignment = plainColumnInfo.getJFXAlignment();
+		Assert.assertEquals("getJFXAlignment() should return Pos.CENTER_RIGHT",
+				Pos.CENTER_RIGHT, alignment);
 	}
 }

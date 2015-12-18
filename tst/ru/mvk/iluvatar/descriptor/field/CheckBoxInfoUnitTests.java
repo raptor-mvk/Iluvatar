@@ -17,4 +17,12 @@ public class CheckBoxInfoUnitTests {
 		Assert.assertEquals("constructor should set correct value of 'name'", name,
 				checkBoxName);
 	}
+
+	@Test
+	public void getJFXFieldClassName_ShouldReturnCheckBoxField() {
+		@NotNull NamedFieldInfo checkBoxInfo = new CheckBoxInfo("active");
+		@NotNull String fieldName = checkBoxInfo.getJFXFieldClassName();
+		Assert.assertEquals("getJFXFieldClassName() should return CheckBoxField",
+				"ru.mvk.iluvatar.javafx.field.CheckBoxField", fieldName);
+	}
 }

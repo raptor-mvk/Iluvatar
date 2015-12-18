@@ -3,6 +3,7 @@
  */
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
@@ -123,5 +124,13 @@ public class FileSizeColumnInfoUnitTests {
 				String.format(Locale.US, "%.2f", expectedValue) + " Тб";
 		Assert.assertEquals("viewFormatter should return correct string for size more, " +
 				"than 1024 Tb", expectedResult, result);
+	}
+
+	@Test
+	public void getJFXAlignment_ShouldReturnCenterRight() {
+		@NotNull ColumnInfo fileSizeColumnInfo = new FileSizeColumnInfo("size", 8);
+		@NotNull Pos alignment = fileSizeColumnInfo.getJFXAlignment();
+		Assert.assertEquals("getJFXAlignment() should return Pos.CENTER_RIGHT",
+				Pos.CENTER_RIGHT, alignment);
 	}
 }

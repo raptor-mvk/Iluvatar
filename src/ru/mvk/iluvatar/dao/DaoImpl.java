@@ -13,6 +13,7 @@ import ru.mvk.iluvatar.module.db.HibernateAdapter;
 import ru.mvk.iluvatar.utils.IluvatarUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -44,8 +45,8 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 	@NotNull
 	@Override
 	public PrimaryKeyType create(@NotNull EntityType entity) {
-		@Nullable Serializable primaryKey = executeInTransaction((session) ->
-				session.save(entity));
+		@Nullable Serializable primaryKey =
+				executeInTransaction((session) -> session.save(entity));
 		return castPrimaryKey(primaryKey);
 	}
 
@@ -53,8 +54,8 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 	@Override
 	public EntityType read(@NotNull Serializable id) {
 		@NotNull Class<EntityType> entityType = getEntityType();
-		@Nullable Object result = executeInTransaction((session) ->
-				session.get(entityType, id));
+		@Nullable Object result =
+				executeInTransaction((session) -> session.get(entityType, id));
 		return entityType.cast(result);
 	}
 
@@ -77,25 +78,29 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 	@NotNull
 	@Override
 	public List<EntityType> list() {
+		@NotNull List<EntityType> result;
 		@NotNull Class<EntityType> entityType = getEntityType();
 		@Nullable List<?> entityList = executeInTransaction((session) -> {
-			@NotNull Criteria criteria = getCriteria(session, entityType);
-			return criteria.list();
+			@NotNull Criteria criteria = session.createCriteria(entityType);
+			return (List<?>)criteria.list();
 		});
 		if (entityList == null) {
-			throw new IluvatarRuntimeException("SimpleDao: list() returned null");
+			result = new ArrayList<>();
+		} else {
+			@NotNull Stream<EntityType> entityStream =
+					IluvatarUtils.mapToTypedStream(entityList, entityType);
+			result = entityStream.collect(Collectors.toList());
 		}
-		@NotNull Stream<EntityType> entityStream =
-				IluvatarUtils.mapToTypedStream(entityList, entityType);
-		return entityStream.collect(Collectors.toList());
+		return result;
 	}
 
 	@NotNull
 	@Override
 	public List<EntityType> orderedList(@NotNull String field, boolean isAscending) {
+		@NotNull List<EntityType> result;
 		@NotNull Class<EntityType> entityType = getEntityType();
 		@Nullable List<?> entityList = executeInTransaction((session) -> {
-			@NotNull Criteria criteria = getCriteria(session, entityType);
+			@NotNull Criteria criteria = session.createCriteria(entityType);
 			@NotNull Order order;
 			if (isAscending) {
 				order = Order.asc(field);
@@ -103,34 +108,27 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 				order = Order.desc(field);
 			}
 			criteria.addOrder(order);
-			return criteria.list();
+			return (List<?>)criteria.list();
 		});
 		if (entityList == null) {
-			throw new IluvatarRuntimeException("SimpleDao: list() returned null");
+			result = new ArrayList<>();
+		} else {
+			@NotNull Stream<EntityType> entityStream =
+					IluvatarUtils.mapToTypedStream(entityList, entityType);
+			result = entityStream.collect(Collectors.toList());
 		}
-		@NotNull Stream<EntityType> entityStream =
-				IluvatarUtils.mapToTypedStream(entityList, entityType);
-		return entityStream.collect(Collectors.toList());
+		return result;
 	}
 
 	@NotNull
 	private PrimaryKeyType castPrimaryKey(@Nullable Serializable id) {
 		@NotNull Class<PrimaryKeyType> primaryKeyType = getPrimaryKeyType();
 		@Nullable PrimaryKeyType result = primaryKeyType.cast(id);
+		/* TODO: may be send null through? */
 		if (result == null) {
-			throw new IluvatarRuntimeException("SimpleDao: create result is null");
+			throw new IluvatarRuntimeException("DaoImpl: create result is null");
 		}
 		return result;
-	}
-
-	@NotNull
-	private Criteria getCriteria(@NotNull Session session,
-	                             @NotNull Class<EntityType> entityType) {
-		@Nullable Criteria criteria = session.createCriteria(entityType);
-		if (criteria == null) {
-			throw new IluvatarRuntimeException("SimpleDao: criteria is null");
-		}
-		return criteria;
 	}
 
 	@Override

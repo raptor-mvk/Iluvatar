@@ -314,6 +314,39 @@
       <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_LongFraction_ShouldNotChangeValue()" />
       <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.RealFieldUITests void setFieldValue_ShortNumber_ShouldSetValue()" />
       <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.javafx.field.IntegerFieldUITests void setFieldValue_Minus_ShouldSetEmptyValue()" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.DateFieldInfoUnitTests" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests void viewFormatter_ShouldDoNothingForStringValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests void viewFormatter_ShouldCallToStringForIntegerValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.PlainColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.RationalFieldInfoUnitTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.RealDescriptorTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.field.TemporalDescriptorTests" />
+      <entry_point TYPE="class" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.DateFieldInfoUnitTests void constructor_ShouldSetFormatter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.DateFieldInfoUnitTests void constructor_ShouldSetDefaultValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.DateFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.DateFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RationalFieldInfoUnitTests void constructor_ShouldSetType()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RationalFieldInfoUnitTests void constructor_ShouldSetFractionWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RationalFieldInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RationalFieldInfoUnitTests void constructor_ShouldSetName()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealDescriptorTests void constructor_TooLargeFractionWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealDescriptorTests void constructor_NonPositiveFractionWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealDescriptorTests void constructor_NonPositiveMaxWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealDescriptorTests void constructor_ShouldSetFractionWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.RealDescriptorTests void constructor_ShouldSetMaxWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.TemporalDescriptorTests void constructor_ShouldSetFormatter()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.field.TemporalDescriptorTests void constructor_ShouldSetDefaultValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests void viewFormatter_ShouldReturnSecondHalfOfStringValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests void viewFormatter_ShouldReturnEmptyStringForIntegerValue()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests void constructor_NegativeWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests void constructor_ZeroWidth_ShouldThrowIluvatarRuntimeException()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests void constructor_ShouldSetWidth()" />
+      <entry_point TYPE="method" FQNAME="ru.mvk.iluvatar.descriptor.column.TextColumnInfoUnitTests void constructor_ShouldSetName()" />
     </entry_points>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">

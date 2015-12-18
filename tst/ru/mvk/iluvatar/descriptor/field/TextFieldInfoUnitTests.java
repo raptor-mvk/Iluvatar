@@ -32,4 +32,12 @@ public class TextFieldInfoUnitTests {
 	public void constructor_NonPositiveWidth_ShouldThrowIluvatarRuntimeException() {
 		new TextFieldInfo("error", 0);
 	}
+
+	@Test
+	public void getJFXFieldClassName_ShouldReturnLimitedTextField() {
+		@NotNull SizedFieldInfo textFieldInfo = new TextFieldInfo("action", 20);
+		@NotNull String fieldName = textFieldInfo.getJFXFieldClassName();
+		Assert.assertEquals("getJFXFieldClassName() should return LimitedTextField",
+				"ru.mvk.iluvatar.javafx.field.LimitedTextField", fieldName);
+	}
 }

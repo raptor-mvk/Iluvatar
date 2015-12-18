@@ -4,6 +4,7 @@
 
 package ru.mvk.iluvatar.descriptor.column;
 
+import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
@@ -62,5 +63,13 @@ public class BooleanColumnInfoUnitTests {
 		@NotNull String result = viewFormatter.apply(object);
 		Assert.assertEquals("viewFormatter should return '' for non-boolean value", "",
 				result);
+	}
+
+	@Test
+	public void getJFXAlignment_ShouldReturnCenter() {
+		@NotNull ColumnInfo booleanColumnInfo = new BooleanColumnInfo("isEmpty", 3);
+		@NotNull Pos alignment = booleanColumnInfo.getJFXAlignment();
+		Assert.assertEquals("getJFXAlignment() should return Pos.CENTER", Pos.CENTER,
+				alignment);
 	}
 }

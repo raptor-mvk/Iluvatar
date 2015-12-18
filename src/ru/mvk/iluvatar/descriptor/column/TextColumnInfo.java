@@ -7,8 +7,8 @@ package ru.mvk.iluvatar.descriptor.column;
 import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 
-public class StringColumnInfo extends PlainColumnInfo {
-	public StringColumnInfo(@NotNull String name, int width) {
+public class TextColumnInfo extends PlainColumnInfo {
+	public TextColumnInfo(@NotNull String name, int width) {
 		super(name, width);
 	}
 

@@ -46,37 +46,12 @@ public class NaturalFieldInfoUnitTests {
 	}
 
 	@Test
-	public void constructor_ShouldAcceptByteType() {
-		new NaturalFieldInfo<>(Byte.class, "value", 2);
-	}
-
-	@Test
-	public void constructor_ShouldAcceptShortType() {
-		new NaturalFieldInfo<>(Short.class, "width", 3);
-	}
-
-	@Test
-	public void constructor_ShouldAcceptIntegerType() {
-		new NaturalFieldInfo<>(Integer.class, "weight", 6);
-	}
-
-	@Test
-	public void constructor_ShouldAcceptLongType() {
-		new NaturalFieldInfo<>(Long.class, "volume", 10);
-	}
-
-	@Test
-	public void constructor_ShouldAcceptFloatType() {
-		new NaturalFieldInfo<>(Float.class, "cost", 5);
-	}
-
-	@Test
-	public void constructor_ShouldAcceptDoubleType() {
-		new NaturalFieldInfo<>(Double.class, "size", 7);
-	}
-
-	@Test(expected = IluvatarRuntimeException.class)
-	public void constructor_ShouldNotAcceptObjectType() {
-		new NaturalFieldInfo<>(Object.class, "height", 3);
+	public void getJFXFieldClassName_ShouldReturnNaturalField() {
+		@NotNull NumberFieldInfo<Byte> naturalFieldInfo =
+				new NaturalFieldInfo<>(Byte.class, "itemsCount", 2);
+		@NotNull String fieldName = naturalFieldInfo.getJFXFieldClassName();
+		Assert.assertEquals("getJFXFieldClassName() should return NaturalField",
+				"ru.mvk.iluvatar.javafx.field.NaturalField", fieldName);
 	}
 }
+

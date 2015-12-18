@@ -5,13 +5,13 @@
 package ru.mvk.iluvatar.javafx.field;
 
 import org.jetbrains.annotations.NotNull;
-import ru.mvk.iluvatar.descriptor.field.FloatNumberFieldInfo;
+import ru.mvk.iluvatar.descriptor.field.RealFieldInfo;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RealField<Type> extends NaturalField<Type> {
+public class RealField<Type extends Number> extends NaturalField<Type> {
 	@NotNull
 	private final String formatString;
 	@NotNull
@@ -19,7 +19,7 @@ public class RealField<Type> extends NaturalField<Type> {
 	@NotNull
 	private final Matcher zeroMatcher;
 
-	public RealField(@NotNull FloatNumberFieldInfo<Type> fieldInfo) {
+	public RealField(@NotNull RealFieldInfo<Type> fieldInfo) {
 		super(fieldInfo);
 		@NotNull String fractionWidth = Integer.toString(fieldInfo.getFractionWidth());
 		@NotNull String maxWidth = Integer.toString(getMaxLength());
