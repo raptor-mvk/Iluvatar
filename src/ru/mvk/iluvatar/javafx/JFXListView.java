@@ -40,6 +40,7 @@ import java.util.function.Supplier;
 
 /* TODO extract private methods */
 /* TODO test key handler */
+/* TODO: add RationalColumnInfo */
 public class JFXListView<EntityType> implements ListView<EntityType> {
 	@NotNull
 	private final VBox root;
