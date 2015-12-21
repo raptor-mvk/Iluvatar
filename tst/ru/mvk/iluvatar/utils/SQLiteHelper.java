@@ -34,6 +34,7 @@ public class SQLiteHelper {
 		}
 	}
 
+	/* TODO: change string to prepstatement */
 	@Nullable
 	public ResultSet executeQuery(@NotNull String sql) {
 		@Nullable ResultSet resultSet;
@@ -48,6 +49,7 @@ public class SQLiteHelper {
 		return resultSet;
 	}
 
+	/* TODO: change string to prepstatement */
 	public void execute(@NotNull String sql) {
 		if (statement == null) {
 			throw new RuntimeException("Statement is null");

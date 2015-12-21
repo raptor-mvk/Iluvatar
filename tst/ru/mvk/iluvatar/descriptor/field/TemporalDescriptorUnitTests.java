@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TemporalDescriptorTests {
+public class TemporalDescriptorUnitTests {
 	@Test
 	public void constructor_ShouldSetDefaultValue() {
 		@NotNull LocalDate defaultValue = LocalDate.of(2005, 10, 2);

@@ -11,7 +11,6 @@ public class RealDescriptor {
 
 	private final int fractionWidth;
 
-/* TODO: add exception tests */
 	public RealDescriptor(int maxWidth, int fractionWidth) {
 		if (maxWidth <= 0 || fractionWidth <= 0 || maxWidth - 1 < fractionWidth) {
 			throw new IluvatarRuntimeException("RealDescriptor: wrong widths");

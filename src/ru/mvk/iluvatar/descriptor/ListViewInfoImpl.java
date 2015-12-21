@@ -69,6 +69,7 @@ public class ListViewInfoImpl<EntityType> implements ListViewInfo<EntityType> {
 	@Override
 	public ColumnInfo getColumnInfo(@NotNull String columnKey) {
 		@Nullable ColumnInfo result = columns.get(columnKey);
+		/* TODO: push null through? */
 		if (result == null) {
 			throw new IluvatarRuntimeException("ListViewInfoImpl: no column with key '" +
 					columnKey + "'");

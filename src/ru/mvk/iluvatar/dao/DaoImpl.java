@@ -19,6 +19,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/* TODO: unit tests */
 public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 		implements Dao<EntityType, PrimaryKeyType> {
 	@NotNull

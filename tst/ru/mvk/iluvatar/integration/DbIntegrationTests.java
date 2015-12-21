@@ -172,7 +172,7 @@ public class DbIntegrationTests {
 	}
 
 	@Test
-	public void daoImplList_NameFalse_ShouldReturnAllEntriesSortedInDescendingOrderById() {
+	public void daoImplOrderedList_NameFalse_ShouldReturnListSortedInDescOrderByName() {
 		try {
 			@NotNull Dao<TestObject, Long> dao =
 					new DaoImpl<>(TestObject.class, Long.class, hibernateAdapter);
@@ -196,7 +196,7 @@ public class DbIntegrationTests {
 	}
 
 	@Test
-	public void daoImplList_IdTrue_ShouldReturnAllEntriesSortedInAscendingOrderById() {
+	public void	daoImplOrderedList_IdTrue_ShouldReturnListSortedInAscendingOrderById() {
 		try {
 			@NotNull Dao<TestObject, Long> dao =
 					new DaoImpl<>(TestObject.class, Long.class, hibernateAdapter);

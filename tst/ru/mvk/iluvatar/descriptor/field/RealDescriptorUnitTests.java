@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
-public class RealDescriptorTests {
+public class RealDescriptorUnitTests {
 	@Test
 	public void constructor_ShouldSetMaxWidth() {
 		int maxWidth = 7;
