@@ -15,7 +15,7 @@ public final class Student implements RefAble<Integer> {
 	private int id;
 	@NotNull
 	private String name;
-	private double gpa;
+	private short gpa;
 	private short penalty;
 	private boolean graduated;
 	private long fileSize;
@@ -46,11 +46,11 @@ public final class Student implements RefAble<Integer> {
 		return name;
 	}
 
-	public double getGpa() {
+	public short getGpa() {
 		return gpa;
 	}
 
-	public void setGpa(double gpa) {
+	public void setGpa(short gpa) {
 		this.gpa = gpa;
 	}
 

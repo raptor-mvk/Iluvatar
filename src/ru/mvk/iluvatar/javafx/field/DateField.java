@@ -3,11 +3,10 @@
  */
 package ru.mvk.iluvatar.javafx.field;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.scene.control.DatePicker;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.mvk.iluvatar.descriptor.field.TemporalFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 import java.time.LocalDate;
@@ -17,26 +16,12 @@ import java.util.function.Consumer;
 
 public class DateField extends DatePicker implements Field<LocalDate> {
 	@NotNull
-	private static LocalDate DEFAULT_DATE = LocalDate.of(2000, 1, 1);
-	@NotNull
 	private Consumer<LocalDate> fieldUpdater;
-	@NotNull
-	private static final DateTimeFormatter dateFormatter =
-			DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-	public static void setDefaultDate(@NotNull LocalDate defaultDate) {
-		DEFAULT_DATE = defaultDate;
-	}
-
-	@NotNull
-	public static LocalDate getDefaultDate() {
-		return DEFAULT_DATE;
-	}
-
-	public DateField() {
+	public DateField(@NotNull TemporalFieldInfo<LocalDate> fieldInfo) {
 		fieldUpdater = (value) -> {
 		};
-		prepareFocusListener();
+		prepareFocusListener(fieldInfo);
 	}
 
 	@Override
@@ -53,18 +38,20 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 		}
 	}
 
-	private void prepareFocusListener() {
+	private void prepareFocusListener(@NotNull TemporalFieldInfo<LocalDate> fieldInfo) {
+		@NotNull LocalDate defaultDate = fieldInfo.getDefaultValue();
+		@NotNull DateTimeFormatter formatter = fieldInfo.getFormatter();
 		focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if (!newValue) {
 				@NotNull LocalDate fieldValue;
 				@Nullable String value = getEditor().getText();
 				if (value == null) {
-					fieldValue = DEFAULT_DATE;
+					fieldValue = defaultDate;
 				} else {
 					try {
-						fieldValue = LocalDate.parse(value, dateFormatter);
+						fieldValue = LocalDate.parse(value, formatter);
 					} catch (DateTimeParseException e) {
-						fieldValue = DEFAULT_DATE;
+						fieldValue = defaultDate;
 					}
 				}
 				setValue(fieldValue);

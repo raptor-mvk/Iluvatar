@@ -38,7 +38,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 		safeClickById(ID).type(inputText);
 		emptyField(ID);
 		@Nullable Integer fieldValue = fieldValueTester.getValue();
-		Assert.assertEquals("empty field should set value to zero", new Integer(0),
+		Assert.assertEquals("empty field should set value to zero", Integer.valueOf(0),
 				fieldValue);
 	}
 
@@ -47,7 +47,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 		@NotNull String inputText = "-";
 		safeClickById(ID).type(inputText);
 		@Nullable Integer fieldValue = fieldValueTester.getValue();
-		Assert.assertEquals("input \"-\" should set value to zero", new Integer(0),
+		Assert.assertEquals("input \"-\" should set value to zero", Integer.valueOf(0),
 				fieldValue);
 	}
 
@@ -60,7 +60,15 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 
 	@Test
 	public void longIntegerInput_FieldShouldContainTruncatedText() {
-		@NotNull String inputText = "457817257239879865443";
+		@NotNull String inputText = "-457817257239879865443";
+		@NotNull String resultText = filterInteger(inputText, MAX_LENGTH);
+		safeClickById(ID).type(inputText);
+		assertTextFieldByIdContainsText(ID, resultText);
+	}
+
+	@Test
+	public void longNaturalInput_FieldShouldContainTruncatedText() {
+		@NotNull String inputText = "8798756479878323";
 		@NotNull String resultText = inputText.substring(0, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
@@ -69,7 +77,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 	@Test
 	public void shortMixedInput_FieldShouldContainOnlyInteger() {
 		@NotNull String inputText = "-8seedLocate1Harpooned3HeroPot-4587Algebra";
-		@NotNull String resultText = filterInteger(inputText);
+		@NotNull String resultText = filterInteger(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -77,8 +85,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 	@Test
 	public void longMixedInput_FieldShouldContainOnlyIntegerTruncatedToMaxLength() {
 		@NotNull String inputText = "seymour-26Fuzzy356Azimuth548trinity113Tower68934KEY12";
-		@NotNull String filteredText = filterInteger(inputText);
-		@NotNull String resultText = filteredText.substring(0, MAX_LENGTH);
+		@NotNull String resultText = filterInteger(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -86,7 +93,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 	@Test
 	public void shortRealInput_FieldShouldContainOnlyDigits() {
 		@NotNull String inputText = "165.3733";
-		@NotNull String resultText = filterInteger(inputText);
+		@NotNull String resultText = filterInteger(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -123,7 +130,7 @@ public class IntegerFieldUITests extends UITests<IntegerField<?>> {
 
 	@Test
 	public void inputIntoFilledField_ShouldNotMoveCaret() {
-		@NotNull String inputText = "-89267458";
+		@NotNull String inputText = "-892671458";
 		safeClickById(ID).type(inputText);
 		type("1");
 		@NotNull TextField field = safeFindById(ID);

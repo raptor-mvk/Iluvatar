@@ -38,7 +38,8 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
 		safeClickById(ID).type(inputText);
 		emptyField(ID);
 		@Nullable Long fieldValue = fieldValueTester.getValue();
-		Assert.assertEquals("empty field should set value to zero", new Long(0), fieldValue);
+		Assert.assertEquals("empty field should set value to zero", Long.valueOf(0),
+				fieldValue);
 	}
 
 	@Test
@@ -59,7 +60,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
 	@Test
 	public void shortMixedInput_FieldShouldContainOnlyDigits() {
 		@NotNull String inputText = "2chairCutter4destiny6ParrotQuite48,HALLO";
-		@NotNull String resultText = filterNatural(inputText);
+		@NotNull String resultText = filterNatural(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -67,8 +68,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
 	@Test
 	public void longMixedInput_FieldShouldContainOnlyDigitsTruncatedToMaxLength() {
 		@NotNull String inputText = "2pineapple4halloween6primary48,try827his8173custody332";
-		@NotNull String filteredText = filterNatural(inputText);
-		@NotNull String resultText = filteredText.substring(0, MAX_LENGTH);
+		@NotNull String resultText = filterNatural(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -76,7 +76,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
 	@Test
 	public void shortNegativeInput_FieldShouldContainOnlyPositivePart() {
 		@NotNull String inputText = "-346";
-		@NotNull String resultText = filterNatural(inputText);
+		@NotNull String resultText = filterNatural(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -84,7 +84,7 @@ public class NaturalFieldUITests extends UITests<NaturalField<?>> {
 	@Test
 	public void shortRealInput_FieldShouldContainOnlyDigits() {
 		@NotNull String inputText = "346.35";
-		@NotNull String resultText = filterNatural(inputText);
+		@NotNull String resultText = filterNatural(inputText, MAX_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}

@@ -129,7 +129,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		runAndWait(listView::clearSelection);
 		@Nullable Integer selectedRow = selectedIndexState.getValue();
 		Assert.assertEquals("clearSelection() should call selectedItemSetter with negative " +
-				"index", new Integer(-1), selectedRow);
+				"index", Integer.valueOf(-1), selectedRow);
 	}
 
 	@Test
@@ -201,7 +201,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		runAndWait(listView::clearSelection);
 		@Nullable Integer selectedRow = selectedIndexState.getValue();
 		Assert.assertEquals("selectRowByIndex(i) should call selectedItemSetter with " +
-				"negative index, when i is negative", new Integer(-1), selectedRow);
+				"negative index, when i is negative", Integer.valueOf(-1), selectedRow);
 	}
 
 	@Test
@@ -237,7 +237,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@Nullable Integer selectedRow = selectedIndexState.getValue();
 		Assert.assertEquals("selectRowByIndex(i) should call selectedItemSetter with " +
 						"negative index, when i is greater, than the number of rows in the table",
-				new Integer(-1), selectedRow);
+				Integer.valueOf(-1), selectedRow);
 	}
 
 
@@ -313,9 +313,10 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		runAndWait(() -> listView.selectRowByEntity(studentToSelect));
 		@Nullable Integer selectedRow = selectedIndexState.getValue();
 		Assert.assertEquals("selectRowByEntity(entity) should call selectedItemSetter with " +
-						"negative index, when entity does not belong to list", new Integer(-1),
+						"negative index, when entity does not belong to list", Integer.valueOf(-1),
 				selectedRow);
 	}
+
 
 	@Test
 	public void moveSelection_ShouldCallSelectedItemSetter() {
@@ -609,7 +610,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(5);
 		result.setName("Peter Trustworthy");
-		result.setGpa(4.99);
+		result.setGpa((short)499);
 		result.setPenalty((short) -8);
 		result.setGraduated(false);
 		result.setFileSize(3499549L);
@@ -622,7 +623,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(3);
 		result.setName("Michael Grasshopper");
-		result.setGpa(4.3);
+		result.setGpa((short)430);
 		result.setPenalty((short) -30);
 		result.setGraduated(true);
 		result.setFileSize(436003L);
@@ -635,7 +636,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(324);
 		result.setName("Total");
-		result.setGpa(1.0);
+		result.setGpa((short)100);
 		result.setPenalty((short) 0);
 		result.setGraduated(true);
 		result.setFileSize(0L);

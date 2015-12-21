@@ -21,14 +21,27 @@ public class RationalFieldInfoUnitTests {
 	}
 
 	@Test
-	public void constructor_ShouldSetWidth() {
-		int width = 6;
-		@NotNull RealDescriptor realDescriptor = new RealDescriptor(width, 2);
+	public void constructor_ShouldSetWidthAsIntegerWidthPlusFractionWidthPlus2() {
+		int integerWidth = 6;
+		int fractionWidth = 2;
+		@NotNull RealDescriptor realDescriptor =
+				new RealDescriptor(integerWidth, fractionWidth);
 		@NotNull RealFieldInfo<Float> realFieldInfo =
 				new RationalFieldInfo<>(Float.class, "percent", realDescriptor);
 		int fieldWidth = realFieldInfo.getWidth();
-		Assert.assertEquals("constructor should set correct value of 'width'", width,
-				fieldWidth);
+		Assert.assertEquals("constructor should set correct value of 'width'",
+				integerWidth + fractionWidth + 2, fieldWidth);
+	}
+
+	@Test
+	public void constructor_ShouldSetIntegerWidth() {
+		int integerWidth = 7;
+		@NotNull RealDescriptor realDescriptor = new RealDescriptor(integerWidth, 3);
+		@NotNull RealFieldInfo<Float> realFieldInfo =
+				new RationalFieldInfo<>(Float.class, "fraction", realDescriptor);
+		int fieldIntegerWidth = realFieldInfo.getIntegerWidth();
+		Assert.assertEquals("constructor should set correct value of 'fractionWidth'",
+				integerWidth, fieldIntegerWidth);
 	}
 
 	@Test

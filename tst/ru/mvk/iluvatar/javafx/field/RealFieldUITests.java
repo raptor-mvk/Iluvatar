@@ -11,69 +11,58 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 import org.junit.Test;
-import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
 import ru.mvk.iluvatar.descriptor.field.RationalFieldInfo;
+import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.utils.UITests;
 
 public class RealFieldUITests extends UITests<RealField<?>> {
-	private static final int MAX_LENGTH = 8;
+	private static final int INTEGER_LENGTH = 6;
 	private static final int FRACTION_LENGTH = 2;
+	private static final int MULTIPLIER = (int) Math.pow(10.0, FRACTION_LENGTH);
 	@NotNull
 	private static final String ID = "fieldId";
 	@NotNull
-	private final FieldValueTester<Double> fieldValueTester = new FieldValueTester<>();
+	private final FieldValueTester<Integer> fieldValueTester = new FieldValueTester<>();
 
 	@Test
 	public void input_ShouldSetValue() {
-		double input = -824.36;
-		@Nullable String inputText = Double.toString(input);
+		@NotNull Integer input = -82436;
+		@Nullable String inputText = Double.toString((double) input / MULTIPLIER);
 		if (inputText == null) {
 			throw new RuntimeException("Input text is null");
 		}
 		safeClickById(ID).type(inputText);
-		@Nullable Double fieldValue = fieldValueTester.getValue();
-		if (fieldValue == null) {
-			fieldValue = Double.NaN;
-		}
-		Assert.assertEquals("input real number should set correct value", input, fieldValue,
-				DOUBLE_PRECISION);
+		@Nullable Integer fieldValue = fieldValueTester.getValue();
+		Assert.assertEquals("input real number should set correct value",
+				input, fieldValue);
 	}
 
 	@Test
 	public void inputMinus_ShouldSetValueToZero() {
 		@NotNull String inputText = "-";
 		safeClickById(ID).type(inputText);
-		@Nullable Double fieldValue = fieldValueTester.getValue();
-		if (fieldValue == null) {
-			fieldValue = Double.NaN;
-		}
-		Assert.assertEquals("input \"-\" should set value to zero", 0.0, fieldValue,
-				DOUBLE_PRECISION);
+		@Nullable Integer fieldValue = fieldValueTester.getValue();
+		Assert.assertEquals("input \"-\" should set value to zero", Integer.valueOf(0),
+				fieldValue);
 	}
 
 	@Test
 	public void inputPoint_ShouldSetValueToZero() {
 		@NotNull String inputText = ".";
 		safeClickById(ID).type(inputText);
-		@Nullable Double fieldValue = fieldValueTester.getValue();
-		if (fieldValue == null) {
-			fieldValue = Double.NaN;
-		}
-		Assert.assertEquals("input \".\" should set value to zero", 0.0, fieldValue,
-				DOUBLE_PRECISION);
+		@Nullable Integer fieldValue = fieldValueTester.getValue();
+		Assert.assertEquals("input \".\" should set value to zero", Integer.valueOf(0),
+				fieldValue);
 	}
 
 	@Test
 	public void inputMinusPoint_ShouldSetValueToZero() {
 		@NotNull String inputText = "-.";
 		safeClickById(ID).type(inputText);
-		@Nullable Double fieldValue = fieldValueTester.getValue();
-		if (fieldValue == null) {
-			fieldValue = Double.NaN;
-		}
-		Assert.assertEquals("input \"-.\" should set value to zero", 0.0, fieldValue,
-				DOUBLE_PRECISION);
+		@Nullable Integer fieldValue = fieldValueTester.getValue();
+		Assert.assertEquals("input \"-.\" should set value to zero", Integer.valueOf(0),
+				fieldValue);
 	}
 
 	@Test
@@ -81,12 +70,9 @@ public class RealFieldUITests extends UITests<RealField<?>> {
 		@NotNull String inputText = "2352.15";
 		safeClickById(ID).type(inputText);
 		emptyField(ID);
-		@Nullable Double fieldValue = fieldValueTester.getValue();
-		if (fieldValue == null) {
-			fieldValue = Double.NaN;
-		}
-		Assert.assertEquals("empty field should set value to zero", 0.0, fieldValue,
-				DOUBLE_PRECISION);
+		@Nullable Integer fieldValue = fieldValueTester.getValue();
+		Assert.assertEquals("empty field should set value to zero", Integer.valueOf(0),
+				fieldValue);
 	}
 
 	@Test
@@ -97,17 +83,27 @@ public class RealFieldUITests extends UITests<RealField<?>> {
 	}
 
 	@Test
-	public void longFractionInput_FieldShouldContainTruncatedText() {
-		@NotNull String expectedResultText = "-347.83";
-		@NotNull String inputText = expectedResultText + "33";
+	public void longIntegerInput_FieldShouldContainTruncatedIntegerText() {
+		@NotNull String inputText = "45781725739879865443";
+		@NotNull String expectedResultText = filterInteger(inputText, INTEGER_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, expectedResultText);
 	}
 
 	@Test
-	public void longRealInput_FieldShouldContainTruncatedText() {
-		@NotNull String inputText = "45781725739879865443";
-		@NotNull String expectedResultText = inputText.substring(0, MAX_LENGTH);
+	public void realLongIntegerInput_FieldShouldContainTruncatedText() {
+		@NotNull String inputText = "545523523563.2";
+		@NotNull String expectedResultText =
+				filterReal(inputText, INTEGER_LENGTH, FRACTION_LENGTH);
+		safeClickById(ID).type(inputText);
+		assertTextFieldByIdContainsText(ID, expectedResultText);
+	}
+
+	@Test
+	public void realLongFractionInput_FieldShouldContainTruncatedText() {
+		@NotNull String inputText = "-347.8322";
+		@NotNull String expectedResultText =
+				filterReal(inputText, INTEGER_LENGTH, FRACTION_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, expectedResultText);
 	}
@@ -115,16 +111,23 @@ public class RealFieldUITests extends UITests<RealField<?>> {
 	@Test
 	public void shortMixedInput_FieldShouldContainOnlyNumber() {
 		@NotNull String inputText = "323trainer.3validation7";
-		@NotNull String resultText = filterReal(inputText);
+		@NotNull String resultText = filterReal(inputText, INTEGER_LENGTH, FRACTION_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
 
 	@Test
-	public void longMixedInput_FieldShouldContainOnlyNumberTruncatedToMaxLength() {
+	public void longMixedIntegerInput_FieldShouldContainOnlyTruncatedInteger() {
 		@NotNull String inputText = "-pixel3612Negotiation3543Tribune352LABOR23gravity";
-		@NotNull String filteredText = filterReal(inputText);
-		@NotNull String resultText = filteredText.substring(0, MAX_LENGTH);
+		@NotNull String resultText = filterReal(inputText, INTEGER_LENGTH, FRACTION_LENGTH);
+		safeClickById(ID).type(inputText);
+		assertTextFieldByIdContainsText(ID, resultText);
+	}
+
+	@Test
+	public void longMixedRealInput_FieldShouldContainOnlyTruncatedIntegerWithFraction() {
+		@NotNull String inputText = "-pixel3612Negotiation3543Tribune35.2LABOR23gravity";
+		@NotNull String resultText = filterReal(inputText, INTEGER_LENGTH, FRACTION_LENGTH);
 		safeClickById(ID).type(inputText);
 		assertTextFieldByIdContainsText(ID, resultText);
 	}
@@ -200,12 +203,11 @@ public class RealFieldUITests extends UITests<RealField<?>> {
 
 	@NotNull
 	@Override
-
 	protected Parent getRootNode() {
-		@NotNull RationalFieldInfo<Double> fieldInfo =
-				new RationalFieldInfo<>(Double.class, "price",
-						new RealDescriptor(MAX_LENGTH, FRACTION_LENGTH));
-		@NotNull RealField<Double> field = new RealField<>(fieldInfo);
+		@NotNull RationalFieldInfo<Integer> fieldInfo =
+				new RationalFieldInfo<>(Integer.class, "price",
+						new RealDescriptor(INTEGER_LENGTH, FRACTION_LENGTH));
+		@NotNull RealField<Integer> field = new RealField<>(fieldInfo);
 		field.setFieldUpdater(fieldValueTester::setValue);
 		field.setId(ID);
 		return field;

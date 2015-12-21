@@ -7,20 +7,20 @@ package ru.mvk.iluvatar.descriptor.field;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 public class RealDescriptor {
-	private final int maxWidth;
+	private final int integerWidth;
 
 	private final int fractionWidth;
 
-	public RealDescriptor(int maxWidth, int fractionWidth) {
-		if (maxWidth <= 0 || fractionWidth <= 0 || maxWidth - 1 < fractionWidth) {
-			throw new IluvatarRuntimeException("RealDescriptor: wrong widths");
+	public RealDescriptor(int integerWidth, int fractionWidth) {
+		if (integerWidth <= 0 || fractionWidth <= 0) {
+			throw new IluvatarRuntimeException("RealDescriptor: wrong width");
 		}
-		this.maxWidth = maxWidth;
+		this.integerWidth = integerWidth;
 		this.fractionWidth = fractionWidth;
 	}
 
-	public int getMaxWidth() {
-		return maxWidth;
+	public int getIntegerWidth() {
+		return integerWidth;
 	}
 
 	public int getFractionWidth() {

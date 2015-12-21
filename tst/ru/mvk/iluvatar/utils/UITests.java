@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
@@ -19,6 +20,7 @@ import org.loadui.testfx.GuiTest;
 import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 import ru.mvk.iluvatar.descriptor.field.*;
 import ru.mvk.iluvatar.javafx.field.DateField;
+import ru.mvk.iluvatar.javafx.field.RealField;
 import ru.mvk.iluvatar.javafx.field.RefField;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
@@ -133,10 +135,15 @@ public abstract class UITests<Type> extends GuiTest {
 			@NotNull String stringExpectedValue = expectedValue.toString();
 			if (fieldInfo instanceof ListFieldInfo) {
 				assertListFieldByIdContainsValue(view, fieldKey, expectedValue);
+			} else if (fieldInfo instanceof TemporalFieldInfo) {
+				assertDateFieldByKeyHasValue(view, fieldKey, (LocalDate) expectedValue);
+			} else if (fieldInfo instanceof RealFieldInfo) {
+				double multiplier =
+						Math.pow(10.0, ((RealFieldInfo) fieldInfo).getFractionWidth());
+				assertRealFieldByKeyHasValue(view, fieldKey,
+						(double) ((Number) expectedValue).longValue() / multiplier);
 			} else if (fieldInfo instanceof SizedFieldInfo) {
 				assertTextFieldByKeyContainsText(view, fieldKey, stringExpectedValue);
-			} else if (fieldInfo instanceof DateFieldInfo) {
-				assertDateFieldByKeyHasValue(view, fieldKey, (LocalDate) expectedValue);
 			} else {
 				assertCheckBoxHasState(view, fieldKey, (Boolean) expectedValue);
 			}
@@ -200,6 +207,20 @@ public abstract class UITests<Type> extends GuiTest {
 	                                              @NotNull String expected) {
 		@NotNull String id = view.getFieldId(key);
 		assertTextFieldByIdContainsText(id, expected);
+	}
+
+	private void assertRealFieldByKeyHasValue(@NotNull View<?> view,
+	                                          @NotNull String key,
+	                                          double expected) {
+		@NotNull String id = view.getFieldId(key);
+		@NotNull RealField realField = safeFindById(id);
+		@Nullable String fieldValue = realField.getText();
+		if (fieldValue == null) {
+			throw new RuntimeException("fieldValue is null");
+		}
+		double value = Double.parseDouble(fieldValue);
+		Assert.assertEquals("Field with id '" + id + "' should contain value " + expected,
+				expected, value, DOUBLE_PRECISION);
 	}
 
 	private void assertDateFieldByKeyHasValue(@NotNull View<?> view,
@@ -282,37 +303,41 @@ public abstract class UITests<Type> extends GuiTest {
 	}
 
 	@NotNull
-	protected final String filterNatural(@NotNull String text) {
+	protected final String filterNatural(@NotNull String text, int width) {
 		@Nullable String result = text.replaceAll("\\D", "");
 		if (result == null) {
 			throw new RuntimeException("Replace result is null");
 		}
-		return result;
+		return StringUtils.substring(result, 0, width);
 	}
 
 	@NotNull
-	protected final String filterInteger(@NotNull String text) {
+	protected final String filterInteger(@NotNull String text, int width) {
 		@NotNull String result;
+		@NotNull String natural;
 		int pointPos = text.indexOf('-');
 		if (pointPos > -1) {
-			@NotNull String natural = text.substring(pointPos + 1);
-			result = "-" + filterNatural(natural);
+			natural = text.substring(pointPos + 1);
+			result = "-";
 		} else {
-			result = filterNatural(text);
+			natural = text;
+			result = "";
 		}
-		return result;
+		return result + filterNatural(natural, width);
 	}
 
 	@NotNull
-	protected final String filterReal(@NotNull String text) {
+	protected final String filterReal(@NotNull String text, int integerWidth,
+	                                  int fractionWidth) {
 		@NotNull String result;
 		int pointPos = text.indexOf('.');
 		if (pointPos > -1) {
-			@NotNull String integer = text.substring(0, pointPos - 1);
+			@NotNull String integer = text.substring(0, pointPos);
 			@NotNull String fraction = text.substring(pointPos + 1);
-			result = filterInteger(integer) + "." + filterNatural(fraction);
+			result = filterInteger(integer, integerWidth) + "." +
+					filterNatural(fraction, fractionWidth);
 		} else {
-			result = filterInteger(text);
+			result = filterInteger(text, integerWidth);
 		}
 		return result;
 	}

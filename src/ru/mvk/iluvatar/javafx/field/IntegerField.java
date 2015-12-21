@@ -16,8 +16,8 @@ public class IntegerField<Type extends Number> extends NaturalField<Type> {
 
 	public IntegerField(@NotNull NumberFieldInfo<Type> fieldInfo) {
 		super(fieldInfo);
-		@NotNull String maxWidth = Integer.toString(getMaxLength());
-		@NotNull String matcherString = "^(?=^-?\\d*$)[-\\.\\d]{0," + maxWidth + "}$";
+		int maxWidth = getMaxLength() - 1;
+		@NotNull String matcherString = String.format("^-?\\d{0,%d}$", maxWidth);
 		integerMatcher = Pattern.compile(matcherString).matcher("");
 	}
 

@@ -19,7 +19,9 @@ public class NaturalField<Type extends Number> extends SizedTextField<Type> {
 
 	public NaturalField(@NotNull NumberFieldInfo<Type> fieldInfo) {
 		super(fieldInfo.getWidth(), fieldInfo.getType());
-		naturalMatcher = Pattern.compile("^(\\d){0," + getMaxLength() + "}$").matcher("");
+		int maxWidth = getMaxLength();
+		@NotNull String matcherString = String.format("^\\d{0,%d}$", maxWidth);
+		naturalMatcher = Pattern.compile(matcherString).matcher("");
 	}
 
 	@Override

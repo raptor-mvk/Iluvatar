@@ -32,6 +32,11 @@ import java.util.function.Consumer;
 
 public class JFXViewUITests extends UITests<View<Student>> {
 	@NotNull
+	private final DateTimeFormatter dateFormatter =
+			DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	@NotNull
+	private final RealDescriptor realDescriptor = new RealDescriptor(2, 2);
+	@NotNull
 	private final FieldValueTester<Boolean> saveButtonState = new FieldValueTester<>();
 	@NotNull
 	private final FieldValueTester<Boolean> cancelButtonState = new FieldValueTester<>();
@@ -47,9 +52,6 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	private final Student student = prepareStudent();
 	@NotNull
 	private final StringSupplier stringSupplier = StringUtils::reverse;
-	@NotNull
-	private final DateTimeFormatter dateFormatter =
-			DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	@Test
 	public void fieldLabelsShouldBeCorrect() {
@@ -170,16 +172,17 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	public void inputIntoGpaField_ShouldSetGpaValue() {
 		@NotNull View<Student> view = getObjectUnderTest();
 		@NotNull String fieldId = view.getFieldId("gpa");
-		double gpaValue = 3.2;
-		@Nullable String gpaValueString = Double.toString(gpaValue);
+		short gpaValue = 320;
+		int multiplier = (int) Math.pow(10.0, realDescriptor.getFractionWidth());
+		@Nullable String gpaValueString = Double.toString((double) gpaValue / multiplier);
 		if (gpaValueString == null) {
 			throw new RuntimeException("gpaValueString is null");
 		}
 		emptyField(fieldId);
 		safeClickById(fieldId).type(gpaValueString);
-		double studentGpaValue = student.getGpa();
-		Assert.assertEquals("input into 'gpa' field should set value of 'gpa'", gpaValue,
-				studentGpaValue, DOUBLE_PRECISION);
+		short studentGpaValue = student.getGpa();
+		Assert.assertEquals("input into 'gpa' field should set value of 'gpa'",
+				gpaValue, studentGpaValue);
 	}
 
 	@Test
@@ -282,15 +285,16 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		@NotNull ViewInfo<Student> result = new ViewInfoImpl<>(Student.class);
 		result.addFieldInfo("id", new NaturalFieldInfo<>(Integer.class, "id", 10));
 		result.addFieldInfo("name", new TextFieldInfo("name", 100));
-		result.addFieldInfo("gpa", new RationalFieldInfo<>(Double.class, "gpa",
-				new RealDescriptor(5, 2)));
+		result.addFieldInfo("gpa", new RationalFieldInfo<>(Short.class, "gpa",
+				realDescriptor));
 		result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
 		result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
 		@NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
 		result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
+		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
+				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1), dateFormatter);
 		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate", 10,
-				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1),
-						DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
+				temporalDescriptor));
 		return result;
 	}
 
@@ -299,7 +303,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(1);
 		result.setName("Robert Stark");
-		result.setGpa(3.75);
+		result.setGpa((short) 375);
 		result.setPenalty((short) -2);
 		result.setGraduated(false);
 		result.setLecturesTime(113560);
@@ -320,7 +324,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		result.add(student2);
 		@NotNull Student student3 = new Student();
 		student3.setId(2);
-		student3.setName("Zigmund Somebody");
+		student3.setName("Victor Somebody");
 		result.add(student3);
 		return result;
 	}

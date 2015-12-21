@@ -5,14 +5,13 @@ package ru.mvk.iluvatar.javafx.field;
 
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import ru.mvk.iluvatar.descriptor.field.DateFieldInfo;
+import ru.mvk.iluvatar.descriptor.field.TemporalDescriptor;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.utils.UITests;
 
@@ -26,6 +25,8 @@ public class DateFieldUITests extends UITests<DateField> {
 	private static final String ID = "fieldId";
 	@NotNull
 	private final FieldValueTester<LocalDate> fieldValueTester = new FieldValueTester<>();
+	@NotNull
+	private final LocalDate defaultDate = LocalDate.of(2000, 1, 1);
 	@NotNull
 	private final DateTimeFormatter dateFormatter =
 			DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -49,8 +50,8 @@ public class DateFieldUITests extends UITests<DateField> {
 		type("43.25.12");
 		runAndWait(root::requestFocus);
 		@Nullable LocalDate fieldValue = fieldValueTester.getValue();
-		Assert.assertEquals("wrong input should set field value to default date",
-				DateField.getDefaultDate(), fieldValue);
+		Assert.assertEquals("wrong input should set field value to default date", defaultDate,
+				fieldValue);
 	}
 
 	@Test
@@ -61,9 +62,9 @@ public class DateFieldUITests extends UITests<DateField> {
 		emptyField(ID);
 		type("43.25.12");
 		runAndWait(root::requestFocus);
-		@Nullable LocalDate fieldValue = ((DatePicker)safeFindById(ID)).getValue();
-		Assert.assertEquals("wrong input should set value to default date",
-				DateField.getDefaultDate(), fieldValue);
+		@Nullable LocalDate fieldValue = ((DatePicker) safeFindById(ID)).getValue();
+		Assert.assertEquals("wrong input should set value to default date", defaultDate,
+				fieldValue);
 	}
 
 	@Test
@@ -74,8 +75,8 @@ public class DateFieldUITests extends UITests<DateField> {
 		emptyField(ID);
 		runAndWait(root::requestFocus);
 		@Nullable LocalDate fieldValue = fieldValueTester.getValue();
-		Assert.assertEquals("empty field should set field value to default date",
-				DateField.getDefaultDate(), fieldValue);
+		Assert.assertEquals("empty field should set field value to default date", defaultDate,
+				fieldValue);
 	}
 
 	@Test
@@ -85,27 +86,20 @@ public class DateFieldUITests extends UITests<DateField> {
 		runAndWait(root::requestFocus);
 		emptyField(ID);
 		runAndWait(root::requestFocus);
-		@Nullable LocalDate fieldValue = ((DatePicker)safeFindById(ID)).getValue();
-		Assert.assertEquals("empty field should set value to default date",
-				DateField.getDefaultDate(), fieldValue);
-	}
-
-	@Test
-	public void setDefaultValue_SetsDefaultDateValue() {
-		@NotNull LocalDate defaultDate = LocalDate.of(2013, 2, 7);
-		DateField.setDefaultDate(defaultDate);
-		emptyField(ID);
-		runAndWait(root::requestFocus);
-		@Nullable LocalDate fieldValue = fieldValueTester.getValue();
-		Assert.assertEquals("setDefaultValue() should set defaultDate value",
-				defaultDate, fieldValue);
+		@Nullable LocalDate fieldValue = ((DatePicker) safeFindById(ID)).getValue();
+		Assert.assertEquals("empty field should set value to default date",	defaultDate,
+				fieldValue);
 	}
 
 	@NotNull
 	@Override
 	protected Parent getRootNode() {
 		root = new VBox();
-		@NotNull DateField field = new DateField();
+		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
+				new TemporalDescriptor<>(defaultDate, dateFormatter);
+		@NotNull DateFieldInfo dateFieldInfo =
+				new DateFieldInfo("date", 10, temporalDescriptor);
+		@NotNull DateField field = new DateField(dateFieldInfo);
 		field.setFieldUpdater(fieldValueTester::setValue);
 		field.setId(ID);
 		root.getChildren().addAll(field);

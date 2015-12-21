@@ -11,12 +11,12 @@ import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 
 public class RealDescriptorUnitTests {
 	@Test
-	public void constructor_ShouldSetMaxWidth() {
-		int maxWidth = 7;
-		@NotNull RealDescriptor realDescriptor = new RealDescriptor(maxWidth, 5);
-		int descriptorMaxWidth = realDescriptor.getMaxWidth();
-		Assert.assertEquals("constructor should set correct value of 'maxWidth'", maxWidth,
-				descriptorMaxWidth);
+	public void constructor_ShouldSetIntegerWidth() {
+		int integerWidth = 7;
+		@NotNull RealDescriptor realDescriptor = new RealDescriptor(integerWidth, 5);
+		int descriptorMaxWidth = realDescriptor.getIntegerWidth();
+		Assert.assertEquals("constructor should set correct value of 'integerWidth'",
+				integerWidth, descriptorMaxWidth);
 	}
 
 	@Test
@@ -29,17 +29,12 @@ public class RealDescriptorUnitTests {
 	}
 
 	@Test(expected = IluvatarRuntimeException.class)
-	public void constructor_NonPositiveMaxWidth_ShouldThrowIluvatarRuntimeException() {
+	public void constructor_NonPositiveIntegerWidth_ShouldThrowIluvatarRuntimeException() {
 		new RealDescriptor(-3, 6);
 	}
 
 	@Test(expected = IluvatarRuntimeException.class)
 	public void constructor_NonPositiveFractionWidth_ShouldThrowIluvatarRuntimeException() {
 		new RealDescriptor(5, -2);
-	}
-
-	@Test(expected = IluvatarRuntimeException.class)
-	public void constructor_TooLargeFractionWidth_ShouldThrowIluvatarRuntimeException() {
-		new RealDescriptor(5, 5);
 	}
 }

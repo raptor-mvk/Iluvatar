@@ -24,11 +24,18 @@ import ru.mvk.iluvatar.utils.UITests;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 public class JFXViewNewEntityUITests extends UITests<View<Student>> {
+	@NotNull
+	private final DateTimeFormatter dateFormatter =
+			DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	@NotNull
+	private final RealDescriptor realDescriptor = new RealDescriptor(2, 3);
 	@NotNull
 	private final FieldValueTester<Boolean> saveButtonState = new FieldValueTester<>();
 	@NotNull
@@ -81,6 +88,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		nodeTypes.put("penalty", IntegerField.class);
 		nodeTypes.put("graduated", CheckBoxField.class);
 		nodeTypes.put("neighbour", RefField.class);
+		nodeTypes.put("enrollmentDate", DateField.class);
 		assertFieldsHaveCorrectTypes(view, iterator, nodeTypes);
 	}
 
@@ -164,16 +172,17 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 	public void inputIntoGpaField_ShouldSetGpaValue() {
 		@NotNull View<Student> view = getObjectUnderTest();
 		@NotNull String fieldId = view.getFieldId("gpa");
-		double gpaValue = 2.14;
-		@Nullable String gpaValueString = Double.toString(gpaValue);
+		short gpaValue = 2140;
+		int multiplier = (int) Math.pow(10.0, realDescriptor.getFractionWidth());
+		@Nullable String gpaValueString = Double.toString((double) gpaValue / multiplier);
+		emptyField(fieldId);
 		if (gpaValueString == null) {
 			throw new RuntimeException("gpaValueString is null");
 		}
-		emptyField(fieldId);
 		safeClickById(fieldId).type(gpaValueString);
-		double studentGpaValue = student.getGpa();
+		short studentGpaValue = student.getGpa();
 		Assert.assertEquals("input into 'gpa' field should set value of 'gpa'", gpaValue,
-				studentGpaValue, DOUBLE_PRECISION);
+				studentGpaValue);
 	}
 
 	@Test
@@ -213,6 +222,22 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 	}
 
 	@Test
+	public void inputIntoEnrollmentDateField_ShouldSetEnrollmentDateValue() {
+		@NotNull View<Student> view = getObjectUnderTest();
+		@NotNull String fieldId = view.getFieldId("enrollmentDate");
+		LocalDate enrollmentDateValue = LocalDate.of(2008, 2, 29);
+		@NotNull String enrollmentDateString = enrollmentDateValue.format(dateFormatter);
+		emptyField(fieldId);
+		safeClickById(fieldId).type(enrollmentDateString);
+		@NotNull String saveButtonId = view.getSaveButtonId();
+		@NotNull Button saveButton = safeFindById(saveButtonId);
+		runAndWait(saveButton::requestFocus);
+		@NotNull LocalDate studentEnrollmentDateValue = student.getEnrollmentDate();
+		Assert.assertEquals("input into 'enrollmentDate' field should set value of " +
+				"'enrollmentDate'", enrollmentDateValue, studentEnrollmentDateValue);
+	}
+
+	@Test
 	public void enterKey_ShouldCallSaveButtonHandlerWithTrueParameter() {
 		saveButtonState.setValue(false);
 		push(KeyCode.ENTER);
@@ -248,10 +273,14 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		@NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
 		result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
 		result.addFieldInfo("name", new TextFieldInfo("name", 100));
-		result.addFieldInfo("gpa", new RationalFieldInfo<>(Double.class, "gpa",
-				new RealDescriptor(5, 2)));
+		result.addFieldInfo("gpa", new RationalFieldInfo<>(Short.class, "gpa",
+				realDescriptor));
 		result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
 		result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
+		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
+				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1), dateFormatter);
+		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate", 10,
+				temporalDescriptor));
 		return result;
 	}
 
@@ -260,11 +289,12 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(3);
 		result.setName("Matthew Libby");
-		result.setGpa(2.13);
+		result.setGpa((short)213);
 		result.setPenalty((short) -100);
 		result.setGraduated(true);
 		result.setLecturesTime(91378);
 		result.setNeighbour(1);
+		result.setEnrollmentDate(LocalDate.of(2007, 5, 17));
 		return result;
 	}
 

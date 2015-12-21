@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class IntegerFieldInfo<Type extends Number> extends NaturalFieldInfo<Type> {
 	public IntegerFieldInfo(@NotNull Class<Type> type, @NotNull String name, int width) {
-		super(type, name, width);
+		super(type, name, width + 1);
 	}
 
 	@NotNull

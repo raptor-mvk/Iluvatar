@@ -21,12 +21,12 @@ public class IntegerFieldInfoUnitTests {
 	}
 
 	@Test
-	public void constructor_ShouldSetWidth() {
+	public void constructor_ShouldSetWidthPlusOne() {
 		int width = 5;
 		@NotNull NumberFieldInfo<Long> integerFieldInfo =
 				new IntegerFieldInfo<>(Long.class, "value", width);
 		int fieldWidth = integerFieldInfo.getWidth();
-		Assert.assertEquals("constructor should set correct value of 'width'", width,
+		Assert.assertEquals("constructor should set correct value of 'width'", width + 1,
 				fieldWidth);
 	}
 
