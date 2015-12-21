@@ -18,7 +18,7 @@ public class RationalColumnInfo extends PlainColumnInfo implements RealColumnInf
 		super(name, realDescriptor.getFractionWidth() + realDescriptor.getIntegerWidth() + 2);
 		fractionWidth = realDescriptor.getFractionWidth();
 		multiplier = (long) Math.pow(10.0, fractionWidth);
-		stringFormat = "%." + fractionWidth + "g";
+		stringFormat = "%." + fractionWidth + "f";
 	}
 
 	@NotNull

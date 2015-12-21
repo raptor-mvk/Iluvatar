@@ -13,6 +13,7 @@ import org.junit.Test;
 import ru.mvk.iluvatar.descriptor.ListViewInfo;
 import ru.mvk.iluvatar.descriptor.ListViewInfoImpl;
 import ru.mvk.iluvatar.descriptor.column.*;
+import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
 import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
 import ru.mvk.iluvatar.view.ListView;
@@ -53,7 +54,8 @@ public class JFXListViewNoRemoveUITests extends UITests<ListView<Student>> {
 		@NotNull ListViewInfo<Student> result = new ListViewInfoImpl<>(Student.class);
 		result.addColumnInfo("id", new PlainColumnInfo("id", 10));
 		result.addColumnInfo("name", new TextColumnInfo("name", 50));
-		result.addColumnInfo("gpa", new PlainColumnInfo("gpa", 5));
+		@NotNull RealDescriptor realDescriptor = new RealDescriptor(3, 2);
+		result.addColumnInfo("gpa", new RationalColumnInfo("gpa", realDescriptor));
 		result.addColumnInfo("penalty", new PlainColumnInfo("penalty", 5));
 		result.addColumnInfo("graduated", new BooleanColumnInfo("graduated", 3));
 		result.addColumnInfo("fileSize", new FileSizeColumnInfo("fileSize", 10));
