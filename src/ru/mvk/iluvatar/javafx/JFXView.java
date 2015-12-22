@@ -20,6 +20,7 @@ import ru.mvk.iluvatar.descriptor.field.SizedFieldInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.javafx.field.Field;
 import ru.mvk.iluvatar.javafx.field.RefList;
+import ru.mvk.iluvatar.view.IdGenerator;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
@@ -45,21 +46,22 @@ public class JFXView<EntityType> implements View<EntityType> {
 	@NotNull
 	private final ViewInfo<EntityType> viewInfo;
 	@NotNull
-	private final String entityClassName;
-	@NotNull
-	private Consumer<Boolean> saveButtonHandler = (isNeEntity) -> {
+	private Consumer<Boolean> saveButtonHandler = (isNewEntity) -> {
 	};
 	@NotNull
 	private Runnable cancelButtonHandler = () -> {
 	};
 	@NotNull
 	private final StringSupplier stringSupplier;
+	@NotNull
+	private final IdGenerator idGenerator;
 
 	/* TODO extract private methods */
 	public JFXView(@NotNull ViewInfo<EntityType> viewInfo,
-	               @NotNull StringSupplier stringSupplier) {
+	               @NotNull StringSupplier stringSupplier,
+	               @NotNull IdGenerator idGenerator) {
 		@NotNull Class<EntityType> entityType = viewInfo.getEntityType();
-		entityClassName = entityType.getSimpleName();
+		this.idGenerator = idGenerator;
 		this.viewInfo = viewInfo;
 		this.stringSupplier = stringSupplier;
 		saveButton = prepareSaveButton();
@@ -68,30 +70,6 @@ public class JFXView<EntityType> implements View<EntityType> {
 		@NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
 		prepareView(iterator);
 		setKeyListeners();
-	}
-
-	@Override
-	@NotNull
-	public final String getFieldId(@NotNull String key) {
-		return entityClassName + '-' + key + "-field";
-	}
-
-	@Override
-	@NotNull
-	public final String getLabelId(@NotNull String key) {
-		return entityClassName + '-' + key + "-label";
-	}
-
-	@Override
-	@NotNull
-	public final String getSaveButtonId() {
-		return entityClassName + "-save-button";
-	}
-
-	@Override
-	@NotNull
-	public final String getCancelButtonId() {
-		return entityClassName + "-cancel-button";
 	}
 
 	@Nullable
@@ -154,7 +132,7 @@ public class JFXView<EntityType> implements View<EntityType> {
 	}
 
 	private void prepareLabel(int index, @NotNull String fieldKey) {
-		@NotNull String labelId = getLabelId(fieldKey);
+		@NotNull String labelId = idGenerator.getLabelId(fieldKey);
 		@NotNull NamedFieldInfo fieldInfo = viewInfo.getFieldInfo(fieldKey);
 		@NotNull String fieldLabel = fieldInfo.getName();
 		@NotNull String suppliedFieldLabel = stringSupplier.apply(fieldLabel);
@@ -166,7 +144,7 @@ public class JFXView<EntityType> implements View<EntityType> {
 	private void prepareField(int index, @NotNull String fieldKey,
 	                          @NotNull NamedFieldInfo fieldInfo) {
 		@NotNull Node field = getField(fieldInfo);
-		@NotNull String fieldId = getFieldId(fieldKey);
+		@NotNull String fieldId = idGenerator.getFieldId(fieldKey);
 		field.setId(fieldId);
 		fields.put(fieldKey, field);
 		gridPane.add(field, 1, index);
@@ -185,8 +163,9 @@ public class JFXView<EntityType> implements View<EntityType> {
 
 	@NotNull
 	private Button prepareSaveButton() {
-		@NotNull String saveButtonId = getSaveButtonId();
-		@NotNull String saveButtonCaption = stringSupplier.apply("Save");
+		@NotNull String buttonName = "Save";
+		@NotNull String saveButtonId = idGenerator.getButtonId(buttonName);
+		@NotNull String saveButtonCaption = stringSupplier.apply(buttonName);
 		@NotNull Button result = new Button(saveButtonCaption);
 		result.setId(saveButtonId);
 		return result;
@@ -194,8 +173,9 @@ public class JFXView<EntityType> implements View<EntityType> {
 
 	@NotNull
 	private Button prepareCancelButton() {
-		@NotNull String cancelButtonId = getCancelButtonId();
-		@NotNull String cancelButtonCaption = stringSupplier.apply("Cancel");
+		@NotNull String buttonName = "Cancel";
+		@NotNull String cancelButtonId = idGenerator.getButtonId(buttonName);
+		@NotNull String cancelButtonCaption = stringSupplier.apply(buttonName);
 		@NotNull Button result = new Button(cancelButtonCaption);
 		result.setId(cancelButtonId);
 		return result;

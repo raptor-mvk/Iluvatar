@@ -16,6 +16,7 @@ import ru.mvk.iluvatar.descriptor.column.*;
 import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
 import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
+import ru.mvk.iluvatar.view.IdGenerator;
 import ru.mvk.iluvatar.view.ListView;
 
 import java.util.ArrayList;
@@ -23,11 +24,12 @@ import java.util.ArrayList;
 public class JFXListViewNoRemoveUITests extends UITests<ListView<Student>> {
 	@NotNull
 	private final ListViewInfo<Student> listViewInfo = prepareListViewInfo();
+	@NotNull
+	private final IdGenerator idGenerator = new JFXIdGenerator(Student.class);
 
 	@Test
 	public void listViewInfoRemoveAllowedIsFalse_RemoveButtonShouldBeInvisible() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String removeButtonId = listView.getRemoveButtonId();
+		@NotNull String removeButtonId = idGenerator.getButtonId("Remove");
 		Assert.assertFalse("Remove button should be invisible, when " +
 						"listViewInfo.isRemoveAllowed is false",
 				stage.getScene().lookup('#' + removeButtonId).isVisible());
@@ -44,7 +46,8 @@ public class JFXListViewNoRemoveUITests extends UITests<ListView<Student>> {
 
 	@NotNull
 	private ListView<Student> prepareListView() {
-		ListView<Student> result = new JFXListView<>(listViewInfo, (value) -> value);
+		ListView<Student> result =
+				new JFXListView<>(listViewInfo, (value) -> value, idGenerator);
 		result.setListSupplier(ArrayList::new);
 		return result;
 	}

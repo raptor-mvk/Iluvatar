@@ -21,6 +21,7 @@ import ru.mvk.iluvatar.javafx.field.*;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
+import ru.mvk.iluvatar.view.IdGenerator;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
@@ -36,6 +37,8 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	@NotNull
 	private final DateTimeFormatter dateFormatter =
 			DateTimeFormatter.ofPattern(datePattern);
+	@NotNull
+	private final IdGenerator idGenerator = new JFXIdGenerator(Student.class);
 	@NotNull
 	private final RealDescriptor realDescriptor = new RealDescriptor(2, 2);
 	@NotNull
@@ -54,24 +57,25 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	private final Student student = prepareStudent();
 	@NotNull
 	private final StringSupplier stringSupplier = StringUtils::reverse;
+	@NotNull
+	private final String saveButtonName = "Save";
+	@NotNull
+	private final String cancelButtonName = "Cancel";
 
 	@Test
 	public void fieldLabelsShouldBeCorrect() {
-		@NotNull View<Student> view = getObjectUnderTest();
 		@NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-		assertFieldLabelsAreCorrect(view, iterator, stringSupplier);
+		assertFieldLabelsAreCorrect(idGenerator, iterator, stringSupplier);
 	}
 
 	@Test
 	public void fieldValuesShouldBeCorrect() {
-		@NotNull View<Student> view = getObjectUnderTest();
 		@NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-		assertFieldsValues(view, iterator, student);
+		assertFieldsValues(idGenerator, iterator, student);
 	}
 
 	@Test
 	public void fieldsShouldBeOfCorrectTypes() {
-		@NotNull View<Student> view = getObjectUnderTest();
 		@NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
 		@NotNull Map<String, Class<? extends Node>> nodeTypes = new HashMap<>();
 		nodeTypes.put("id", NaturalField.class);
@@ -81,13 +85,12 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		nodeTypes.put("graduated", CheckBoxField.class);
 		nodeTypes.put("neighbour", RefField.class);
 		nodeTypes.put("enrollmentDate", DateField.class);
-		assertFieldsHaveCorrectTypes(view, iterator, nodeTypes);
+		assertFieldsHaveCorrectTypes(idGenerator, iterator, nodeTypes);
 	}
 
 	@Test
 	public void neighbourField_ShouldContainCorrectList() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("neighbour");
+		@NotNull String fieldId = idGenerator.getFieldId("neighbour");
 		@NotNull RefField<Integer, Student> field = safeFindById(fieldId);
 		@NotNull List<Student> fieldItems = getRefFieldItems(field);
 		Assert.assertEquals("neighbour field should contain correct value list",
@@ -96,17 +99,15 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void nodesTabOrderShouldBeCorrect() {
-		@NotNull View<Student> view = getObjectUnderTest();
 		@NotNull Iterator<Entry<String, NamedFieldInfo>> iterator = viewInfo.getIterator();
-		assertNodesOrder(view, iterator);
+		assertNodesOrder(idGenerator, iterator);
 	}
 
 	@Test
 	public void saveButton_ShouldHaveCorrectCaption() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String saveButtonId = view.getSaveButtonId();
+		@NotNull String saveButtonId = idGenerator.getButtonId(saveButtonName);
 		@NotNull Button saveButton = safeFindById(saveButtonId);
-		@NotNull String expectedCaption = stringSupplier.apply("Save");
+		@NotNull String expectedCaption = stringSupplier.apply(saveButtonName);
 		@NotNull String saveButtonCaption = saveButton.getText();
 		Assert.assertEquals("Save button should have correct caption", expectedCaption,
 				saveButtonCaption);
@@ -114,10 +115,9 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void cancelButton_ShouldHaveCorrectCaption() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String cancelButtonId = view.getCancelButtonId();
+		@NotNull String cancelButtonId = idGenerator.getButtonId(cancelButtonName);
 		@NotNull Button cancelButton = safeFindById(cancelButtonId);
-		@NotNull String expectedCaption = stringSupplier.apply("Cancel");
+		@NotNull String expectedCaption = stringSupplier.apply(cancelButtonName);
 		@NotNull String cancelButtonCaption = cancelButton.getText();
 		Assert.assertEquals("Cancel button should have correct caption", expectedCaption,
 				cancelButtonCaption);
@@ -125,8 +125,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void clickSave_ShouldCallSaveButtonHandlerWithFalseParameter() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String saveButtonId = view.getSaveButtonId();
+		@NotNull String saveButtonId = idGenerator.getButtonId(saveButtonName);
 		saveButtonState.setValue(true);
 		safeClickById(saveButtonId);
 		@Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
@@ -136,8 +135,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void clickCancel_ShouldCallCancelButtonHandler() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String cancelButtonId = view.getCancelButtonId();
+		@NotNull String cancelButtonId = idGenerator.getButtonId(cancelButtonName);
 		cancelButtonState.setValue(false);
 		safeClickById(cancelButtonId);
 		@Nullable Boolean cancelButtonWasClicked = cancelButtonState.getValue();
@@ -147,8 +145,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void inputIntoIdField_ShouldSetIdValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("id");
+		@NotNull String fieldId = idGenerator.getFieldId("id");
 		int idValue = 302;
 		@NotNull String idValueString = Integer.toString(idValue);
 		emptyField(fieldId);
@@ -160,8 +157,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void inputIntoNameField_ShouldSetNameValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("name");
+		@NotNull String fieldId = idGenerator.getFieldId("name");
 		@NotNull String nameValue = "John Doe";
 		emptyField(fieldId);
 		safeClickById(fieldId).type(nameValue);
@@ -172,8 +168,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void inputIntoGpaField_ShouldSetGpaValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("gpa");
+		@NotNull String fieldId = idGenerator.getFieldId("gpa");
 		short gpaValue = 320;
 		int multiplier = (int) Math.pow(10.0, realDescriptor.getFractionWidth());
 		@Nullable String gpaValueString = Double.toString((double) gpaValue / multiplier);
@@ -189,8 +184,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void inputIntoPenaltyField_ShouldSetPenaltyValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("penalty");
+		@NotNull String fieldId = idGenerator.getFieldId("penalty");
 		short penaltyValue = -68;
 		@NotNull String penaltyValueString = Integer.toString(penaltyValue);
 		emptyField(fieldId);
@@ -202,13 +196,12 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void inputIntoEnrollmentDateField_ShouldSetEnrollmentDateValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("enrollmentDate");
+		@NotNull String fieldId = idGenerator.getFieldId("enrollmentDate");
 		LocalDate enrollmentDateValue = LocalDate.of(2005, 12, 31);
 		@NotNull String enrollmentDateString = enrollmentDateValue.format(dateFormatter);
 		emptyField(fieldId);
 		safeClickById(fieldId).type(enrollmentDateString);
-		@NotNull String saveButtonId = view.getSaveButtonId();
+		@NotNull String saveButtonId = idGenerator.getButtonId(saveButtonName);
 		@NotNull Button saveButton = safeFindById(saveButtonId);
 		runAndWait(saveButton::requestFocus);
 		@NotNull LocalDate studentEnrollmentDateValue = student.getEnrollmentDate();
@@ -218,8 +211,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void clickOntoGraduatedField_ShouldSetGraduatedValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("graduated");
+		@NotNull String fieldId = idGenerator.getFieldId("graduated");
 		boolean graduatedValue = !student.isGraduated();
 		safeClickById(fieldId);
 		boolean studentGraduatedValue = student.isGraduated();
@@ -229,8 +221,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void selectionInNeighbourField_ShouldSetNeighbourValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("neighbour");
+		@NotNull String fieldId = idGenerator.getFieldId("neighbour");
 		safeClickById(fieldId);
 		type(KeyCode.UP).type(KeyCode.ENTER);
 		int expectedNeighbourValue = studentList.get(1).getId();
@@ -250,8 +241,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 
 	@Test
 	public void enterKeyLastEditDateField_ShouldSaveDateFieldValue() {
-		@NotNull View<Student> view = getObjectUnderTest();
-		@NotNull String fieldId = view.getFieldId("enrollmentDate");
+		@NotNull String fieldId = idGenerator.getFieldId("enrollmentDate");
 		LocalDate enrollmentDateValue = LocalDate.of(2010, 2, 28);
 		@NotNull String enrollmentDateString = enrollmentDateValue.format(dateFormatter);
 		emptyField(fieldId);
@@ -274,7 +264,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	@NotNull
 	@Override
 	protected Parent getRootNode() {
-		@NotNull JFXView<Student> view = new JFXView<>(viewInfo, stringSupplier);
+		@NotNull JFXView<Student> view = new JFXView<>(viewInfo, stringSupplier, idGenerator);
 		setObjectUnderTest(view);
 		view.setSaveButtonHandler(saveButtonHandler);
 		view.setCancelButtonHandler(cancelButtonHandler);

@@ -27,6 +27,7 @@ import ru.mvk.iluvatar.descriptor.column.ColumnInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
 import ru.mvk.iluvatar.javafx.field.RefComparator;
 import ru.mvk.iluvatar.utils.IluvatarUtils;
+import ru.mvk.iluvatar.view.IdGenerator;
 import ru.mvk.iluvatar.view.ListView;
 import ru.mvk.iluvatar.view.StringSupplier;
 
@@ -75,6 +76,8 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 	private Supplier<List<EntityType>> listSupplier = ArrayList::new;
 	@NotNull
 	private final StringSupplier stringSupplier;
+	@NotNull
+	private final IdGenerator idGenerator;
 	@Nullable
 	private Supplier<EntityType> totalSupplier = null;
 	@Nullable
@@ -85,11 +88,13 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 	private String prefix;
 
 	public JFXListView(@NotNull ListViewInfo<EntityType> listViewInfo,
-	                   @NotNull StringSupplier stringSupplier) {
+	                   @NotNull StringSupplier stringSupplier,
+	                   @NotNull IdGenerator idGenerator) {
 		@NotNull Class<EntityType> entityType = listViewInfo.getEntityType();
 		prefix = "";
 		entityClassName = entityType.getSimpleName();
 		this.stringSupplier = stringSupplier;
+		this.idGenerator = idGenerator;
 		this.listViewInfo = listViewInfo;
 		addButton = prepareAddButton();
 		editButton = prepareEditButton();
@@ -99,30 +104,6 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 		prepareTableView();
 		setKeyPressedListener();
 		setKeyReleasedListener();
-	}
-
-	@Override
-	@NotNull
-	public final String getTableId() {
-		return entityClassName + "-list";
-	}
-
-	@Override
-	@NotNull
-	public final String getAddButtonId() {
-		return entityClassName + "-add-button";
-	}
-
-	@Override
-	@NotNull
-	public final String getEditButtonId() {
-		return entityClassName + "-edit-button";
-	}
-
-	@Override
-	@NotNull
-	public final String getRemoveButtonId() {
-		return entityClassName + "-remove-button";
 	}
 
 	@Nullable
@@ -308,8 +289,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 
 	@NotNull
 	private Button prepareAddButton() {
-		@NotNull String addButtonId = getAddButtonId();
-		@NotNull String addButtonCaption = stringSupplier.apply("Add");
+		@NotNull String addButtonName = "Add";
+		@NotNull String addButtonId = idGenerator.getButtonId(addButtonName);
+		@NotNull String addButtonCaption = stringSupplier.apply(addButtonName);
 		@NotNull Button result = new Button(addButtonCaption);
 		result.setId(addButtonId);
 		return result;
@@ -317,8 +299,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 
 	@NotNull
 	private Button prepareEditButton() {
-		@NotNull String editButtonId = getEditButtonId();
-		@NotNull String editButtonCaption = stringSupplier.apply("Edit");
+		@NotNull String editButtonName = "Edit";
+		@NotNull String editButtonId = idGenerator.getButtonId(editButtonName);
+		@NotNull String editButtonCaption = stringSupplier.apply(editButtonName);
 		@NotNull Button result = new Button(editButtonCaption);
 		result.setId(editButtonId);
 		return result;
@@ -326,8 +309,9 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 
 	@NotNull
 	private Button prepareRemoveButton() {
-		@NotNull String removeButtonId = getRemoveButtonId();
-		@NotNull String removeButtonCaption = stringSupplier.apply("Remove");
+		@NotNull String removeButtonName = "Remove";
+		@NotNull String removeButtonId = idGenerator.getButtonId(removeButtonName);
+		@NotNull String removeButtonCaption = stringSupplier.apply(removeButtonName);
 		@NotNull Button result = new Button(removeButtonCaption);
 		result.setId(removeButtonId);
 		if (!listViewInfo.isRemoveAllowed()) {
@@ -349,7 +333,7 @@ public class JFXListView<EntityType> implements ListView<EntityType> {
 	}
 
 	private void prepareTableView() {
-		@NotNull String tableId = getTableId();
+		@NotNull String tableId = idGenerator.getTableId();
 		setRowFactory();
 		tableView.setId(tableId);
 		prepareColumns();

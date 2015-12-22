@@ -23,6 +23,7 @@ import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
 import ru.mvk.iluvatar.test.FieldValueTester;
 import ru.mvk.iluvatar.test.Student;
 import ru.mvk.iluvatar.utils.UITests;
+import ru.mvk.iluvatar.view.IdGenerator;
 import ru.mvk.iluvatar.view.ListView;
 import ru.mvk.iluvatar.view.StringSupplier;
 
@@ -64,11 +65,18 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 	private final StringSupplier stringSupplier = StringUtils::swapCase;
 	@NotNull
 	private final Student totalStudent = prepareTotalStudent();
+	@NotNull
+	private final IdGenerator idGenerator = new JFXIdGenerator(Student.class);
+	@NotNull
+	private final String addButtonName = "Add";
+	@NotNull
+	private final String editButtonName = "Edit";
+	@NotNull
+	private final String removeButtonName = "Remove";
 
 	@Test
 	public void tableShouldHaveCorrectNumberOfColumns() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String tableId = listView.getTableId();
+		@NotNull String tableId = idGenerator.getTableId();
 		@NotNull TableView<Student> tableView = safeFindById(tableId);
 		int listViewInfoColumnsCount = listViewInfo.getColumnsCount();
 		@Nullable ObservableList<TableColumn<Student, ?>> tableColumns =
@@ -83,8 +91,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@Test
 	public void columnLabelsShouldBeCorrect() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String tableId = listView.getTableId();
+		@NotNull String tableId = idGenerator.getTableId();
 		@NotNull TableView<Student> tableView = safeFindById(tableId);
 		@NotNull Iterator<Entry<String, ColumnInfo>> iterator = listViewInfo.getIterator();
 		assertColumnLabelsAreCorrect(tableView, iterator, stringSupplier);
@@ -107,7 +114,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(() -> listView.selectRowByIndex(0));
 		runAndWait(listView::clearSelection);
-		@Nullable Student selectedStudent = getSelectedItem(listView);
+		@Nullable Student selectedStudent = getSelectedItem();
 		Assert.assertNull("clearSelection() should select nothing", selectedStudent);
 	}
 
@@ -139,7 +146,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		int rowToSelect = 1;
 		runAndWait(listView::clearSelection);
 		runAndWait(() -> listView.selectRowByIndex(rowToSelect));
-		int selectedRow = getSelectedIndex(listView);
+		int selectedRow = getSelectedIndex();
 		Assert.assertEquals("selectRowByIndex(i) should select i-th row, when i is " +
 				"non-negative and table has more rows, than i", rowToSelect, selectedRow);
 	}
@@ -176,7 +183,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(() -> listView.selectRowByIndex(0));
 		runAndWait(() -> listView.selectRowByIndex(-1));
-		@Nullable Student selectedStudent = getSelectedItem(listView);
+		@Nullable Student selectedStudent = getSelectedItem();
 		Assert.assertNull("selectRowByIndex(i) should select nothing, when i is negative",
 				selectedStudent);
 	}
@@ -210,7 +217,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(() -> listView.selectRowByIndex(0));
 		runAndWait(() -> listView.selectRowByIndex(100));
-		@Nullable Student selectedStudent = getSelectedItem(listView);
+		@Nullable Student selectedStudent = getSelectedItem();
 		Assert.assertNull("selectRowByIndex(i) should select nothing, when i is greater, " +
 				"than the number of rows in the table", selectedStudent);
 	}
@@ -249,7 +256,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student entityToSelect = students.get(1);
 		runAndWait(listView::clearSelection);
 		runAndWait(() -> listView.selectRowByEntity(entityToSelect));
-		int selectedRow = getSelectedIndex(listView);
+		int selectedRow = getSelectedIndex();
 		Assert.assertEquals("selectRowByEntity(entity) should select corresponding row, " +
 				"when entity belongs to list", rowToSelect, selectedRow);
 	}
@@ -288,7 +295,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student studentToSelect = new Student();
 		runAndWait(() -> listView.selectRowByIndex(0));
 		runAndWait(() -> listView.selectRowByEntity(studentToSelect));
-		@Nullable Student selectedStudent = getSelectedItem(listView);
+		@Nullable Student selectedStudent = getSelectedItem();
 		Assert.assertNull("selectRowByEntity(entity) should select nothing, when entity " +
 				"does not belong to list", selectedStudent);
 	}
@@ -325,7 +332,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		selectedStudentState.setValue(null);
 		@Nullable Student studentToSelect = students.get(1);
 		runAndWait(listView::clearSelection);
-		@NotNull String tableId = listView.getTableId();
+		@NotNull String tableId = idGenerator.getTableId();
 		safeClickById(tableId);
 		push(KeyCode.DOWN);
 		push(KeyCode.DOWN);
@@ -340,7 +347,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		selectedIndexState.setValue(-1);
 		@NotNull Integer rowToSelect = 1;
 		runAndWait(listView::clearSelection);
-		@NotNull String tableId = listView.getTableId();
+		@NotNull String tableId = idGenerator.getTableId();
 		safeClickById(tableId);
 		push(KeyCode.DOWN);
 		push(KeyCode.DOWN);
@@ -351,10 +358,9 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@Test
 	public void addButton_ShouldHaveCorrectCaption() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String addButtonId = listView.getAddButtonId();
+		@NotNull String addButtonId = idGenerator.getButtonId(addButtonName);
 		@NotNull Button addButton = safeFindById(addButtonId);
-		@NotNull String expectedCaption = stringSupplier.apply("Add");
+		@NotNull String expectedCaption = stringSupplier.apply(addButtonName);
 		@NotNull String addButtonCaption = addButton.getText();
 		Assert.assertEquals("Add button should have correct caption", expectedCaption,
 				addButtonCaption);
@@ -362,10 +368,9 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@Test
 	public void editButton_ShouldHaveCorrectCaption() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String editButtonId = listView.getEditButtonId();
+		@NotNull String editButtonId = idGenerator.getButtonId(editButtonName);
 		@NotNull Button editButton = safeFindById(editButtonId);
-		@NotNull String expectedCaption = stringSupplier.apply("Edit");
+		@NotNull String expectedCaption = stringSupplier.apply(editButtonName);
 		@NotNull String editButtonCaption = editButton.getText();
 		Assert.assertEquals("Edit button should have correct caption", expectedCaption,
 				editButtonCaption);
@@ -373,10 +378,9 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@Test
 	public void removeButton_ShouldHaveCorrectCaption() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String removeButtonId = listView.getRemoveButtonId();
+		@NotNull String removeButtonId = idGenerator.getButtonId(removeButtonName);
 		@NotNull Button removeButton = safeFindById(removeButtonId);
-		@NotNull String expectedCaption = stringSupplier.apply("Remove");
+		@NotNull String expectedCaption = stringSupplier.apply(removeButtonName);
 		@NotNull String removeButtonCaption = removeButton.getText();
 		Assert.assertEquals("Remove button should have correct caption", expectedCaption,
 				removeButtonCaption);
@@ -384,9 +388,8 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@Test
 	public void clickAdd_ShouldCallAddButtonHandler() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
 		addButtonState.setValue(false);
-		@NotNull String addButtonId = listView.getAddButtonId();
+		@NotNull String addButtonId = idGenerator.getButtonId(addButtonName);
 		safeClickById(addButtonId);
 		@Nullable Boolean addButtonWasClicked = addButtonState.getValue();
 		Assert.assertEquals("click Add button should execute addButtonHandler", true,
@@ -398,7 +401,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		editButtonState.setValue(false);
 		runAndWait(() -> listView.selectRowByIndex(1));
-		@NotNull String editButtonId = listView.getEditButtonId();
+		@NotNull String editButtonId = idGenerator.getButtonId(editButtonName);
 		safeClickById(editButtonId);
 		@Nullable Boolean editButtonWasClicked = editButtonState.getValue();
 		Assert.assertEquals("click Edit button should execute editButtonHandler", true,
@@ -410,7 +413,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		removeButtonState.setValue(false);
 		runAndWait(() -> listView.selectRowByIndex(1));
-		@NotNull String removeButtonId = listView.getRemoveButtonId();
+		@NotNull String removeButtonId = idGenerator.getButtonId(removeButtonName);
 		safeClickById(removeButtonId);
 		@Nullable Boolean removeButtonWasClicked = removeButtonState.getValue();
 		Assert.assertEquals("click Remove button should execute removeButtonHandler", true,
@@ -421,7 +424,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 	public void noSelection_EditButtonShouldBeDisabled() {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(listView::clearSelection);
-		@NotNull String editButtonId = listView.getEditButtonId();
+		@NotNull String editButtonId = idGenerator.getButtonId(editButtonName);
 		@NotNull Button editButton = safeFindById(editButtonId);
 		boolean editButtonIsDisabled = editButton.isDisabled();
 		Assert.assertTrue("Edit button should be disabled in case of no selection",
@@ -432,7 +435,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 	public void noSelection_RemoveButtonShouldBeDisabled() {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(listView::clearSelection);
-		@NotNull String removeButtonId = listView.getRemoveButtonId();
+		@NotNull String removeButtonId = idGenerator.getButtonId(removeButtonName);
 		@NotNull Button removeButton = safeFindById(removeButtonId);
 		boolean removeButtonIsDisabled = removeButton.isDisabled();
 		Assert.assertTrue("Remove button should be disabled in case of no selection",
@@ -504,7 +507,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 	public void totalRowSelection_EditButtonShouldBeDisabled() {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(() -> listView.selectRowByEntity(totalStudent));
-		@NotNull String editButtonId = listView.getEditButtonId();
+		@NotNull String editButtonId = idGenerator.getButtonId(editButtonName);
 		@NotNull Button editButton = safeFindById(editButtonId);
 		boolean editButtonIsDisabled = editButton.isDisabled();
 		Assert.assertTrue("Edit button should be disabled in case of no selection",
@@ -515,7 +518,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 	public void totalRowSelection_RemoveButtonShouldBeDisabled() {
 		@NotNull ListView<Student> listView = getObjectUnderTest();
 		runAndWait(() -> listView.selectRowByEntity(totalStudent));
-		@NotNull String removeButtonId = listView.getRemoveButtonId();
+		@NotNull String removeButtonId = idGenerator.getButtonId(removeButtonName);
 		@NotNull Button removeButton = safeFindById(removeButtonId);
 		boolean removeButtonIsDisabled = removeButton.isDisabled();
 		Assert.assertTrue("Remove button should be disabled in case of no selection",
@@ -533,8 +536,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@NotNull
 	private ObservableList<Student> getTableViewItems() {
-		@NotNull ListView<Student> listView = getObjectUnderTest();
-		@NotNull String tableId = listView.getTableId();
+		@NotNull String tableId = idGenerator.getTableId();
 		@NotNull TableView<Student> tableView = safeFindById(tableId);
 		@Nullable ObservableList<Student> result = tableView.getItems();
 		if (result == null) {
@@ -544,22 +546,21 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 	}
 
 	@Nullable
-	private Student getSelectedItem(@NotNull ListView<Student> listView) {
+	private Student getSelectedItem() {
 		@NotNull TableViewSelectionModel<Student> tableViewSelectionModel =
-				getSelectionModel(listView);
+				getSelectionModel();
 		return tableViewSelectionModel.getSelectedItem();
 	}
 
-	private int getSelectedIndex(@NotNull ListView<Student> listView) {
+	private int getSelectedIndex() {
 		@NotNull TableViewSelectionModel<Student> tableViewSelectionModel =
-				getSelectionModel(listView);
+				getSelectionModel();
 		return tableViewSelectionModel.getSelectedIndex();
 	}
 
 	@NotNull
-	private TableViewSelectionModel<Student> getSelectionModel(@NotNull
-	                                                           ListView<Student> listView) {
-		@NotNull String tableId = listView.getTableId();
+	private TableViewSelectionModel<Student> getSelectionModel() {
+		@NotNull String tableId = idGenerator.getTableId();
 		@NotNull TableView<Student> tableView = safeFindById(tableId);
 		@Nullable TableViewSelectionModel<Student> tableViewSelectionModel =
 				tableView.getSelectionModel();
@@ -571,7 +572,8 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 
 	@NotNull
 	private ListView<Student> prepareListView() {
-		ListView<Student> result = new JFXListView<>(listViewInfo, stringSupplier);
+		ListView<Student> result =
+				new JFXListView<>(listViewInfo, stringSupplier, idGenerator);
 		result.setAddButtonHandler(addButtonHandler);
 		result.setEditButtonHandler(editButtonHandler);
 		result.setRemoveButtonHandler(removeButtonHandler);

@@ -15,18 +15,6 @@ public interface ListView<EntityType> {
 	@Nullable
 	Object getListView();
 
-	@NotNull
-	String getTableId();
-
-	@NotNull
-	String getAddButtonId();
-
-	@NotNull
-	String getEditButtonId();
-
-	@NotNull
-	String getRemoveButtonId();
-
 	void refreshTable();
 
 	void selectRowByIndex(int selectedIndex);

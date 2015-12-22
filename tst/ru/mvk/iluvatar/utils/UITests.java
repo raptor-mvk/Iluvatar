@@ -22,6 +22,7 @@ import ru.mvk.iluvatar.descriptor.field.*;
 import ru.mvk.iluvatar.javafx.field.DateField;
 import ru.mvk.iluvatar.javafx.field.RealField;
 import ru.mvk.iluvatar.javafx.field.RefField;
+import ru.mvk.iluvatar.view.IdGenerator;
 import ru.mvk.iluvatar.view.StringSupplier;
 import ru.mvk.iluvatar.view.View;
 
@@ -71,7 +72,7 @@ public abstract class UITests<Type> extends GuiTest {
 		}
 	}
 
-	protected final void assertFieldLabelsAreCorrect(@NotNull View<?> view,
+	protected final void assertFieldLabelsAreCorrect(@NotNull IdGenerator idGenerator,
 	                                                 @NotNull Iterator<Entry<String,
 			                                                 NamedFieldInfo>> iterator,
 	                                                 @NotNull
@@ -82,21 +83,21 @@ public abstract class UITests<Type> extends GuiTest {
 			@NotNull NamedFieldInfo fieldInfo = CommonTestUtils.getEntryValue(entry);
 			@NotNull String fieldLabel = fieldInfo.getName();
 			@NotNull String suppliedFieldLabel = stringSupplier.apply(fieldLabel);
-			assertFieldLabelIsCorrect(view, fieldKey, suppliedFieldLabel);
+			assertFieldLabelIsCorrect(idGenerator, fieldKey, suppliedFieldLabel);
 		}
 	}
 
-	private void assertFieldLabelIsCorrect(@NotNull View<?> view,
+	private void assertFieldLabelIsCorrect(@NotNull IdGenerator idGenerator,
 	                                       @NotNull String key,
 	                                       @NotNull String expected) {
-		@NotNull String id = view.getLabelId(key);
+		@NotNull String id = idGenerator.getLabelId(key);
 		@NotNull Label fieldLabel = safeFindById(id);
 		@Nullable String fieldLabelText = fieldLabel.getText();
 		Assert.assertEquals("Label with id '" + id + "' should contain text " + expected,
 				expected, fieldLabelText);
 	}
 
-	protected final void assertFieldsHaveCorrectTypes(@NotNull View<?> view,
+	protected final void assertFieldsHaveCorrectTypes(@NotNull IdGenerator idGenerator,
 	                                                  @NotNull Iterator<Entry<String,
 			                                                  NamedFieldInfo>> iterator,
 	                                                  @NotNull
@@ -109,13 +110,13 @@ public abstract class UITests<Type> extends GuiTest {
 			if (nodeType == null) {
 				throw new RuntimeException("Node type is null");
 			}
-			assertFieldHasType(view, fieldKey, nodeType);
+			assertFieldHasType(idGenerator, fieldKey, nodeType);
 		}
 	}
 
-	private void assertFieldHasType(@NotNull View<?> view, @NotNull String key,
+	private void assertFieldHasType(@NotNull IdGenerator idGenerator, @NotNull String key,
 	                                @NotNull Class<? extends Node> nodeType) {
-		@NotNull String id = view.getFieldId(key);
+		@NotNull String id = idGenerator.getFieldId(key);
 		@NotNull String typeName = nodeType.getSimpleName();
 		@NotNull Node field = safeFindById(id);
 		boolean result = nodeType.isInstance(field);
@@ -123,7 +124,7 @@ public abstract class UITests<Type> extends GuiTest {
 				result);
 	}
 
-	protected final void assertFieldsValues(@NotNull View<?> view,
+	protected final void assertFieldsValues(@NotNull IdGenerator idGenerator,
 	                                        @NotNull Iterator<Entry<String,
 			                                        NamedFieldInfo>> iterator,
 	                                        @NotNull Object entity) {
@@ -134,40 +135,40 @@ public abstract class UITests<Type> extends GuiTest {
 			@NotNull Object expectedValue = getFieldValue(entity, fieldKey);
 			@NotNull String stringExpectedValue = expectedValue.toString();
 			if (fieldInfo instanceof ListFieldInfo) {
-				assertListFieldByIdContainsValue(view, fieldKey, expectedValue);
+				assertListFieldByIdContainsValue(idGenerator, fieldKey, expectedValue);
 			} else if (fieldInfo instanceof TemporalFieldInfo) {
-				assertDateFieldByKeyHasValue(view, fieldKey, (LocalDate) expectedValue);
+				assertDateFieldByKeyHasValue(idGenerator, fieldKey, (LocalDate) expectedValue);
 			} else if (fieldInfo instanceof RealFieldInfo) {
 				double multiplier =
 						Math.pow(10.0, ((RealFieldInfo) fieldInfo).getFractionWidth());
-				assertRealFieldByKeyHasValue(view, fieldKey,
+				assertRealFieldByKeyHasValue(idGenerator, fieldKey,
 						(double) ((Number) expectedValue).longValue() / multiplier);
 			} else if (fieldInfo instanceof SizedFieldInfo) {
-				assertTextFieldByKeyContainsText(view, fieldKey, stringExpectedValue);
+				assertTextFieldByKeyContainsText(idGenerator, fieldKey, stringExpectedValue);
 			} else {
-				assertCheckBoxHasState(view, fieldKey, (Boolean) expectedValue);
+				assertCheckBoxHasState(idGenerator, fieldKey, (Boolean) expectedValue);
 			}
 		}
 	}
 
-	protected final void assertNodesOrder(@NotNull View<?> view,
+	protected final void assertNodesOrder(@NotNull IdGenerator idGenerator,
 	                                      @NotNull Iterator<Entry<String,
 			                                      NamedFieldInfo>> iterator) {
-		assertFieldsOrder(view, iterator);
-		@NotNull String saveButtonId = view.getSaveButtonId();
+		assertFieldsOrder(idGenerator, iterator);
+		@NotNull String saveButtonId = idGenerator.getButtonId("Save");
 		assertNodeIsFocused(saveButtonId);
 		push(KeyCode.TAB);
-		@NotNull String cancelButtonId = view.getCancelButtonId();
+		@NotNull String cancelButtonId = idGenerator.getButtonId("Cancel");
 		assertNodeIsFocused(cancelButtonId);
 	}
 
-	private void assertFieldsOrder(@NotNull View<?> view,
+	private void assertFieldsOrder(@NotNull IdGenerator idGenerator,
 	                               @NotNull Iterator<Entry<String,
 			                               NamedFieldInfo>> iterator) {
 		while (iterator.hasNext()) {
 			@Nullable Entry<String, NamedFieldInfo> entry = iterator.next();
 			@NotNull String fieldKey = CommonTestUtils.getEntryKey(entry);
-			@NotNull String fieldId = view.getFieldId(fieldKey);
+			@NotNull String fieldId = idGenerator.getFieldId(fieldKey);
 			assertNodeIsFocused(fieldId);
 			push(KeyCode.TAB);
 		}
@@ -189,12 +190,13 @@ public abstract class UITests<Type> extends GuiTest {
 	}
 
 	private <RefType extends RefAble> void assertListFieldByIdContainsValue(@NotNull
-	                                                                        View<?> view,
+	                                                                        IdGenerator
+			                                                                        idGenerator,
 	                                                                        @NotNull
 	                                                                        String key,
 	                                                                        @NotNull Object
 			                                                                        expected) {
-		@NotNull String id = view.getFieldId(key);
+		@NotNull String id = idGenerator.getFieldId(key);
 		@NotNull RefField<?, RefType> listField = safeFindById(id);
 		@NotNull RefType fieldValue = getRefFieldValue(listField);
 		@NotNull Serializable fieldValueId = fieldValue.getId();
@@ -202,17 +204,17 @@ public abstract class UITests<Type> extends GuiTest {
 				expected, fieldValueId);
 	}
 
-	private void assertTextFieldByKeyContainsText(@NotNull View<?> view,
+	private void assertTextFieldByKeyContainsText(@NotNull IdGenerator idGenerator,
 	                                              @NotNull String key,
 	                                              @NotNull String expected) {
-		@NotNull String id = view.getFieldId(key);
+		@NotNull String id = idGenerator.getFieldId(key);
 		assertTextFieldByIdContainsText(id, expected);
 	}
 
-	private void assertRealFieldByKeyHasValue(@NotNull View<?> view,
+	private void assertRealFieldByKeyHasValue(@NotNull IdGenerator idGenerator,
 	                                          @NotNull String key,
 	                                          double expected) {
-		@NotNull String id = view.getFieldId(key);
+		@NotNull String id = idGenerator.getFieldId(key);
 		@NotNull RealField realField = safeFindById(id);
 		@Nullable String fieldValue = realField.getText();
 		if (fieldValue == null) {
@@ -223,19 +225,19 @@ public abstract class UITests<Type> extends GuiTest {
 				expected, value, DOUBLE_PRECISION);
 	}
 
-	private void assertDateFieldByKeyHasValue(@NotNull View<?> view,
+	private void assertDateFieldByKeyHasValue(@NotNull IdGenerator idGenerator,
 	                                          @NotNull String key,
 	                                          @NotNull LocalDate expected) {
-		@NotNull String id = view.getFieldId(key);
+		@NotNull String id = idGenerator.getFieldId(key);
 		@NotNull DateField dateField = safeFindById(id);
 		@Nullable LocalDate fieldValue = dateField.getValue();
 		Assert.assertEquals("Field with id '" + id + "' should contain value " + expected,
 				expected, fieldValue);
 	}
 
-	private void assertCheckBoxHasState(@NotNull View<?> view, @NotNull String key,
-	                                    boolean expectedState) {
-		@NotNull String id = view.getFieldId(key);
+	private void assertCheckBoxHasState(@NotNull IdGenerator idGenerator,
+	                                    @NotNull String key, boolean expectedState) {
+		@NotNull String id = idGenerator.getFieldId(key);
 		@NotNull CheckBox checkBox = safeFindById(id);
 		boolean checkBoxState = checkBox.isSelected();
 		@NotNull String insertion = expectedState ? "" : "not";

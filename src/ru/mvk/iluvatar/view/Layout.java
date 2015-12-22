@@ -30,4 +30,6 @@ public interface Layout {
 	void show(int width, int height);
 
 	void setStringSupplier(@NotNull StringSupplier stringSupplier);
+
+	void setIdGenerator(@NotNull IdGenerator idGenerator);
 }

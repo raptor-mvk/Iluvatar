@@ -10,30 +10,31 @@ import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.ListViewInfo;
 import ru.mvk.iluvatar.descriptor.ViewInfo;
 import ru.mvk.iluvatar.exception.IluvatarRuntimeException;
+import ru.mvk.iluvatar.javafx.JFXIdGenerator;
 import ru.mvk.iluvatar.javafx.JFXListView;
 import ru.mvk.iluvatar.javafx.JFXView;
-import ru.mvk.iluvatar.view.Layout;
-import ru.mvk.iluvatar.view.ListView;
-import ru.mvk.iluvatar.view.StringSupplier;
-import ru.mvk.iluvatar.view.View;
+import ru.mvk.iluvatar.view.*;
 
+/* TODO: default idGenerator? */
 public abstract class JFXLayout implements Layout {
 	@Nullable
 	private Stage stage;
 	@NotNull
 	private StringSupplier stringSupplier = (value) -> value;
+	@NotNull
+	private IdGenerator idGenerator = new JFXIdGenerator(Object.class);
 
 	@NotNull
 	@Override
 	public <EntityType> ListView<EntityType> getListView(@NotNull ListViewInfo<EntityType>
 			                                                     listViewInfo) {
-		return new JFXListView<>(listViewInfo, stringSupplier);
+		return new JFXListView<>(listViewInfo, stringSupplier, idGenerator);
 	}
 
 	@NotNull
 	@Override
 	public <EntityType> View<EntityType> getView(@NotNull ViewInfo<EntityType> viewInfo) {
-		return new JFXView<>(viewInfo, stringSupplier);
+		return new JFXView<>(viewInfo, stringSupplier, idGenerator);
 	}
 
 	@SuppressWarnings("WeakerAccess")
@@ -44,6 +45,11 @@ public abstract class JFXLayout implements Layout {
 	@Override
 	public void setStringSupplier(@NotNull StringSupplier stringSupplier) {
 		this.stringSupplier = stringSupplier;
+	}
+
+	@Override
+	public void setIdGenerator(@NotNull IdGenerator idGenerator) {
+		this.idGenerator = idGenerator;
 	}
 
 	@NotNull
