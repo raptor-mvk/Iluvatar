@@ -79,6 +79,6 @@ public class DateColumnInfoUnitTests {
 				new DateColumnInfo("startDate", temporalDescriptor);
 		@NotNull Pos alignment = dateColumnInfo.getJFXAlignment();
 		Assert.assertEquals("getJFXAlignment() should return Pos.CENTER_LEFT",
-				Pos.CENTER_LEFT, alignment);
+				Pos.CENTER, alignment);
 	}
 }

@@ -3,7 +3,9 @@
  */
 package ru.mvk.iluvatar.javafx.field;
 
+import javafx.application.Platform;
 import javafx.scene.control.DatePicker;
+import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,6 +24,7 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 	public DateField(@NotNull TemporalFieldInfo<LocalDate> fieldInfo) {
 		fieldUpdater = (value) -> {
 		};
+		setAllWidths(fieldInfo.getWidth());
 		prepareFocusListener(fieldInfo);
 		prepareStringConverter(fieldInfo);
 	}
@@ -38,6 +41,15 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 		} else {
 			throw new IluvatarRuntimeException("DateField: incorrect value type");
 		}
+	}
+
+	private void setAllWidths(int length) {
+		// 0.75 is a ratio of conversion from font size to average letter width
+		@NotNull Font defaultFont = Font.getDefault();
+		double width = defaultFont.getSize() * (0.7 * length + 1.5);
+		setMinWidth(width);
+		setMaxWidth(width);
+		setMaxWidth(width);
 	}
 
 	private void prepareFocusListener(@NotNull TemporalFieldInfo<LocalDate> fieldInfo) {
@@ -58,6 +70,8 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 				}
 				setValue(fieldValue);
 				fieldUpdater.accept(fieldValue);
+			} else {
+				Platform.runLater(getEditor()::selectAll);
 			}
 		});
 	}

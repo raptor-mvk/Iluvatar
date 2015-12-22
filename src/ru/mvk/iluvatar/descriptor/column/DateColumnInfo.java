@@ -38,6 +38,6 @@ public class DateColumnInfo extends PlainColumnInfo {
 	@NotNull
 	@Override
 	public Pos getJFXAlignment() {
-		return Pos.CENTER_LEFT;
+		return Pos.CENTER;
 	}
 }
