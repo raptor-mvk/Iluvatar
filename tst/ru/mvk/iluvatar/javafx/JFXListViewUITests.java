@@ -613,7 +613,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(5);
 		result.setName("Peter Trustworthy");
-		result.setGpa((short)499);
+		result.setGpa((short) 499);
 		result.setPenalty((short) -8);
 		result.setGraduated(false);
 		result.setFileSize(3499549L);
@@ -626,7 +626,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(3);
 		result.setName("Michael Grasshopper");
-		result.setGpa((short)430);
+		result.setGpa((short) 430);
 		result.setPenalty((short) -30);
 		result.setGraduated(true);
 		result.setFileSize(436003L);
@@ -639,7 +639,7 @@ public class JFXListViewUITests extends UITests<ListView<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(324);
 		result.setName("Total");
-		result.setGpa((short)100);
+		result.setGpa((short) 100);
 		result.setPenalty((short) 0);
 		result.setGraduated(true);
 		result.setFileSize(0L);

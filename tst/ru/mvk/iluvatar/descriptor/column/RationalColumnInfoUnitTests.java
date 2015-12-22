@@ -14,7 +14,7 @@ public class RationalColumnInfoUnitTests {
 	public void constructor_ShouldSetName() {
 		@NotNull String name = "age";
 		@NotNull RealDescriptor realDescriptor = new RealDescriptor(3, 2);
-		@NotNull RealColumnInfo rationalColumnInfo =
+		@NotNull ColumnInfo rationalColumnInfo =
 				new RationalColumnInfo(name, realDescriptor);
 		@NotNull String columnName = rationalColumnInfo.getName();
 		Assert.assertEquals("constructor should set correct value of 'name'", name,
@@ -25,7 +25,7 @@ public class RationalColumnInfoUnitTests {
 	public void constructor_ShouldSetWidthAsIntegerWidthPlusFractionWidthPlus2() {
 		@NotNull String name = "sum";
 		@NotNull RealDescriptor realDescriptor = new RealDescriptor(5, 2);
-		@NotNull RealColumnInfo rationalColumnInfo =
+		@NotNull ColumnInfo rationalColumnInfo =
 				new RationalColumnInfo(name, realDescriptor);
 		int expectedWidth =
 				realDescriptor.getIntegerWidth() + realDescriptor.getFractionWidth() + 2;
@@ -39,8 +39,8 @@ public class RationalColumnInfoUnitTests {
 		int fractionWidth = 2;
 		@NotNull RealDescriptor realDescriptor = new RealDescriptor(5, fractionWidth);
 		long multiplier = (long) Math.pow(10.0, fractionWidth);
-		@NotNull String stringFormat = "%." + fractionWidth + "g";
-		@NotNull RealColumnInfo rationalColumnInfo =
+		@NotNull String stringFormat = "%." + fractionWidth + "f";
+		@NotNull ColumnInfo rationalColumnInfo =
 				new RationalColumnInfo("distance", realDescriptor);
 		@NotNull ViewFormatter viewFormatter = rationalColumnInfo.getViewFormatter();
 		int value = 3467347;
@@ -54,7 +54,7 @@ public class RationalColumnInfoUnitTests {
 	@Test
 	public void viewFormatter_ShouldReturnEmptyStringForStringValue() {
 		@NotNull RealDescriptor realDescriptor = new RealDescriptor(6, 3);
-		@NotNull RealColumnInfo rationalColumnInfo =
+		@NotNull ColumnInfo rationalColumnInfo =
 				new RationalColumnInfo("price", realDescriptor);
 		@NotNull ViewFormatter viewFormatter = rationalColumnInfo.getViewFormatter();
 		@NotNull String result = viewFormatter.apply("string");
@@ -65,7 +65,7 @@ public class RationalColumnInfoUnitTests {
 	@Test
 	public void getJFXAlignment_ShouldReturnCenterRight() {
 		@NotNull RealDescriptor realDescriptor = new RealDescriptor(5, 2);
-		@NotNull RealColumnInfo rationalColumnInfo =
+		@NotNull ColumnInfo rationalColumnInfo =
 				new RationalColumnInfo("size", realDescriptor);
 		@NotNull Pos alignment = rationalColumnInfo.getJFXAlignment();
 		Assert.assertEquals("getJFXAlignment() should return Pos.CENTER_RIGHT",

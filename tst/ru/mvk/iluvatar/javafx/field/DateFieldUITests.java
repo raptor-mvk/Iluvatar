@@ -28,8 +28,7 @@ public class DateFieldUITests extends UITests<DateField> {
 	@NotNull
 	private final LocalDate defaultDate = LocalDate.of(2000, 1, 1);
 	@NotNull
-	private final DateTimeFormatter dateFormatter =
-			DateTimeFormatter.ofPattern("dd.MM.yy");
+	private final String datePattern = "dd.MM.yy";
 
 	@Test
 	public void input_ShouldSetFieldValue() {
@@ -37,6 +36,7 @@ public class DateFieldUITests extends UITests<DateField> {
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
 		@Nullable LocalDate fieldValue = fieldValueTester.getValue();
+		@NotNull DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(datePattern);
 		Assert.assertEquals("input date should set corresponding field value",
 				LocalDate.parse(inputText, dateFormatter), fieldValue);
 	}
@@ -46,7 +46,7 @@ public class DateFieldUITests extends UITests<DateField> {
 		@NotNull String inputText = "15.02.12";
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
-		@Nullable String fieldText = ((DateField)safeFindById(ID)).getEditor().getText();
+		@Nullable String fieldText = ((DateField) safeFindById(ID)).getEditor().getText();
 		Assert.assertEquals("input date should set corresponding field value",
 				inputText, fieldText);
 	}
@@ -97,7 +97,7 @@ public class DateFieldUITests extends UITests<DateField> {
 		emptyField(ID);
 		runAndWait(root::requestFocus);
 		@Nullable LocalDate fieldValue = ((DatePicker) safeFindById(ID)).getValue();
-		Assert.assertEquals("empty field should set value to default date",	defaultDate,
+		Assert.assertEquals("empty field should set value to default date", defaultDate,
 				fieldValue);
 	}
 
@@ -106,9 +106,8 @@ public class DateFieldUITests extends UITests<DateField> {
 	protected Parent getRootNode() {
 		root = new VBox();
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(defaultDate, dateFormatter);
-		@NotNull DateFieldInfo dateFieldInfo =
-				new DateFieldInfo("date", 10, temporalDescriptor);
+				new TemporalDescriptor<>(defaultDate, datePattern);
+		@NotNull DateFieldInfo dateFieldInfo = new DateFieldInfo("date", temporalDescriptor);
 		@NotNull DateField field = new DateField(dateFieldInfo);
 		field.setFieldUpdater(fieldValueTester::setValue);
 		field.setId(ID);

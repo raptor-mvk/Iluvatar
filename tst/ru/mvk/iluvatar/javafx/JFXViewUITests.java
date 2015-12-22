@@ -32,8 +32,10 @@ import java.util.function.Consumer;
 
 public class JFXViewUITests extends UITests<View<Student>> {
 	@NotNull
+	private final String datePattern = "dd.MM.yyyy";
+	@NotNull
 	private final DateTimeFormatter dateFormatter =
-			DateTimeFormatter.ofPattern("dd.MM.yyyy");
+			DateTimeFormatter.ofPattern(datePattern);
 	@NotNull
 	private final RealDescriptor realDescriptor = new RealDescriptor(2, 2);
 	@NotNull
@@ -292,8 +294,8 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		@NotNull ListAdapter<Integer, Student> listAdapter = new TestListAdapter(studentList);
 		result.addFieldInfo("neighbour", new RefFieldInfo<>("neighbour", 20, listAdapter));
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1), dateFormatter);
-		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate", 10,
+				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1), datePattern);
+		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate",
 				temporalDescriptor));
 		return result;
 	}

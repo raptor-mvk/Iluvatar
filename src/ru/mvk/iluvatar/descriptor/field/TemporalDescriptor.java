@@ -12,11 +12,13 @@ public class TemporalDescriptor<Type> {
 	private final Type defaultValue;
 	@NotNull
 	private final DateTimeFormatter formatter;
+	private final int width;
 
 	public TemporalDescriptor(@NotNull Type defaultValue,
-	                          @NotNull DateTimeFormatter formatter) {
+	                          @NotNull String pattern) {
 		this.defaultValue = defaultValue;
-		this.formatter = formatter;
+		formatter = DateTimeFormatter.ofPattern(pattern);
+		width = pattern.length();
 	}
 
 	@NotNull
@@ -27,5 +29,9 @@ public class TemporalDescriptor<Type> {
 	@NotNull
 	public DateTimeFormatter getFormatter() {
 		return formatter;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 }

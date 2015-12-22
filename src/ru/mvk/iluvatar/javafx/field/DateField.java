@@ -64,8 +64,10 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 
 	private void prepareStringConverter(@NotNull TemporalFieldInfo<LocalDate> fieldInfo) {
 		@NotNull StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
-			@NotNull DateTimeFormatter dateFormatter = fieldInfo.getFormatter();
-			@NotNull LocalDate defaultDate = fieldInfo.getDefaultValue();
+			@NotNull
+			DateTimeFormatter dateFormatter = fieldInfo.getFormatter();
+			@NotNull
+			LocalDate defaultDate = fieldInfo.getDefaultValue();
 
 			@NotNull
 			@Override

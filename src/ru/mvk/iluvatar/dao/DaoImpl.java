@@ -83,7 +83,7 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 		@NotNull Class<EntityType> entityType = getEntityType();
 		@Nullable List<?> entityList = executeInTransaction((session) -> {
 			@NotNull Criteria criteria = session.createCriteria(entityType);
-			return (List<?>)criteria.list();
+			return (List<?>) criteria.list();
 		});
 		if (entityList == null) {
 			result = new ArrayList<>();
@@ -109,7 +109,7 @@ public class DaoImpl<EntityType, PrimaryKeyType extends Serializable>
 				order = Order.desc(field);
 			}
 			criteria.addOrder(order);
-			return (List<?>)criteria.list();
+			return (List<?>) criteria.list();
 		});
 		if (entityList == null) {
 			result = new ArrayList<>();

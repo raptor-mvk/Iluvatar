@@ -196,7 +196,7 @@ public class DbIntegrationTests {
 	}
 
 	@Test
-	public void	daoImplOrderedList_IdTrue_ShouldReturnListSortedInAscendingOrderById() {
+	public void daoImplOrderedList_IdTrue_ShouldReturnListSortedInAscendingOrderById() {
 		try {
 			@NotNull Dao<TestObject, Long> dao =
 					new DaoImpl<>(TestObject.class, Long.class, hibernateAdapter);

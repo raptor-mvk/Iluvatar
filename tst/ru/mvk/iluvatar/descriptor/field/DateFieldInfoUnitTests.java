@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateFieldInfoUnitTests {
@@ -15,39 +16,36 @@ public class DateFieldInfoUnitTests {
 	public void constructor_ShouldSetName() {
 		@NotNull String name = "graduation";
 		@NotNull LocalDate defaultValue = LocalDate.of(2007, 3, 2);
-		@NotNull DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(defaultValue, formatter);
+				new TemporalDescriptor<>(defaultValue, "dd.MM.yyyy");
 		@NotNull TemporalFieldInfo<LocalDate> dateFieldInfo =
-				new DateFieldInfo(name, 7, temporalDescriptor);
+				new DateFieldInfo(name, temporalDescriptor);
 		@NotNull String dateFieldName = dateFieldInfo.getName();
 		Assert.assertEquals("constructor should set correct value of 'name'", name,
 				dateFieldName);
 	}
 
 	@Test
-	public void constructor_ShouldSetWidth() {
-		int width = 10;
+	public void constructor_ShouldSetWidthAsPatternLength() {
 		@NotNull LocalDate defaultValue = LocalDate.of(2010, 5, 15);
-		@NotNull DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		@NotNull String pattern = "yy/MM/dd";
+		int width = pattern.length();
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(defaultValue, formatter);
+				new TemporalDescriptor<>(defaultValue, pattern);
 		@NotNull TemporalFieldInfo<LocalDate> dateFieldInfo =
-				new DateFieldInfo("birthday", width, temporalDescriptor);
+				new DateFieldInfo("birthday", temporalDescriptor);
 		int dateFieldWidth = dateFieldInfo.getWidth();
-		Assert.assertEquals("constructor should set correct value of 'width'", width,
-				dateFieldWidth);
+		Assert.assertEquals("constructor should set value of 'width' as pattern length",
+				width, dateFieldWidth);
 	}
 
 	@Test
 	public void constructor_ShouldSetDefaultValue() {
 		@NotNull LocalDate defaultValue = LocalDate.of(1998, 11, 14);
-		@NotNull DateTimeFormatter formatter =
-				DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(defaultValue, formatter);
+				new TemporalDescriptor<>(defaultValue, "dd-MM-yyyy");
 		@NotNull TemporalFieldInfo<LocalDate> dateFieldInfo =
-				new DateFieldInfo("date", 8, temporalDescriptor);
+				new DateFieldInfo("date", temporalDescriptor);
 		@NotNull LocalDate dateFieldDefaultValue = dateFieldInfo.getDefaultValue();
 		Assert.assertEquals("constructor should set correct value of 'defaultValue'",
 				defaultValue, dateFieldDefaultValue);
@@ -56,24 +54,24 @@ public class DateFieldInfoUnitTests {
 	@Test
 	public void constructor_ShouldSetFormatter() {
 		@NotNull LocalDate defaultValue = LocalDate.of(1999, 8, 12);
-		@NotNull DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		@NotNull String pattern = "yy.MM.dd";
+		@NotNull DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(defaultValue, formatter);
-		@NotNull TemporalFieldInfo<LocalDate> dateFieldInfo =
-				new DateFieldInfo("enrollment", 6, temporalDescriptor);
-		@NotNull DateTimeFormatter dateFieldFormatter = dateFieldInfo.getFormatter();
-		Assert.assertEquals("constructor should set correct value of 'formatter'", formatter,
-				dateFieldFormatter);
+				new TemporalDescriptor<>(defaultValue, pattern);
+		@NotNull String expectedValue = defaultValue.format(formatter);
+		@NotNull DateTimeFormatter dateFieldFormatter = temporalDescriptor.getFormatter();
+		@NotNull String value = defaultValue.format(dateFieldFormatter);
+		Assert.assertEquals("constructor should set correct value of 'formatter'",
+				expectedValue, value);
 	}
 
 	@Test
 	public void getJFXFieldClassName_ShouldReturnDateField() {
 		@NotNull LocalDate defaultValue = LocalDate.of(2001, 7, 31);
-		@NotNull DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy-MM-dd");
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(defaultValue, formatter);
+				new TemporalDescriptor<>(defaultValue, "yy-MM-dd");
 		@NotNull TemporalFieldInfo dateFieldInfo =
-				new DateFieldInfo("active", 5, temporalDescriptor);
+				new DateFieldInfo("active", temporalDescriptor);
 		@NotNull String fieldName = dateFieldInfo.getJFXFieldClassName();
 		Assert.assertEquals("getJFXFieldClassName() should return DateField",
 				"ru.mvk.iluvatar.javafx.field.DateField", fieldName);

@@ -7,7 +7,7 @@ import javafx.geometry.Pos;
 import org.jetbrains.annotations.NotNull;
 import ru.mvk.iluvatar.descriptor.field.RealDescriptor;
 
-public class RationalColumnInfo extends PlainColumnInfo implements RealColumnInfo {
+public class RationalColumnInfo extends PlainColumnInfo {
 	private int fractionWidth;
 	private long multiplier;
 	@NotNull
@@ -27,7 +27,7 @@ public class RationalColumnInfo extends PlainColumnInfo implements RealColumnInf
 		return (value) -> {
 			@NotNull String result = "";
 			if (value instanceof Number) {
-				result = String.format(stringFormat, ((Number)value).doubleValue() / multiplier);
+				result = String.format(stringFormat, ((Number) value).doubleValue() / multiplier);
 			}
 			return result;
 		};

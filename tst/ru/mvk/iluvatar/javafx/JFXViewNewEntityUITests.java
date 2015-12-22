@@ -32,8 +32,10 @@ import java.util.function.Consumer;
 
 public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 	@NotNull
+	private final String datePattern = "dd.MM.yyyy";
+	@NotNull
 	private final DateTimeFormatter dateFormatter =
-			DateTimeFormatter.ofPattern("dd.MM.yyyy");
+			DateTimeFormatter.ofPattern(datePattern);
 	@NotNull
 	private final RealDescriptor realDescriptor = new RealDescriptor(2, 3);
 	@NotNull
@@ -278,8 +280,8 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		result.addFieldInfo("penalty", new IntegerFieldInfo<>(Short.class, "penalty", 5));
 		result.addFieldInfo("graduated", new CheckBoxInfo("graduated"));
 		@NotNull TemporalDescriptor<LocalDate> temporalDescriptor =
-				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1), dateFormatter);
-		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate", 10,
+				new TemporalDescriptor<>(LocalDate.of(2000, 1, 1), datePattern);
+		result.addFieldInfo("enrollmentDate", new DateFieldInfo("enrollmentDate",
 				temporalDescriptor));
 		return result;
 	}
@@ -289,7 +291,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		@NotNull Student result = new Student();
 		result.setId(3);
 		result.setName("Matthew Libby");
-		result.setGpa((short)213);
+		result.setGpa((short) 213);
 		result.setPenalty((short) -100);
 		result.setGraduated(true);
 		result.setLecturesTime(91378);

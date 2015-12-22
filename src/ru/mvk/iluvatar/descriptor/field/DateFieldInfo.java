@@ -15,9 +15,9 @@ public class DateFieldInfo extends SizedFieldInfoImpl implements
 	@NotNull
 	private final DateTimeFormatter formatter;
 
-	public DateFieldInfo(@NotNull String name, int width,
+	public DateFieldInfo(@NotNull String name,
 	                     @NotNull TemporalDescriptor<LocalDate> temporalDescriptor) {
-		super(name, width);
+		super(name, temporalDescriptor.getWidth());
 		this.defaultValue = temporalDescriptor.getDefaultValue();
 		this.formatter = temporalDescriptor.getFormatter();
 	}
