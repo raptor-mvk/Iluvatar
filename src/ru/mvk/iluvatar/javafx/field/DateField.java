@@ -4,6 +4,7 @@
 package ru.mvk.iluvatar.javafx.field;
 
 import javafx.scene.control.DatePicker;
+import javafx.util.StringConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.mvk.iluvatar.descriptor.field.TemporalFieldInfo;
@@ -22,6 +23,7 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 		fieldUpdater = (value) -> {
 		};
 		prepareFocusListener(fieldInfo);
+		prepareStringConverter(fieldInfo);
 	}
 
 	@Override
@@ -58,5 +60,33 @@ public class DateField extends DatePicker implements Field<LocalDate> {
 				fieldUpdater.accept(fieldValue);
 			}
 		});
+	}
+
+	private void prepareStringConverter(@NotNull TemporalFieldInfo<LocalDate> fieldInfo) {
+		@NotNull StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+			@NotNull DateTimeFormatter dateFormatter = fieldInfo.getFormatter();
+			@NotNull LocalDate defaultDate = fieldInfo.getDefaultValue();
+
+			@NotNull
+			@Override
+			public String toString(@Nullable LocalDate date) {
+				@NotNull String result = "";
+				if (date != null) {
+					result = dateFormatter.format(date);
+				}
+				return result;
+			}
+
+			@NotNull
+			@Override
+			public LocalDate fromString(@Nullable String string) {
+				@NotNull LocalDate result = defaultDate;
+				if (string != null && !string.isEmpty()) {
+					result = LocalDate.parse(string, dateFormatter);
+				}
+				return result;
+			}
+		};
+		setConverter(converter);
 	}
 }

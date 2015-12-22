@@ -29,11 +29,11 @@ public class DateFieldUITests extends UITests<DateField> {
 	private final LocalDate defaultDate = LocalDate.of(2000, 1, 1);
 	@NotNull
 	private final DateTimeFormatter dateFormatter =
-			DateTimeFormatter.ofPattern("dd.MM.yyyy");
+			DateTimeFormatter.ofPattern("dd.MM.yy");
 
 	@Test
 	public void input_ShouldSetFieldValue() {
-		@NotNull String inputText = "12.02.2015";
+		@NotNull String inputText = "15.02.12";
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
 		@Nullable LocalDate fieldValue = fieldValueTester.getValue();
@@ -42,8 +42,18 @@ public class DateFieldUITests extends UITests<DateField> {
 	}
 
 	@Test
+	public void input_ShouldSetFieldText() {
+		@NotNull String inputText = "15.02.12";
+		safeClickById(ID).type(inputText);
+		runAndWait(root::requestFocus);
+		@Nullable String fieldText = ((DateField)safeFindById(ID)).getEditor().getText();
+		Assert.assertEquals("input date should set corresponding field value",
+				inputText, fieldText);
+	}
+
+	@Test
 	public void wrongInput_ShouldSetFieldValueToDefaultDate() {
-		@NotNull String inputText = "12.05.2002";
+		@NotNull String inputText = "12.05.02";
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
 		emptyField(ID);
@@ -56,11 +66,11 @@ public class DateFieldUITests extends UITests<DateField> {
 
 	@Test
 	public void wrongInput_ShouldSetValueToDefaultDate() {
-		@NotNull String inputText = "12.05.2002";
+		@NotNull String inputText = "07.08.11";
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
 		emptyField(ID);
-		type("43.25.12");
+		type("12.25.43");
 		runAndWait(root::requestFocus);
 		@Nullable LocalDate fieldValue = ((DatePicker) safeFindById(ID)).getValue();
 		Assert.assertEquals("wrong input should set value to default date", defaultDate,
@@ -69,7 +79,7 @@ public class DateFieldUITests extends UITests<DateField> {
 
 	@Test
 	public void emptyField_ShouldSetFieldValueToDefaultDate() {
-		@NotNull String inputText = "12.05.2002";
+		@NotNull String inputText = "25.01.14";
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
 		emptyField(ID);
@@ -81,7 +91,7 @@ public class DateFieldUITests extends UITests<DateField> {
 
 	@Test
 	public void emptyField_ShouldSetValueToDefaultDate() {
-		@NotNull String inputText = "12.05.2002";
+		@NotNull String inputText = "27.02.00";
 		safeClickById(ID).type(inputText);
 		runAndWait(root::requestFocus);
 		emptyField(ID);
