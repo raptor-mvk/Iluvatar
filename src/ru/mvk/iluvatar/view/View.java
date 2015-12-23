@@ -12,7 +12,7 @@ public interface View<EntityType> {
 	@Nullable
 	Object getView(@NotNull EntityType entity, boolean newEntity);
 
-	void setSaveButtonHandler(Consumer<Boolean> handler);
+	void setSaveButtonHandler(Runnable handler);
 
 	void setCancelButtonHandler(Runnable handler);
 }

@@ -41,81 +41,46 @@ public class JFXView<EntityType> implements View<EntityType> {
 	@NotNull
 	private final JFXEntityForm<EntityType> entityForm;
 	@NotNull
+	private final JFXButtonRow buttonRow;
+	@NotNull
 	private final VBox root;
-	private boolean newEntity;
 	@NotNull
-	private final Button saveButton;
+	private final String saveButtonName = "Save";
 	@NotNull
-	private final Button cancelButton;
+	private final String cancelButtonName = "Cancel";
 	@NotNull
 	private final ViewInfo<EntityType> viewInfo;
-	@NotNull
-	private Consumer<Boolean> saveButtonHandler = (isNewEntity) -> {
-	};
-	@NotNull
-	private Runnable cancelButtonHandler = () -> {
-	};
-	@NotNull
-	private final StringSupplier stringSupplier;
-	@NotNull
-	private final IdGenerator idGenerator;
 
 	/* TODO extract private methods */
 	public JFXView(@NotNull ViewInfo<EntityType> viewInfo,
 	               @NotNull StringSupplier stringSupplier,
 	               @NotNull IdGenerator idGenerator) {
-		this.idGenerator = idGenerator;
 		this.viewInfo = viewInfo;
-		this.stringSupplier = stringSupplier;
-		saveButton = prepareSaveButton();
-		cancelButton = prepareCancelButton();
 		entityForm = new JFXEntityForm<>(viewInfo, stringSupplier, idGenerator);
+		buttonRow = new JFXButtonRow(stringSupplier, idGenerator);
 		root = new VBox();
-		@NotNull HBox buttonsRow = new HBox();
-		buttonsRow.getChildren().addAll(saveButton, cancelButton);
-		root.getChildren().addAll(entityForm, buttonsRow);
+		buttonRow.addButton(saveButtonName);
+		buttonRow.addButton(cancelButtonName);
+		root.getChildren().addAll(entityForm, buttonRow);
 		setKeyListeners();
 	}
 
 	@Nullable
 	@Override
 	public Parent getView(@NotNull EntityType entity, boolean isNewEntity) {
-		newEntity = isNewEntity;
 		prepareFieldValues(entity);
 		Platform.runLater(entityForm::focusOnFirstField);
 		return root;
 	}
 
 	@Override
-	public void setSaveButtonHandler(@NotNull Consumer<Boolean> handler) {
-		saveButtonHandler = handler;
-		saveButton.setOnAction(event -> handler.accept(newEntity));
+	public void setSaveButtonHandler(@NotNull Runnable handler) {
+		buttonRow.setButtonHandler(saveButtonName, handler);
 	}
 
 	@Override
 	public void setCancelButtonHandler(@NotNull Runnable handler) {
-		cancelButtonHandler = handler;
-		cancelButton.setOnAction(event -> handler.run());
-	}
-
-	@NotNull
-	private Button prepareSaveButton() {
-		@NotNull String buttonName = "Save";
-		@NotNull String saveButtonId = idGenerator.getButtonId(buttonName);
-		@NotNull String saveButtonCaption = stringSupplier.apply(buttonName);
-		@NotNull Button result = new Button(saveButtonCaption);
-		result.setId(saveButtonId);
-		return result;
-	}
-
-	@NotNull
-	private Button prepareCancelButton() {
-		@NotNull String buttonName = "Cancel";
-		@NotNull String cancelButtonId = idGenerator.getButtonId(buttonName);
-		@NotNull String cancelButtonCaption = stringSupplier.apply(buttonName);
-		@NotNull Button result = new Button(cancelButtonCaption);
-		result.setId(cancelButtonId);
-		return result;
+		buttonRow.setButtonHandler(cancelButtonName, handler);
 	}
 
 	private void prepareFieldValues(@NotNull EntityType entity) {
@@ -213,10 +178,10 @@ public class JFXView<EntityType> implements View<EntityType> {
 			if (keyCode == KeyCode.ENTER || keyCode == KeyCode.ESCAPE) {
 				event.consume();
 				if (keyCode == KeyCode.ENTER) {
-					saveButton.requestFocus();
-					saveButtonHandler.accept(newEntity);
+					buttonRow.requestButtonFocus(saveButtonName);
+					buttonRow.fireButton(saveButtonName);
 				} else if (keyCode == KeyCode.ESCAPE) {
-					cancelButtonHandler.run();
+					buttonRow.fireButton(cancelButtonName);
 				}
 			}
 		});

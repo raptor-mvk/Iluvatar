@@ -49,7 +49,6 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
 		int serviceId = layout.registerViewService(serviceKey, this::showListView);
 		viewUpdater = layout.getViewUpdater(serviceId);
 		listViewUpdater = layout.getListViewUpdater(serviceId);
-		prepareView();
 		prepareListView();
 	}
 
@@ -62,6 +61,8 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
 		if (entity != null) {
 			content = view.getView(entity, isNewEntity);
 		}
+		view.setSaveButtonHandler(() -> updateEntity(isNewEntity));
+		view.setCancelButtonHandler(this::cancelUpdateEntity);
 		viewUpdater.accept(content);
 	}
 
@@ -143,11 +144,6 @@ public class ViewServiceImpl<EntityType> implements ViewService<EntityType> {
 
 	private void setEntity(@Nullable EntityType entity) {
 		this.entity = entity;
-	}
-
-	private void prepareView() {
-		view.setSaveButtonHandler(this::updateEntity);
-		view.setCancelButtonHandler(this::cancelUpdateEntity);
 	}
 
 	private void prepareListView() {

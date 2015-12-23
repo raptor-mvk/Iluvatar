@@ -29,7 +29,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.function.Consumer;
 
 public class JFXViewUITests extends UITests<View<Student>> {
 	@NotNull
@@ -46,7 +45,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	@NotNull
 	private final FieldValueTester<Boolean> cancelButtonState = new FieldValueTester<>();
 	@NotNull
-	private final Consumer<Boolean> saveButtonHandler = saveButtonState::setValue;
+	private final Runnable saveButtonHandler = () -> saveButtonState.setValue(true);
 	@NotNull
 	private final Runnable cancelButtonHandler = () -> cancelButtonState.setValue(true);
 	@NotNull
@@ -124,13 +123,13 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	}
 
 	@Test
-	public void clickSave_ShouldCallSaveButtonHandlerWithFalseParameter() {
+	public void clickSave_ShouldCallSaveButtonHandler() {
 		@NotNull String saveButtonId = idGenerator.getButtonId(saveButtonName);
 		saveButtonState.setValue(true);
 		safeClickById(saveButtonId);
 		@Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
-		Assert.assertEquals("click Save button should execute saveButtonHandler with " +
-				"false parameter", false, saveButtonWasClicked);
+		Assert.assertEquals("click Save button should execute saveButtonHandler", true,
+				saveButtonWasClicked);
 	}
 
 	@Test
@@ -231,12 +230,12 @@ public class JFXViewUITests extends UITests<View<Student>> {
 	}
 
 	@Test
-	public void enterKey_ShouldCallSaveButtonHandlerWithFalseParameter() {
+	public void enterKey_ShouldCallSaveButtonHandler() {
 		saveButtonState.setValue(true);
 		push(KeyCode.ENTER);
 		@Nullable Boolean saveButtonWasClicked = saveButtonState.getValue();
-		Assert.assertEquals("enter key should execute saveButtonHandler with " +
-				"false parameter", false, saveButtonWasClicked);
+		Assert.assertEquals("enter key should execute saveButtonHandler", true,
+				saveButtonWasClicked);
 	}
 
 	@Test

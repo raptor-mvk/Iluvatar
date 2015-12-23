@@ -66,7 +66,7 @@ class JFXEntityForm<EntityType> extends GridPane {
 		@Nullable Node result = fields.get(fieldKey);
 		if (result == null) {
 			@NotNull String errorMessage =
-					String.format("JFXView: field '%s' was not found", fieldKey);
+					String.format("JFXEntityForm: field '%s' was not found", fieldKey);
 			throw new IluvatarRuntimeException(errorMessage);
 		}
 		return result;
