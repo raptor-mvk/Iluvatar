@@ -255,7 +255,7 @@ public class JFXViewNewEntityUITests extends UITests<View<Student>> {
 		setObjectUnderTest(view);
 		view.setSaveButtonHandler(saveButtonHandler);
 		view.setCancelButtonHandler(cancelButtonHandler);
-		@Nullable GridPane result = view.getView(student, true);
+		@Nullable Parent result = view.getView(student, true);
 		return (result != null) ? result : new GridPane();
 	}
 

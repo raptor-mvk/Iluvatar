@@ -268,7 +268,7 @@ public class JFXViewUITests extends UITests<View<Student>> {
 		setObjectUnderTest(view);
 		view.setSaveButtonHandler(saveButtonHandler);
 		view.setCancelButtonHandler(cancelButtonHandler);
-		GridPane result = view.getView(student, false);
+		Parent result = view.getView(student, false);
 		return (result != null) ? result : new GridPane();
 	}
 
